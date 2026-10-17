@@ -16,6 +16,8 @@ package ar.edu.uner.model;
  * Clase abstracta que representa a una persona en el sistema.
  * Contiene los datos básicos de identificación compartidos por el
  * personal técnico y demás entidades del sistema.
+ *
+ * @author Nahuel
  */
 public abstract class Persona {
     private String dni;
@@ -25,12 +27,18 @@ public abstract class Persona {
     private String celular;
 
     /**
-     * Constructor por defecto de la clase Persona.
+     * Crea una persona con valores predeterminados.
      */
-    public Persona() {}
+    public Persona() {
+        this("DNI PENDIENTE",
+                "NOMBRE PENDIENTE",
+                "APELLIDO PENDIENTE",
+                "CELULAR PENDIENTE",
+                "CORREO PENDIENTE");
+    }
 
     /**
-     * Constructor completo para inicializar una Persona.
+     * Crea una persona con valores especificos.
      * @param dni DNI de la persona.
      * @param nombre Nombre de la persona.
      * @param apellido Apellido de la persona.
