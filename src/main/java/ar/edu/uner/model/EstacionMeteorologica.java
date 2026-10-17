@@ -7,6 +7,7 @@
  */
 package ar.edu.uner.model;
 
+
 /**
  * Estacion meteorologica perteneciente a una unica zona.
  * 
@@ -53,8 +54,8 @@ public class EstacionMeteorologica {
 
     /**
      * Devuelve el ID de la estacion.
-    *
-    * @return ID de estacion.
+     *
+     * @return ID de estacion.
      */
     public String getIdEstacion() {
         return idEstacion;
