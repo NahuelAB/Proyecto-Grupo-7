@@ -36,4 +36,27 @@ public class Alerta {
         atendida = false;
     }
     
+    public String getIdAlerta() {
+        return idAlerta;
+    }
+
+    public void setIdAlerta(String idAlerta) {
+        this.idAlerta = idAlerta;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean getAtendida() {
+        return atendida;
+    }
+
+    public void setAtendida(boolean atendida) {
+        this.atendida = atendida;
+    }
 }
