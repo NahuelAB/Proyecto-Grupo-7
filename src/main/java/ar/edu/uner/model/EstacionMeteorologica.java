@@ -35,8 +35,8 @@ public class EstacionMeteorologica {
     /**
      * Crea una estacion meteorologica con valores especificos.
      * 
-     * @param idEstacion identificador de la estacion meteorologica.
-     * @param nombre nombre de la estacion meteorologica.
+     * @param idEstacion identificador de la estacion.
+     * @param nombre nombre de la estacion.
      * @param latitud latitud geografica expresada en grados decimales.
      * @param longitud longitud geografica expresada en grados decimales.
      * @param altitud altitud respecto del nivel del mar, expresada en metros.
@@ -51,42 +51,92 @@ public class EstacionMeteorologica {
         this.altitud = altitud;
     }
 
+    /**
+     * Devuelve el ID de la estacion.
+    *
+    * @return ID de estacion.
+     */
     public String getIdEstacion() {
         return idEstacion;
     }
 
+    /**
+     * Establece el ID de la estacion.
+     * 
+     * @param idEstacion nuevo nombre de la estacion.
+     */
     public void setIdEstacion(String idEstacion) {
         this.idEstacion = idEstacion;
     }
 
+    /**
+     * Devuelve el nombre de la estacion.
+     * 
+     * @return nombre de la estacion.
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Establece nombre de la estacion.
+     * 
+     * @param nombre nuevo nombre de la estacion.
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve la latitud geografica.
+     * 
+     * @return latitud geografica.
+     */
     public double getLatitud() {
         return latitud;
     }
 
+    /**
+     * Establece la latitud geografica.
+     * 
+     * @param latitud nueva latitud geografica.
+     */
     public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
-
+    
+    /**
+     * Devuelve la longitud geografica.
+     * 
+     * @return longitud geografica.
+     */
     public double getLongitud() {
         return longitud;
     }
 
+    /**
+     * Establece la longitud geografica.
+     * 
+     * @param longitud nueva longitud geografica.
+     */
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
 
+    /**
+     * Devuelve la altitud geografica.
+     * 
+     * @return altitud geografica.
+     */
     public double getAltitud() {
         return altitud;
     }
 
+    /**
+     * Establece la altitud geografica.
+     * 
+     * @param altitud nueva altitud geografica.
+     */
     public void setAltitud(double altitud) {
         this.altitud = altitud;
     }
