@@ -19,5 +19,25 @@ package ar.edu.uner.model;
  */
 public class Alerta {
     private String idAlerta;
+<<<<<<< HEAD
     //private LocalDateTime fechaHoraEmision;
+=======
+    private String descripcion;
+    private boolean atendida;
+    //private LocalDateTime fechaHoraEmision;
+    //private NivelAlerta nivel;
+    //private TipoEventoClimatico evento;
+
+    public Alerta() {
+        this("ALERTA PENDIENTE",
+            "DESCRIPCION PENDIENTE");
+    }
+
+    public Alerta(String idAlerta, String descripcion) {
+        this.idAlerta = idAlerta;
+        this.descripcion = descripcion;
+        atendida = false;
+    }
+    
+>>>>>>> d4ded53 (Cambios)
 }
