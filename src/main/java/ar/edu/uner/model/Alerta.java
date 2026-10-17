@@ -19,9 +19,6 @@ package ar.edu.uner.model;
  */
 public class Alerta {
     private String idAlerta;
-<<<<<<< HEAD
-    //private LocalDateTime fechaHoraEmision;
-=======
     private String descripcion;
     private boolean atendida;
     //private LocalDateTime fechaHoraEmision;
@@ -39,5 +36,4 @@ public class Alerta {
         atendida = false;
     }
     
->>>>>>> d4ded53 (Cambios)
 }
