@@ -25,37 +25,75 @@ public class Alerta {
     //private NivelAlerta nivel;
     //private TipoEventoClimatico evento;
 
+    /**
+     * Crea una alerta con valores predeterminados.
+     */
     public Alerta() {
         this("ALERTA PENDIENTE",
             "DESCRIPCION PENDIENTE");
     }
 
+    /**
+     * Crea una alerta con valores especificos.
+     * @param idAlerta identificador unico de la alerta.
+     * @param descripcion descripcion de la alerta.
+     */
     public Alerta(String idAlerta, String descripcion) {
         this.idAlerta = idAlerta;
         this.descripcion = descripcion;
         atendida = false;
     }
     
+    /**
+     * Devuelve el ID de la alerta.
+     * 
+     * @return ID de la alerta.
+     */
     public String getIdAlerta() {
         return idAlerta;
     }
 
+    /**
+     * Establece el ID de la alerta.
+     * 
+     * @param idAlerta nuevo ID de la alerta.
+     */
     public void setIdAlerta(String idAlerta) {
         this.idAlerta = idAlerta;
     }
 
+    /**
+     * Devuelve la descripcion de la alerta.
+     * 
+     * @return descripcion de la alerta.
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * Establece la descripcion de la alerta.
+     * 
+     * @param descripcion nueva descripcion de la alerta.
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Devuelve el estado de atencion de la alerta.
+     * 
+     * @return estado de atencion de la alerta.
+     */
     public boolean getAtendida() {
         return atendida;
     }
 
+    /**
+     * Establece el estado de atencion de la alerta.
+     * 
+     * @param atendida nuevo estado de atencion de la alerta.
+     */
     public void setAtendida(boolean atendida) {
         this.atendida = atendida;
     }
