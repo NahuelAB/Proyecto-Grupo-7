@@ -39,6 +39,7 @@ public abstract class Persona {
 
     /**
      * Crea una persona con valores especificos.
+     *
      * @param dni DNI de la persona.
      * @param nombre Nombre de la persona.
      * @param apellido Apellido de la persona.
@@ -56,6 +57,7 @@ public abstract class Persona {
 
     /**
      * Obtiene el DNI de la persona.
+     *
      * @return DNI de la persona.
      */
     public String getDni() {
@@ -64,6 +66,7 @@ public abstract class Persona {
 
     /**
      * Establece el DNI de la persona.
+     *
      * @param dni DNI a asignar.
      */
     public void setDni(String dni) {
@@ -72,6 +75,7 @@ public abstract class Persona {
 
     /**
      * Obtiene el nombre de la persona.
+     *
      * @return Nombre de la persona.
      */
     public String getNombre() {
@@ -80,6 +84,7 @@ public abstract class Persona {
 
     /**
      * Establece el nombre de la persona.
+     *
      * @param nombre Nombre a asignar.
      */
     public void setNombre(String nombre) {
@@ -88,6 +93,7 @@ public abstract class Persona {
 
     /**
      * Obtiene el apellido de la persona.
+     *
      * @return Apellido de la persona.
      */
     public String getApellido() {
@@ -96,6 +102,7 @@ public abstract class Persona {
 
     /**
      * Establece el apellido de la persona.
+     *
      * @param apellido Apellido a asignar.
      */
     public void setApellido(String apellido) {
@@ -104,6 +111,7 @@ public abstract class Persona {
 
     /**
      * Obtiene el correo electrónico de la persona.
+     *
      * @return Correo electrónico de la persona.
      */
     public String getCorreoElectronico() {
@@ -112,6 +120,7 @@ public abstract class Persona {
 
     /**
      * Establece el correo electrónico de la persona.
+     *
      * @param correoElectronico Correo electrónico a asignar.
      */
     public void setCorreoElectronico(String correoElectronico) {
@@ -120,6 +129,7 @@ public abstract class Persona {
 
     /**
      * Obtiene el celular de la persona.
+     *
      * @return Celular de la persona.
      */
     public String getCelular() {
@@ -128,6 +138,7 @@ public abstract class Persona {
 
     /**
      * Establece el celular de la persona.
+     *
      * @param celular Celular a asignar.
      */
     public void setCelular(String celular) {
@@ -136,6 +147,7 @@ public abstract class Persona {
 
     /**
      * Devuelve el nombre completo concatenando nombre y apellido.
+     *
      * @return Nombre y apellido separados por un espacio.
      */
     public String getNombreCompleto() {

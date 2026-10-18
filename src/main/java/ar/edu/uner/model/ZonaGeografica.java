@@ -14,6 +14,9 @@ package ar.edu.uner.model;
 import ar.edu.uner.model.enums.NivelAlerta;
 import ar.edu.uner.model.enums.NivelVulnerabilidad;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Clase que representa a una zona geografica en el sistema.
@@ -30,9 +33,11 @@ public class ZonaGeografica {
     private double umbralNaranja;
     private double umbralRoja;
     private NivelAlerta nivelAlerta;
+    private List<ValorHistorico> valoresHistoricos;
 
     /**
-     * Crea una zona geográfica con valores predeterminados.
+     * Crea una zona geográfica con valores predeterminados
+     * e inicializa su lista de valores históricos vacía.
      */
     public ZonaGeografica() {
         this("ID ZONA PENDIENTE",
@@ -42,10 +47,13 @@ public class ZonaGeografica {
                 0,
                 0,
                 null);
+        this.valoresHistoricos = new ArrayList<>();
     }
 
     /**
-     * Crea una zona geográfica con valores específicos.
+     * Crea una zona geográfica con valores específicos
+     * e inicializa su lista de valores históricos vacía.
+     *
      * @param idZona Identificador de la zona.
      * @param nombre Nombre de zona.
      * @param nivelVulnerabilidad Nivel de vulnerabilidad climática.
@@ -65,10 +73,12 @@ public class ZonaGeografica {
         this.umbralNaranja = umbralNaranja;
         this.umbralRoja = umbralRoja;
         this.nivelAlerta = nivelAlerta;
+        this.valoresHistoricos = new ArrayList<>();
     }
 
     /**
      * Obtiene el identificador de la zona.
+     *
      * @return Identificador de la zona.
      */
     public String getIdZona() {
@@ -77,6 +87,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el identificador de la zona.
+     *
      * @param idZona Identificador a asignar.
      */
     public void setIdZona(String idZona) {
@@ -85,6 +96,7 @@ public class ZonaGeografica {
 
     /**
      * Obtiene el nombre de la zona.
+     *
      * @return Nombre de la zona.
      */
     public String getNombre() {
@@ -93,6 +105,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el nombre de la zona.
+     *
      * @param nombre Nombre a asignar.
      */
     public void setNombre(String nombre) {
@@ -101,6 +114,7 @@ public class ZonaGeografica {
 
     /**
      * Obtiene el nivel de vulnerabilidad climática de la zona.
+     *
      * @return Nivel de vulnerabilidad de la zona.
      */
     public NivelVulnerabilidad getNivelVulnerabilidad() {
@@ -109,6 +123,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el nivel de vulnerabilidad climática de la zona.
+     *
      * @param nivelVulnerabilidad Nivel de vulnerabilidad a asignar.
      */
     public void setNivelVulnerabilidad(NivelVulnerabilidad nivelVulnerabilidad) {
@@ -117,6 +132,7 @@ public class ZonaGeografica {
 
     /**
      * Obtiene el umbral de lluvia acumulada en 24 horas de alerta amarilla.
+     *
      * @return Umbral amarillo en milímetros.
      */
     public double getUmbralAmarilla() {
@@ -125,6 +141,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el umbral de lluvia acumulada en 24 horas de alerta amarilla.
+     *
      * @param umbralAmarilla Umbral amarillo a asignar, en milímetros.
      */
     public void setUmbralAmarilla(double umbralAmarilla) {
@@ -133,6 +150,7 @@ public class ZonaGeografica {
 
     /**
      * Obtiene el umbral de lluvia acumulada en 24 horas de alerta naranja.
+     *
      * @return Umbral naranja en milímetros.
      */
     public double getUmbralNaranja() {
@@ -141,6 +159,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el umbral de lluvia acumulada en 24 horas de alerta naranja.
+     *
      * @param umbralNaranja Umbral naranja a asignar, en milímetros.
      */
     public void setUmbralNaranja(double umbralNaranja) {
@@ -149,6 +168,7 @@ public class ZonaGeografica {
 
     /**
      * Obtiene el umbral de lluvia acumulada en 24 horas de alerta roja.
+     *
      * @return Umbral rojo en milímetros.
      */
     public double getUmbralRoja() {
@@ -157,6 +177,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el umbral de lluvia acumulada en 24 horas de alerta roja.
+     *
      * @param umbralRoja Umbral rojo a asignar, en milímetros.
      */
     public void setUmbralRoja(double umbralRoja) {
@@ -165,6 +186,7 @@ public class ZonaGeografica {
 
     /**
      * Obtiene el nivel de alerta vigente de la zona.
+     *
      * @return Nivel de alerta vigente.
      */
     public NivelAlerta getNivelAlerta() {
@@ -173,6 +195,7 @@ public class ZonaGeografica {
 
     /**
      * Establece el nivel de alerta vigente de la zona.
+     *
      * @param nivelAlerta Nivel de alerta a asignar.
      */
     public void setNivelAlerta(NivelAlerta nivelAlerta) {
@@ -185,5 +208,23 @@ public class ZonaGeografica {
 
     public NivelAlerta evaluarRiesgo() {
         return nivelAlerta;
+    }
+
+    /**
+     * Agrega un valor histórico mensual a la zona geográfica..
+     *
+     * @param valorHistorico Valor histórico a agregar.
+     */
+    public void agregarValorHistorico(ValorHistorico valorHistorico) {
+        valoresHistoricos.add(valorHistorico);
+    }
+
+    /**
+     * Obtiene la lista de valores históricos de la zona geográfica.
+     *
+     * @return Lista de valores históricos.
+     */
+    public List<ValorHistorico> getValoresHistoricos() {
+        return valoresHistoricos;
     }
 }
