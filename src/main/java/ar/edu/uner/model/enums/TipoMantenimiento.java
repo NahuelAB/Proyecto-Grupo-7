@@ -1,5 +1,5 @@
 /*
- * EstadoOperativo.java
+ * TipoMantenimiento.java
  *
  * 17/10/2026
  *
