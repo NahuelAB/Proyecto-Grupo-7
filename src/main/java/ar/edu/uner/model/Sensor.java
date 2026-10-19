@@ -129,4 +129,11 @@ public class Sensor {
         this.precision = precision;
     }
 
+    public EstacionMeteorologica getEstacion() {
+        return estacion;
+    }
+
+    public void setEstacion(EstacionMeteorologica estacion) {
+        this.estacion = estacion;
+    }
 }
