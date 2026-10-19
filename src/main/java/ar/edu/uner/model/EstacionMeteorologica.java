@@ -160,4 +160,7 @@ public class EstacionMeteorologica {
         s.setEstacion(this);
     }
 
+    public void retirarSensor(Sensor s) {
+        s.setEstacion(null);
+    }
 }
