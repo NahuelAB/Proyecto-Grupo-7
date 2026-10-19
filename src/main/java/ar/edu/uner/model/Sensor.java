@@ -29,6 +29,7 @@ public class Sensor {
     * guardarlos en un unico dato mediante un get y llamar al get en el
     * constructor Sensor.
     */
+    private EstacionMeteorologica estacion;
 
     /**
      * Crea un sensor con valores predeterminados.
@@ -127,4 +128,5 @@ public class Sensor {
     public void setPrecision(double precision) {
         this.precision = precision;
     }
+
 }

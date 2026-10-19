@@ -7,6 +7,7 @@
  */
 package ar.edu.uner.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,6 +54,7 @@ public class EstacionMeteorologica {
         this.latitud = latitud;
         this.longitud = longitud;
         this.altitud = altitud;
+        this.sensores = new ArrayList<Sensor>();
     }
 
     /**
@@ -143,6 +145,18 @@ public class EstacionMeteorologica {
      */
     public void setAltitud(double altitud) {
         this.altitud = altitud;
+    }
+
+    public List<Sensor> getSensores() {
+        return sensores;
+    }
+
+    public void setSensores(List<Sensor> sensores) {
+        this.sensores = sensores;
+    }
+
+    public void instalarSensor(Sensor s) {
+        sensores.add(s);
     }
 
 
