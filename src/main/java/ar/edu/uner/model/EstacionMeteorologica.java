@@ -157,7 +157,7 @@ public class EstacionMeteorologica {
 
     public void instalarSensor(Sensor s) {
         sensores.add(s);
+        s.setEstacion(this);
     }
-
 
 }
