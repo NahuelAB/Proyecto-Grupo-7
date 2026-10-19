@@ -10,7 +10,6 @@ package ar.edu.uner.model;
 
 //import java.time.LocalDate;
 
-
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
  * una estación meteorológica y registra lecturas que se usan para calcular

@@ -7,6 +7,8 @@
  */
 package ar.edu.uner.model;
 
+import java.util.List;
+
 
 /**
  * Estacion meteorologica perteneciente a una unica zona.
@@ -21,6 +23,7 @@ public class EstacionMeteorologica {
     private double altitud;
     //private EstadoOperativo estado;
     //private TipoEstacion tipo;
+    private List<Sensor> sensores;
 
     /**
      * Crea una estacion meteorologica con valores predeterminados.
