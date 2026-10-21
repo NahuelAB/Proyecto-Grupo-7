@@ -9,6 +9,7 @@ package ar.edu.uner.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import ar.edu.uner.model.enums.*;
 
 
 /**
@@ -22,8 +23,8 @@ public class EstacionMeteorologica {
     private double latitud;
     private double longitud;
     private double altitud;
-    //private EstadoOperativo estado;
-    //private TipoEstacion tipo;
+    private EstadoOperativo estadoOp;
+    private TipoEstacion tipoEst;
     private List<Sensor> sensores;
 
     /**
@@ -145,6 +146,22 @@ public class EstacionMeteorologica {
      */
     public void setAltitud(double altitud) {
         this.altitud = altitud;
+    }
+
+    public TipoEstacion getTipoEst() {
+        return tipoEst;
+    }
+
+    public void setTipoEst(TipoEstacion tipoEst) {
+        this.tipoEst = tipoEst;
+    }
+
+    public EstadoOperativo getEstadoOp() {
+        return estadoOp;
+    }
+
+    public void setEstadoOp(EstadoOperativo estadoOp) {
+        this.estadoOp = estadoOp;
     }
 
     public List<Sensor> getSensores() {
