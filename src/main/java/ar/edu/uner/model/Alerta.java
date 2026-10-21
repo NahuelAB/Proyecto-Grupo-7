@@ -97,4 +97,6 @@ public class Alerta {
     public void setAtendida(boolean atendida) {
         this.atendida = atendida;
     }
+    
+    
 }

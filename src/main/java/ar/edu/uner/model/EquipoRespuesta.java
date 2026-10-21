@@ -16,6 +16,7 @@ public class EquipoRespuesta {
     private String nombreEquipo;
     private boolean disponible;
     private List<ResponsableTecnico>integrantes;
+    private List<Alerta>alertas;
     
     //Constructores
     
@@ -23,11 +24,12 @@ public class EquipoRespuesta {
         this.idEquipo = idEquipo;
         this.nombreEquipo = nombreEquipo;
         this.disponible = disponible;
-        this.integrantes=new ArrayList<>();
+        this.integrantes=new ArrayList<ResponsableTecnico>();
+        this.alertas=new ArrayList<Alerta>();
     }
     public EquipoRespuesta() {
     this.integrantes = new ArrayList<>();
-    // Los demás atributos quedarán con sus valores por defecto (null para Strings, false para boolean)
+    this.alertas= new ArrayList<>();
     }
 
 
