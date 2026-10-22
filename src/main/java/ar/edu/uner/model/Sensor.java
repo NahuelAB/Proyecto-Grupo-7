@@ -27,7 +27,6 @@ public class Sensor {
     private double precision;
     private EstadoOperativo estado;
     private LocalDate ultimaCalibracion;
-    private EstacionMeteorologica estacion;
     private List<Medicion> mediciones;
 
     /**
@@ -174,24 +173,6 @@ public class Sensor {
     public void setUltimaCalibracion(int anio, int mes, int dia) {
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
     }
-
-    /**
-     * Devuelve la estacion a la que esta anidado el sensor.
-     * 
-     * @return estacion anidada al sensor.
-     */
-    public EstacionMeteorologica getEstacion() {
-        return estacion;
-    }
-
-    /**
-     * Establece la estacion a la que estara anidado el sensor.
-     * 
-     * @param estacion nueva estacion anidada al sensor.
-     */
-    public void setEstacion(EstacionMeteorologica estacion) {
-        this.estacion = estacion;
-    } //VER SI SENSOR CONOCE A ESTACIONMETEOROLOGICA
 
     /*public Medicion registrar(double mm, LocalDateTime fh) {
     *    Medicion m = new Medicion();
