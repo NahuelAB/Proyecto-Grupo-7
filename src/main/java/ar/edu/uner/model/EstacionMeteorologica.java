@@ -7,6 +7,7 @@
  */
 package ar.edu.uner.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import ar.edu.uner.model.enums.*;
@@ -28,6 +29,7 @@ public class EstacionMeteorologica {
     private ResponsableTecnico responsable;
     private ZonaGeografica zona;
     private List<Sensor> sensores;
+    private List<Mantenimiento> mantenimientos;
 
     /**
      * Crea una estacion meteorologica con valores predeterminados.
@@ -228,6 +230,24 @@ public class EstacionMeteorologica {
      */
     public void setSensores(List<Sensor> sensores) {
         this.sensores = sensores;
+    }
+
+    public List<Mantenimiento> getMantenimientos() {
+        return mantenimientos;
+    }
+
+    public void setMantenimientos(List<Mantenimiento> mantenimientos) {
+        this.mantenimientos = new ArrayList<>(mantenimientos);
+    }
+
+    public void agregarMantenimiento(String idMantenimiento, LocalDate fecha, 
+                                     TipoMantenimiento tipo, String descripcion) {
+        mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, descripcion));
+
+    }
+
+    public void removerMantenimiento(Mantenimiento m) {
+        mantenimientos.remove(m);
     }
 
     /**
