@@ -40,6 +40,8 @@ public class Alerta {
      * Crea una alerta con valores especificos.
      * @param idAlerta identificador unico de la alerta.
      * @param descripcion descripcion de la alerta.
+     * @param nivel nivel de la alerta.
+     * @param eventoClim tipo de evento climatico.
      */
     public Alerta(String idAlerta, String descripcion,
                 NivelAlerta nivel, TipoEventoClimatico eventoClim) {
