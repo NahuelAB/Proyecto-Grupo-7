@@ -8,7 +8,8 @@
 
 package ar.edu.uner.model;
 
-//import java.time.LocalDate;
+import ar.edu.uner.model.enums.EstadoOperativo;
+import java.time.LocalDate;
 
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
@@ -22,13 +23,8 @@ public class Sensor {
     private String marca;
     private String modelo;
     private double precision;
-    //private EstadoOperativo estado;
-    /*
-    * private LocalDate ultimaCalibracion; 
-    * Ver si conviene crear un constructor aparte pidiendo anio/mes/dia,
-    * guardarlos en un unico dato mediante un get y llamar al get en el
-    * constructor Sensor.
-    */
+    private EstadoOperativo estado;
+    private LocalDate ultimaCalibracion;
     private EstacionMeteorologica estacion;
 
     /**
@@ -38,7 +34,9 @@ public class Sensor {
         this("ID PENDIENTE",
             "MARCA PENDIENTE",
             "MODELO PENDIENTE",
-            0);
+            0,
+            null,
+            0, 0, 0);
     }
 
     /**
@@ -48,13 +46,20 @@ public class Sensor {
      * @param marca marca del sensor.
      * @param modelo modelo del sensor.
      * @param precision precision del sensor (mm).
+     * @param estado estado operativo inicial.
+     * @param anio año de la ultima calibracion.
+     * @param mes mes de la ultima calibracion.
+     * @param dia dia de la ultima calibracion.
      */
     public Sensor(String idSensor, String marca, String modelo,
-                  double precision) {
+                  double precision, EstadoOperativo estado, 
+                  int anio, int mes, int dia) {
         this.idSensor = idSensor;
         this.marca = marca;
         this.modelo = modelo;
         this.precision = precision;
+        ultimaCalibracion = LocalDate.of(anio, mes, dia);
+        
     }
     
     /**
@@ -129,6 +134,22 @@ public class Sensor {
         this.precision = precision;
     }
 
+    public EstadoOperativo getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoOperativo estado) {
+        this.estado = estado;
+    }
+
+    public LocalDate getUltimaCalibracion() {
+        return ultimaCalibracion;
+    }
+
+    public void setUltimaCalibracion(int anio, int mes, int dia) {
+        ultimaCalibracion = LocalDate.of(anio, mes, dia);
+    }
+
     /**
      * Devuelve la estacion a la que esta anidado el sensor.
      * 
@@ -145,5 +166,5 @@ public class Sensor {
      */
     public void setEstacion(EstacionMeteorologica estacion) {
         this.estacion = estacion;
-    }
+    } //VER SI SENSOR CONOCE A ESTACIONMETEOROLOGICA
 }
