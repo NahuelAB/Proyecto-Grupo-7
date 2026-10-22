@@ -26,6 +26,7 @@ public class Alerta {
     private TipoEventoClimatico eventoClim;
     private LocalDateTime fechaHoraEmision;
     private EquipoRespuesta equipo;
+    private ZonaGeografica zona;
 
     /**
      * Crea una alerta con valores predeterminados.
@@ -136,6 +137,24 @@ public class Alerta {
      */
     public TipoEventoClimatico getEventoClim() {
         return eventoClim;
+    }
+
+    /**
+     * Devuelve la zona geografica de la alerta.
+     * 
+     * @return zona geografica de la alerta.
+     */
+    public ZonaGeografica getZona() {
+        return zona;
+    }
+
+    /**
+     * Establece la zona geografica de la alerta.
+     * 
+     * @param zona nueva zona geografica de la alerta.
+     */
+    public void setZona(ZonaGeografica zona) {
+        this.zona = zona;
     }
 
     /*public void setEventoClim(TipoEventoClimatico eventoClim) {
