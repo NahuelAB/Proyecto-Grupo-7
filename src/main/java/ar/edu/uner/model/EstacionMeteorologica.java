@@ -27,7 +27,6 @@ public class EstacionMeteorologica {
     private EstadoOperativo estadoOp;
     private TipoEstacion tipoEst;
     private ResponsableTecnico responsable;
-    private ZonaGeografica zona;
     private List<Sensor> sensores;
     private List<Mantenimiento> mantenimientos;
 
@@ -206,14 +205,6 @@ public class EstacionMeteorologica {
         this.responsable = responsable;
     }
 
-    public ZonaGeografica getZona() {
-        return zona;
-    }
-
-    public void setZona(ZonaGeografica zona) {
-        this.zona = zona;
-    }
-
     /**
      * Devuelve los sensores anidados a la estacion.
      * 
@@ -289,7 +280,7 @@ public class EstacionMeteorologica {
      * @param s sensor a remover.
      */
     public void retirarSensor(Sensor s) {
-        s.setEstacion(null);
+        sensores.remove(s);
     }
 
     /**
