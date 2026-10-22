@@ -24,7 +24,6 @@ public class Medicion {
     private LocalDateTime fechaHora;
     private double milimetros;
     private boolean anomala;
-    private Sensor sensor;
 
     //Constructores
     /**
@@ -114,21 +113,5 @@ public class Medicion {
      */
     public void setAnomala(boolean anomala) {
         this.anomala = anomala;
-    }
-
-    /**
-     * Devuelve el sensor que registró la medición.
-     * @return sensor
-     */
-    public Sensor getSensor() {
-        return sensor;
-    }
-
-    /**
-     * Asigna el sensor que registró la medición.
-     * @param sensor sensor que registró la medición
-     */
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
     }
 }
