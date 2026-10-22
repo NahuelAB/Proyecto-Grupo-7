@@ -18,17 +18,15 @@ import java.util.List;
 /**
  * Representa a un responsable técnico del sistema.
  * Extiende de Persona y contiene su especialidad, número de licencia,
- * las estaciones a su cargo, el equipo que integra y los mantenimientos
- * que realiza.
+ * las estaciones a su cargo y los mantenimientos que realiza.
  *
  * @author Jmanuel (Grupo-7)
  */
 public class ResponsableTecnico extends Persona {
     private String especialidad;
     private String numeroLicencia;
-    private List<EstacionMeteorologica> estaciones = new ArrayList<>();
-    private EquipoRespuesta equipoRespuesta;
-    private List<Mantenimiento> mantenimientos = new ArrayList<>();
+    private List<EstacionMeteorologica> estaciones;
+    private List<Mantenimiento> mantenimientos;
 
     /**
      * Crea un responsable técnico con valores predeterminados.
@@ -42,7 +40,6 @@ public class ResponsableTecnico extends Persona {
                 "ESPECIALIDAD PENDIENTE",
                 "LICENCIA PENDIENTE",
                 new ArrayList<>(),
-                null,
                 new ArrayList<>());
     }
 
@@ -57,20 +54,17 @@ public class ResponsableTecnico extends Persona {
      * @param especialidad Especialidad del responsable técnico.
      * @param numeroLicencia Número de licencia del responsable técnico.
      * @param estaciones Estaciones meteorológicas a cargo del responsable técnico.
-     * @param equipoRespuesta Equipo de respuesta que integra el responsable técnico.
      * @param mantenimientos Mantenimientos que realiza el responsable técnico.
      */
     public ResponsableTecnico(String dni, String nombre, String apellido,
                               String correoElectronico, String celular,
                               String especialidad, String numeroLicencia,
                               List<EstacionMeteorologica> estaciones,
-                              EquipoRespuesta equipoRespuesta,
                               List<Mantenimiento> mantenimientos) {
         super(dni, nombre, apellido, correoElectronico, celular);
         this.especialidad = especialidad;
         this.numeroLicencia = numeroLicencia;
         this.estaciones = estaciones;
-        this.equipoRespuesta = equipoRespuesta;
         this.mantenimientos = mantenimientos;
     }
 
@@ -81,6 +75,15 @@ public class ResponsableTecnico extends Persona {
      */
     public List<EstacionMeteorologica> getEstaciones() {
         return estaciones;
+    }
+
+    /**
+     * Establece las estaciones meteorológicas a cargo del responsable técnico.
+     *
+     * @param estaciones Lista de estaciones a asignar.
+     */
+    public void setEstaciones(List<EstacionMeteorologica> estaciones) {
+        this.estaciones = estaciones;
     }
 
     /**
@@ -104,24 +107,6 @@ public class ResponsableTecnico extends Persona {
     }
 
     /**
-     * Obtiene el equipo de respuesta que integra el responsable técnico.
-     *
-     * @return Equipo de respuesta del responsable técnico.
-     */
-    public EquipoRespuesta getEquipoRespuesta() {
-        return equipoRespuesta;
-    }
-
-    /**
-     * Establece el equipo de respuesta que integra el responsable técnico.
-     *
-     * @param equipoRespuesta Equipo de respuesta a asignar.
-     */
-    public void setEquipoRespuesta(EquipoRespuesta equipoRespuesta) {
-        this.equipoRespuesta = equipoRespuesta;
-    }
-
-    /**
      * Obtiene los mantenimientos que realiza el responsable técnico.
      *
      * @return Lista de mantenimientos del responsable técnico.
@@ -131,14 +116,32 @@ public class ResponsableTecnico extends Persona {
     }
 
     /**
+     * Establece los mantenimientos que realiza el responsable técnico.
+     *
+     * @param mantenimientos Lista de mantenimientos a asignar.
+     */
+    public void setMantenimientos(List<Mantenimiento> mantenimientos) {
+        this.mantenimientos = mantenimientos;
+    }
+
+    /**
      * Agrega un mantenimiento realizado por el responsable técnico.
      *
      * @param mantenimiento Mantenimiento a agregar.
      * @return true si el mantenimiento fue agregado.
      */
     public boolean agregarMantenimiento(Mantenimiento mantenimiento) {
-        this.mantenimientos.add(mantenimiento);
-        return true;
+        return this.mantenimientos.add(mantenimiento);
+    }
+
+    /**
+     * Quita un mantenimiento realizado por el responsable técnico.
+     *
+     * @param mantenimiento Mantenimiento a quitar.
+     * @return true si el mantenimiento fue quitado.
+     */
+    public boolean quitarMantenimiento(Mantenimiento mantenimiento) {
+        return this.mantenimientos.remove(mantenimiento);
     }
 
     /**
@@ -177,4 +180,3 @@ public class ResponsableTecnico extends Persona {
         this.numeroLicencia = numeroLicencia;
     }
 }
-
