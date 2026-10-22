@@ -185,10 +185,20 @@ public class EstacionMeteorologica {
         this.estadoOp = estadoOp;
     }
 
+    /**
+     * Devuelve el responsable tecnico de la estacion.
+     * 
+     * @return responsable tecnico.
+     */
     public ResponsableTecnico getResponsable() {
         return responsable;
     }
 
+    /**
+     * Establece al responsable tecnico de la estacion.
+     * 
+     * @param responsable nuevo responsable tecnico.
+     */
     public void setResponsable(ResponsableTecnico responsable) {
         this.responsable = responsable;
     }
