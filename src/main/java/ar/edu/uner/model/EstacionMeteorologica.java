@@ -25,6 +25,7 @@ public class EstacionMeteorologica {
     private double altitud;
     private EstadoOperativo estadoOp;
     private TipoEstacion tipoEst;
+    private ResponsableTecnico responsable;
     private List<Sensor> sensores;
 
     /**
@@ -182,6 +183,14 @@ public class EstacionMeteorologica {
      */
     public void setEstadoOp(EstadoOperativo estadoOp) {
         this.estadoOp = estadoOp;
+    }
+
+    public ResponsableTecnico getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(ResponsableTecnico responsable) {
+        this.responsable = responsable;
     }
 
     /**
