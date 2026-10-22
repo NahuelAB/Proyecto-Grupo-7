@@ -25,6 +25,7 @@ public class Alerta {
     private NivelAlerta nivel;
     private TipoEventoClimatico eventoClim;
     private LocalDateTime fechaHoraEmision;
+    private EquipoRespuesta equipo;
 
     /**
      * Crea una alerta con valores predeterminados.
@@ -105,6 +106,9 @@ public class Alerta {
      */
     public void setAtendida(boolean atendida) {
         this.atendida = atendida;
+        /*if (equipo != null) {
+        *    equipo.setDisponible(true);
+        }*/
     }
 
     /**
@@ -137,4 +141,32 @@ public class Alerta {
     /*public void setEventoClim(TipoEventoClimatico eventoClim) {
     *    this.eventoClim = eventoClim;
     }*/
+
+    public EquipoRespuesta getEquipo() {
+        return equipo;
+    }
+
+    /**
+     * Metodo para agregar equipo de respuesta a la alerta.
+     * 
+     * @param equipo nuevo equipo de respuesta.
+     */
+    public void agregarEquipo(EquipoRespuesta equipo) {
+        this.equipo = equipo;
+        equipo.setDisponible(false); //EQUIPO PASA A NO ESTAR DISPO
+    }
+
+    /**
+     * Verifica que la alerta necesite un equipo de respuesta.
+     * 
+     * @return true si la alerta necesita un equipo,
+     *         false en caso contrario.
+     */
+    public boolean requiereEquipo() {
+        if (nivel == NivelAlerta.NARANJA 
+            || nivel == NivelAlerta.ROJA) {
+                return true;
+        }
+        return false;
+    }
 }
