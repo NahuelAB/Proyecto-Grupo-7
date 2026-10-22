@@ -120,7 +120,6 @@ public class Alerta {
     public NivelAlerta getNivel() {
         return nivel;
     }
-
     /**
      * Establece el nivel de la alerta.
      * 
