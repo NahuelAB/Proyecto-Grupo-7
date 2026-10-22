@@ -129,10 +129,20 @@ public class Sensor {
         this.precision = precision;
     }
 
+    /**
+     * Devuelve la estacion a la que esta anidado el sensor.
+     * 
+     * @return estacion anidada al sensor.
+     */
     public EstacionMeteorologica getEstacion() {
         return estacion;
     }
 
+    /**
+     * Establece la estacion a la que estara anidado el sensor.
+     * 
+     * @param estacion nueva estacion anidada al sensor.
+     */
     public void setEstacion(EstacionMeteorologica estacion) {
         this.estacion = estacion;
     }
