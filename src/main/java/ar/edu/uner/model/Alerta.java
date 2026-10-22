@@ -107,19 +107,34 @@ public class Alerta {
         this.atendida = atendida;
     }
 
+    /**
+     * Devuelve el nivel de la alerta.
+     * 
+     * @return nivel de la alerta.
+     */
     public NivelAlerta getNivel() {
         return nivel;
     }
 
+    /**
+     * Establece el nivel de la alerta.
+     * 
+     * @param nivel nuevo nivel de la alerta.
+     */
     public void setNivel(NivelAlerta nivel) {
         this.nivel = nivel;
     }
 
+    /**
+     * Devuelve el tipo de evento climatico de la alerta.
+     * 
+     * @return tipo de evento climatico.
+     */
     public TipoEventoClimatico getEventoClim() {
         return eventoClim;
     }
 
-    public void setEventoClim(TipoEventoClimatico eventoClim) {
-        this.eventoClim = eventoClim;
-    }
+    /*public void setEventoClim(TipoEventoClimatico eventoClim) {
+    *    this.eventoClim = eventoClim;
+    }*/
 }
