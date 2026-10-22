@@ -148,35 +148,75 @@ public class EstacionMeteorologica {
         this.altitud = altitud;
     }
 
+    /**
+     * Devuelve el tipo de estacion.
+     * 
+     * @return tipo de estacion.
+     */
     public TipoEstacion getTipoEst() {
         return tipoEst;
     }
 
+    /**
+     * Establece el tipo de estacion.
+     * 
+     * @param tipoEst nuevo tipo de estacion.
+     */
     public void setTipoEst(TipoEstacion tipoEst) {
         this.tipoEst = tipoEst;
     }
 
+    /**
+     * Devuelve el estado operativo.
+     * 
+     * @return estado operativo.
+     */
     public EstadoOperativo getEstadoOp() {
         return estadoOp;
     }
 
+    /**
+     * Establece el estado operativo.
+     * 
+     * @param estadoOp nuevo estado operativo.
+     */
     public void setEstadoOp(EstadoOperativo estadoOp) {
         this.estadoOp = estadoOp;
     }
 
+    /**
+     * Devuelve los sensores anidados a la estacion.
+     * 
+     * @return sensores anidados.
+     */
     public List<Sensor> getSensores() {
         return sensores;
     }
 
+    /**
+     * Establece los sensores anidados a la estacion.
+     * 
+     * @param sensores nuevos sensores anidados.
+     */
     public void setSensores(List<Sensor> sensores) {
         this.sensores = sensores;
     }
 
+    /**
+     * Agrega nuevo sensor a la estacion.
+     * 
+     * @param s nuevo sensor agregado.
+     */
     public void instalarSensor(Sensor s) {
         sensores.add(s);
         s.setEstacion(this);
     }
 
+    /**
+     * Remueve sensor pasado por parametro.
+     * 
+     * @param s remueve sensor.
+     */
     public void retirarSensor(Sensor s) {
         s.setEstacion(null);
     }
