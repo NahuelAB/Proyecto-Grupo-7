@@ -279,7 +279,8 @@ public class EstacionMeteorologica {
      */
     public void instalarSensor(Sensor s) {
         sensores.add(s);
-        s.setEstacion(this);
+        //s.setEstacion(this); Establece que la estación meteorológica 
+        // actual es la estación a la que pertenece ese sensor.
     }
 
     /**
@@ -289,5 +290,15 @@ public class EstacionMeteorologica {
      */
     public void retirarSensor(Sensor s) {
         s.setEstacion(null);
+    }
+
+    /**
+     * Verifica que la estacion este operativa.
+     * 
+     * @return true si la estacion esta operativa,
+     *         false en caso contrario.
+     */
+    public boolean estaOperativa() {
+        return estadoOp == EstadoOperativo.OPERATIVO;
     }
 }
