@@ -16,5 +16,10 @@ package ar.edu.uner.model.enums;
  * @author Guillermina
  */
 public enum TipoMantenimiento {
-    PREVENTIVO, CORRECTIVO, CALIBRACION;
+    /** Mantenimiento preventivo.*/
+    PREVENTIVO, 
+    /** Mantenimiento correctivo.*/
+    CORRECTIVO, 
+    /** Calibracion de sensor. */
+    CALIBRACION;
 }
