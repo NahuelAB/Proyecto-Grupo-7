@@ -26,6 +26,7 @@ public class EstacionMeteorologica {
     private EstadoOperativo estadoOp;
     private TipoEstacion tipoEst;
     private ResponsableTecnico responsable;
+    private ZonaGeografica zona;
     private List<Sensor> sensores;
 
     /**
@@ -201,6 +202,14 @@ public class EstacionMeteorologica {
      */
     public void setResponsable(ResponsableTecnico responsable) {
         this.responsable = responsable;
+    }
+
+    public ZonaGeografica getZona() {
+        return zona;
+    }
+
+    public void setZona(ZonaGeografica zona) {
+        this.zona = zona;
     }
 
     /**
