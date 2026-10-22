@@ -106,4 +106,20 @@ public class Alerta {
     public void setAtendida(boolean atendida) {
         this.atendida = atendida;
     }
+
+    public NivelAlerta getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(NivelAlerta nivel) {
+        this.nivel = nivel;
+    }
+
+    public TipoEventoClimatico getEventoClim() {
+        return eventoClim;
+    }
+
+    public void setEventoClim(TipoEventoClimatico eventoClim) {
+        this.eventoClim = eventoClim;
+    }
 }
