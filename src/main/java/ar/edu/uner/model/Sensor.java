@@ -137,18 +137,40 @@ public class Sensor {
         this.precision = precision;
     }
 
+    /**
+     * Devuelve el estado operativo del sensor.
+     * 
+     * @return estado operativo del sensor.
+     */
     public EstadoOperativo getEstado() {
         return estado;
     }
 
+    /**
+     * Establece el estado operativo del sensor.
+     * 
+     * @param estado nuevo estado operativo del sensor.
+     */
     public void setEstado(EstadoOperativo estado) {
         this.estado = estado;
     }
 
+    /**
+     * Devuelve la fecha de la ultima calibracion.
+     * 
+     * @return fecha de la ultima calibracion.
+     */
     public LocalDate getUltimaCalibracion() {
         return ultimaCalibracion;
     }
 
+    /**
+     * Establece la fecha de la ultima calibracion.
+     * 
+     * @param anio año de la ultima calibracion.
+     * @param mes mes de la ultima calibracion.
+     * @param dia dia de la ultima calibracion.
+     */
     public void setUltimaCalibracion(int anio, int mes, int dia) {
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
     }
