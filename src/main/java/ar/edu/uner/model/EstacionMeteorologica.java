@@ -232,20 +232,42 @@ public class EstacionMeteorologica {
         this.sensores = sensores;
     }
 
+    /**
+     * Devuelve la lista de mantenimientos de la estacion.
+     * 
+     * @return lista de mantenimientos de la estacion.
+     */
     public List<Mantenimiento> getMantenimientos() {
         return mantenimientos;
     }
 
+    /**
+     * Establece la lista de mantenimientos de la estacion.
+     * 
+     * @param mantenimientos nueva lista de mantenimientos.
+     */
     public void setMantenimientos(List<Mantenimiento> mantenimientos) {
         this.mantenimientos = new ArrayList<>(mantenimientos);
     }
 
+    /**
+     * Agrega un nuevo mantenimiento.
+     * @param idMantenimiento identificador del mantenimiento
+     * @param fecha fecha en que se realizo el mantenimiento 
+     * @param tipo tipo de mantenimiento realizado
+     * @param descripcion descripción del mantenimiento
+     */
     public void agregarMantenimiento(String idMantenimiento, LocalDate fecha, 
                                      TipoMantenimiento tipo, String descripcion) {
         mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, descripcion));
 
     }
 
+    /**
+     * Remueve mantenimiento pasado por parametro.
+     * 
+     * @param m mantenimiento a remover.
+     */
     public void removerMantenimiento(Mantenimiento m) {
         mantenimientos.remove(m);
     }
@@ -263,7 +285,7 @@ public class EstacionMeteorologica {
     /**
      * Remueve sensor pasado por parametro.
      * 
-     * @param s remueve sensor.
+     * @param s sensor a remover.
      */
     public void retirarSensor(Sensor s) {
         s.setEstacion(null);
