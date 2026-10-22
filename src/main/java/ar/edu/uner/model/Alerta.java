@@ -8,7 +8,8 @@
 
 package ar.edu.uner.model;
 
-//import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import ar.edu.uner.model.enums.*;
 
 
 /**
@@ -21,16 +22,18 @@ public class Alerta {
     private String idAlerta;
     private String descripcion;
     private boolean atendida;
-    //private LocalDateTime fechaHoraEmision;
-    //private NivelAlerta nivel;
-    //private TipoEventoClimatico evento;
+    private NivelAlerta nivel;
+    private TipoEventoClimatico eventoClim;
+    private LocalDateTime fechaHoraEmision;
 
     /**
      * Crea una alerta con valores predeterminados.
      */
     public Alerta() {
         this("ALERTA PENDIENTE",
-            "DESCRIPCION PENDIENTE");
+            "DESCRIPCION PENDIENTE",
+            null,
+            null);
     }
 
     /**
@@ -38,10 +41,14 @@ public class Alerta {
      * @param idAlerta identificador unico de la alerta.
      * @param descripcion descripcion de la alerta.
      */
-    public Alerta(String idAlerta, String descripcion) {
+    public Alerta(String idAlerta, String descripcion,
+                NivelAlerta nivel, TipoEventoClimatico eventoClim) {
         this.idAlerta = idAlerta;
         this.descripcion = descripcion;
         atendida = false;
+        this.nivel = nivel;
+        this.eventoClim = eventoClim;
+        fechaHoraEmision = LocalDateTime.now(); 
     }
     
     /**
