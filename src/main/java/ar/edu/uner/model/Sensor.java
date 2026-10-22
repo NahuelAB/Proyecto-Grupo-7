@@ -10,6 +10,8 @@ package ar.edu.uner.model;
 
 import ar.edu.uner.model.enums.EstadoOperativo;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
@@ -26,6 +28,7 @@ public class Sensor {
     private EstadoOperativo estado;
     private LocalDate ultimaCalibracion;
     private EstacionMeteorologica estacion;
+    private List<Medicion> mediciones;
 
     /**
      * Crea un sensor con valores predeterminados.
@@ -167,4 +170,31 @@ public class Sensor {
     public void setEstacion(EstacionMeteorologica estacion) {
         this.estacion = estacion;
     } //VER SI SENSOR CONOCE A ESTACIONMETEOROLOGICA
+
+    /*public Medicion registrar(double mm, LocalDateTime fh) {
+    *    Medicion m = new Medicion();
+    *}
+    */
+
+    /**
+     * Verifica que la medicion este entre 0 y 500 mm.
+     * @param mm valor a validar.
+     * @return true si es un numero entre 0 y 500 mm,
+     *         false en caso contrario.
+     */
+    public boolean validar(double mm) {
+        return ((mm >= 0) && (mm <= 500));
+    }
+
+    /**
+     * Verifica si el sensor requiere calibracion.
+     * 
+     * @param fechaActual fecha actual de la consulta.
+     * @return true si la fecha actual es posterior por 12 meses a 
+     *         la fecha de la ultima calibracion,
+     *         false en caso contrario.
+     */
+    public boolean requiereCalibracion(LocalDate fechaActual) {
+        return ultimaCalibracion.plusMonths(12).isBefore(fechaActual);
+    }
 }
