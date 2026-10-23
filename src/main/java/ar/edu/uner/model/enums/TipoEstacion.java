@@ -1,3 +1,7 @@
+/*
+ * TipoEstacion.java
+ *
+ * Version 1.0
  *
  * 22/10/2026
  *
@@ -6,22 +10,16 @@
 package ar.edu.uner.model.enums;
 
 /**
- * Representa los niveles de gravedad que puede tener una alerta,
- * ordenados de menor a mayor.
+ * Representa los tipos de estación meteorológica según cómo
+ * registra sus datos.
  *
  * @author Jmanuel (Grupo-7)
  * @version 1.0
  */
-public enum NivelAlerta {
-    /** Nivel verde: sin riesgo. */
-    VERDE,
+public enum TipoEstacion {
+    /** Estación que registra los datos de forma automática. */
+    AUTOMATICA,
 
-    /** Nivel amarillo: situación a vigilar. */
-    AMARILLA,
-
-    /** Nivel naranja: riesgo alto. */
-    NARANJA,
-
-    /** Nivel rojo: riesgo crítico. */
-    ROJA
+    /** Estación cuyos datos se registran de forma manual. */
+    CONVENCIONAL
 }
