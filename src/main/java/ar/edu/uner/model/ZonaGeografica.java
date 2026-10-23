@@ -11,6 +11,7 @@
 
 package ar.edu.uner.model;
 
+import ar.edu.uner.model.enums.NivelAlerta;
 import ar.edu.uner.model.enums.NivelVulnerabilidad;
 
 import java.util.ArrayList;

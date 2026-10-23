@@ -3,7 +3,7 @@
  *
  * Version 1.0
  *
- * 17/10/2026
+ * 20/10/2026
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
@@ -12,7 +12,7 @@
 package ar.edu.uner.model.enums;
 /**
  * Representa el nivel de vulnerabilidad frente a un evento climatico
- * @author USUARIO
+ * @author Maricela
  */
 
 
