@@ -39,7 +39,9 @@ public class Mantenimiento {
         LocalDate.now(),
         null,
         "DESCRIPCION PENDIENTE",
+        null,
         null
+               
         );
 }
     /**
@@ -49,13 +51,15 @@ public class Mantenimiento {
      * @param tipo tipo de mantenimiento realizado
      * @param descripcion descripción del mantenimiento
      * @param responsableTecnico
+     * @param sensor
      */
-     public Mantenimiento(String idMantenimiento, LocalDate fecha, TipoMantenimiento tipo, String descripcion,ResponsableTecnico responsableTecnico) {
+     public Mantenimiento(String idMantenimiento, LocalDate fecha, TipoMantenimiento tipo, String descripcion,ResponsableTecnico responsableTecnico,Sensor sensor) {
         this.idMantenimiento = idMantenimiento;
         this.fecha = fecha;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.responsableTecnico=responsableTecnico;
+        this.sensor=sensor;
     }
     
     /**
