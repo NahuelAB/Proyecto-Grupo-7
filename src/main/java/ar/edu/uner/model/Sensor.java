@@ -12,7 +12,7 @@ import ar.edu.uner.model.enums.EstadoOperativo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.ListIterator;
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
  * una estación meteorológica y registra lecturas que se usan para calcular
@@ -174,10 +174,23 @@ public class Sensor {
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
     }
 
-    /*public Medicion registrar(double mm, LocalDateTime fh) {
-    *    Medicion m = new Medicion();
-    *}
-    */
+    public Medicion registrar(double mm, LocalDateTime fH) {
+        int difAnomala = 100;
+        boolean anomala = false;
+        String id = "M";
+
+        ListIterator<Medicion> listIt = mediciones.listIterator();
+
+        if (listIt.hasPrevious() && 
+            (mm - listIt.previous().getMilimetros()) > difAnomala) {
+                anomala = true;
+        }
+        
+        Medicion m = new Medicion(id, fH, mm, anomala);
+        mediciones.add(m);
+        return m;
+    }
+    
 
     /**
      * Verifica que la medicion este entre 0 y 500 mm.
