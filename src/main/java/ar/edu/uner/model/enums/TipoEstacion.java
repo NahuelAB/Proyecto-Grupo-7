@@ -7,7 +7,10 @@
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
+
+
 package ar.edu.uner.model.enums;
+
 
 /**
  * Representa los tipos de estación meteorológica según cómo

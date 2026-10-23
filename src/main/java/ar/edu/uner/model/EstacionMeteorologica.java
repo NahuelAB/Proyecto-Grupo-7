@@ -247,11 +247,13 @@ public class EstacionMeteorologica {
      * @param fecha fecha en que se realizo el mantenimiento 
      * @param tipo tipo de mantenimiento realizado
      * @param descripcion descripción del mantenimiento
+     * @param responsableTecnico
      */
     public void agregarMantenimiento(String idMantenimiento, LocalDate fecha, 
-                                     TipoMantenimiento tipo, String descripcion) {
-        mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, descripcion));
-
+                                     TipoMantenimiento tipo, String descripcion,
+                                    ResponsableTecnico responsableTecnico) {
+        mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, 
+                          descripcion, responsableTecnico));
     }
 
     /**
