@@ -174,6 +174,14 @@ public class Sensor {
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
     }
 
+    /**
+     * Registra una lectura de precipitacion.
+     * 
+     * @param mm milimetros registrados.
+     * @param fH fecha y hora de la lectura.
+     * 
+     * @return la medicion creada.
+     */
     public Medicion registrar(double mm, LocalDateTime fH) {
         int difAnomala = 100;
         boolean anomala = false;
