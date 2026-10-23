@@ -29,11 +29,9 @@ public class ZonaGeografica {
     private String idZona;
     private String nombre;
     private NivelVulnerabilidad nivelVulnerabilidad;
-    private double umbralAmarilla;
-    private double umbralNaranja;
-    private double umbralRoja;
-    private NivelAlerta nivelAlerta;
+    private NivelAlerta nivelAlertaActual;
     private List<ValorHistorico> valoresHistoricos;
+    private List<EstacionMeteorologica> estacionMeteorologicas;
 
     /**
      * Crea una zona geográfica con valores predeterminados
@@ -43,11 +41,7 @@ public class ZonaGeografica {
         this("ID ZONA PENDIENTE",
                 "NOMBRE PENDIENTE",
                 null,
-                0,
-                0,
-                0,
-                null);
-        this.valoresHistoricos = new ArrayList<>();
+                NivelAlerta.VERDE);
     }
 
     /**
@@ -57,23 +51,17 @@ public class ZonaGeografica {
      * @param idZona Identificador de la zona.
      * @param nombre Nombre de zona.
      * @param nivelVulnerabilidad Nivel de vulnerabilidad climática.
-     * @param umbralAmarilla Umbral de lluvia (mm en 24 hs) de alerta amarilla.
-     * @param umbralNaranja Umbral de lluvia (mm en 24 hs) de alerta naranja.
-     * @param umbralRoja Umbral de lluvia (mm en 24 hs) de alerta roja.
-     * @param nivelAlerta Nivel de alerta vigente de la zona.
+     * @param nivelAlertaActual Nivel de alerta vigente de la zona.
      */
     public ZonaGeografica(String idZona, String nombre,
                           NivelVulnerabilidad nivelVulnerabilidad,
-                          double umbralAmarilla, double umbralNaranja,
-                          double umbralRoja, NivelAlerta nivelAlerta) {
+                          NivelAlerta nivelAlertaActual) {
         this.idZona = idZona;
         this.nombre = nombre;
         this.nivelVulnerabilidad = nivelVulnerabilidad;
-        this.umbralAmarilla = umbralAmarilla;
-        this.umbralNaranja = umbralNaranja;
-        this.umbralRoja = umbralRoja;
-        this.nivelAlerta = nivelAlerta;
+        this.nivelAlertaActual = nivelAlertaActual;
         this.valoresHistoricos = new ArrayList<>();
+        this.estacionMeteorologicas = new ArrayList<>();
     }
 
     /**
@@ -126,88 +114,36 @@ public class ZonaGeografica {
      *
      * @param nivelVulnerabilidad Nivel de vulnerabilidad a asignar.
      */
-    public void setNivelVulnerabilidad(NivelVulnerabilidad nivelVulnerabilidad) {
+    public void setNivelVulnerabilidad(
+            NivelVulnerabilidad nivelVulnerabilidad) {
         this.nivelVulnerabilidad = nivelVulnerabilidad;
     }
 
-    /**
-     * Obtiene el umbral de lluvia acumulada en 24 horas de alerta amarilla.
-     *
-     * @return Umbral amarillo en milímetros.
-     */
-    public double getUmbralAmarilla() {
-        return umbralAmarilla;
-    }
-
-    /**
-     * Establece el umbral de lluvia acumulada en 24 horas de alerta amarilla.
-     *
-     * @param umbralAmarilla Umbral amarillo a asignar, en milímetros.
-     */
-    public void setUmbralAmarilla(double umbralAmarilla) {
-        this.umbralAmarilla = umbralAmarilla;
-    }
-
-    /**
-     * Obtiene el umbral de lluvia acumulada en 24 horas de alerta naranja.
-     *
-     * @return Umbral naranja en milímetros.
-     */
-    public double getUmbralNaranja() {
-        return umbralNaranja;
-    }
-
-    /**
-     * Establece el umbral de lluvia acumulada en 24 horas de alerta naranja.
-     *
-     * @param umbralNaranja Umbral naranja a asignar, en milímetros.
-     */
-    public void setUmbralNaranja(double umbralNaranja) {
-        this.umbralNaranja = umbralNaranja;
-    }
-
-    /**
-     * Obtiene el umbral de lluvia acumulada en 24 horas de alerta roja.
-     *
-     * @return Umbral rojo en milímetros.
-     */
-    public double getUmbralRoja() {
-        return umbralRoja;
-    }
-
-    /**
-     * Establece el umbral de lluvia acumulada en 24 horas de alerta roja.
-     *
-     * @param umbralRoja Umbral rojo a asignar, en milímetros.
-     */
-    public void setUmbralRoja(double umbralRoja) {
-        this.umbralRoja = umbralRoja;
-    }
 
     /**
      * Obtiene el nivel de alerta vigente de la zona.
      *
      * @return Nivel de alerta vigente.
      */
-    public NivelAlerta getNivelAlerta() {
-        return nivelAlerta;
+    public NivelAlerta getNivelAlertaActual() {
+        return nivelAlertaActual;
     }
 
     /**
      * Establece el nivel de alerta vigente de la zona.
      *
-     * @param nivelAlerta Nivel de alerta a asignar.
+     * @param nivelAlertaActual Nivel de alerta a asignar.
      */
-    public void setNivelAlerta(NivelAlerta nivelAlerta) {
-        this.nivelAlerta = nivelAlerta;
+    public void setNivelAlertaActual(NivelAlerta nivelAlertaActual) {
+        this.nivelAlertaActual = nivelAlertaActual;
     }
 
     public double lluviaAcumulada24hs() {
-        return umbralAmarilla;
+        return 0;
     }
 
     public NivelAlerta evaluarRiesgo() {
-        return nivelAlerta;
+        return nivelAlertaActual;
     }
 
     /**
@@ -227,4 +163,23 @@ public class ZonaGeografica {
     public List<ValorHistorico> getValoresHistoricos() {
         return valoresHistoricos;
     }
+
+    /**
+     * Agrega una estación meteorológica a la zona.
+     *
+     * @param estacionMeteorologica Estación a agregar.
+     */
+    public void agregarEstacion(EstacionMeteorologica estacionMeteorologica) {
+        this.estacionMeteorologicas.add(estacionMeteorologica);
+    }
+
+    /**
+     * Obtiene las estaciones meteorológicas de la zona.
+     *
+     * @return Lista de estaciones de la zona.
+     */
+    public List<EstacionMeteorologica> getEstacionMeteorologicas() {
+        return estacionMeteorologicas;
+    }
 }
+

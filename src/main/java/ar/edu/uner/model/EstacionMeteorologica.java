@@ -7,8 +7,10 @@
  */
 package ar.edu.uner.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import ar.edu.uner.model.enums.*;
 
 
 /**
@@ -22,9 +24,11 @@ public class EstacionMeteorologica {
     private double latitud;
     private double longitud;
     private double altitud;
-    //private EstadoOperativo estado;
-    //private TipoEstacion tipo;
+    private EstadoOperativo estadoOp;
+    private TipoEstacion tipoEst;
+    private ResponsableTecnico responsable;
     private List<Sensor> sensores;
+    private List<Mantenimiento> mantenimientos;
 
     /**
      * Crea una estacion meteorologica con valores predeterminados.
@@ -147,20 +151,145 @@ public class EstacionMeteorologica {
         this.altitud = altitud;
     }
 
+    /**
+     * Devuelve el tipo de estacion.
+     * 
+     * @return tipo de estacion.
+     */
+    public TipoEstacion getTipoEst() {
+        return tipoEst;
+    }
+
+    /**
+     * Establece el tipo de estacion.
+     * 
+     * @param tipoEst nuevo tipo de estacion.
+     */
+    public void setTipoEst(TipoEstacion tipoEst) {
+        this.tipoEst = tipoEst;
+    }
+
+    /**
+     * Devuelve el estado operativo.
+     * 
+     * @return estado operativo.
+     */
+    public EstadoOperativo getEstadoOp() {
+        return estadoOp;
+    }
+
+    /**
+     * Establece el estado operativo.
+     * 
+     * @param estadoOp nuevo estado operativo.
+     */
+    public void setEstadoOp(EstadoOperativo estadoOp) {
+        this.estadoOp = estadoOp;
+    }
+
+    /**
+     * Devuelve el responsable tecnico de la estacion.
+     * 
+     * @return responsable tecnico.
+     */
+    public ResponsableTecnico getResponsable() {
+        return responsable;
+    }
+
+    /**
+     * Establece al responsable tecnico de la estacion.
+     * 
+     * @param responsable nuevo responsable tecnico.
+     */
+    public void setResponsable(ResponsableTecnico responsable) {
+        this.responsable = responsable;
+    }
+
+    /**
+     * Devuelve los sensores anidados a la estacion.
+     * 
+     * @return sensores anidados.
+     */
     public List<Sensor> getSensores() {
         return sensores;
     }
 
+    /**
+     * Establece los sensores anidados a la estacion.
+     * 
+     * @param sensores nuevos sensores anidados.
+     */
     public void setSensores(List<Sensor> sensores) {
         this.sensores = sensores;
     }
 
-    public void instalarSensor(Sensor s) {
-        sensores.add(s);
-        s.setEstacion(this);
+    /**
+     * Devuelve la lista de mantenimientos de la estacion.
+     * 
+     * @return lista de mantenimientos de la estacion.
+     */
+    public List<Mantenimiento> getMantenimientos() {
+        return mantenimientos;
     }
 
+    /**
+     * Establece la lista de mantenimientos de la estacion.
+     * 
+     * @param mantenimientos nueva lista de mantenimientos.
+     */
+    public void setMantenimientos(List<Mantenimiento> mantenimientos) {
+        this.mantenimientos = new ArrayList<>(mantenimientos);
+    }
+
+    /**
+     * Agrega un nuevo mantenimiento.
+     * @param idMantenimiento identificador del mantenimiento
+     * @param fecha fecha en que se realizo el mantenimiento 
+     * @param tipo tipo de mantenimiento realizado
+     * @param descripcion descripción del mantenimiento
+     */
+    public void agregarMantenimiento(String idMantenimiento, LocalDate fecha, 
+                                     TipoMantenimiento tipo, String descripcion) {
+        mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, descripcion));
+
+    }
+
+    /**
+     * Remueve mantenimiento pasado por parametro.
+     * 
+     * @param m mantenimiento a remover.
+     */
+    public void removerMantenimiento(Mantenimiento m) {
+        mantenimientos.remove(m);
+    }
+
+    /**
+     * Agrega nuevo sensor a la estacion.
+     * 
+     * @param s nuevo sensor agregado.
+     */
+    public void instalarSensor(Sensor s) {
+        sensores.add(s);
+        //s.setEstacion(this); Establece que la estación meteorológica 
+        // actual es la estación a la que pertenece ese sensor.
+    }
+
+    /**
+     * Remueve sensor pasado por parametro.
+     * 
+     * @param s sensor a remover.
+     */
     public void retirarSensor(Sensor s) {
-        s.setEstacion(null);
+        sensores.remove(s);
+    }
+
+    /**
+     * Verifica que la estacion este operativa.
+     * 
+     * @return true si la estacion esta operativa,
+     *         false en caso contrario.
+     */
+    public boolean estaOperativa() {
+        return estadoOp == EstadoOperativo.OPERATIVO;
     }
 }

@@ -1,90 +1,182 @@
 /*
- *ResponsableTecnico.java
+ * ResponsableTecnico.java
+ *
  * Version 1.0
+ *
  * 19/10/2026
- * Copyright (c) 2026 Grupo-7 Uner
+ *
+ * Copyright (c) 2026 Grupo 7 - UNER
  */
+
+
 package ar.edu.uner.model;
 
-//import java.util.ArrayList;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Representa a un responsable técnico del sistema.
- * Extiende de Persona y contiene su especialidad y número de licencia.
+ * Extiende de Persona y contiene su especialidad, número de licencia,
+ * las estaciones a su cargo y los mantenimientos que realiza.
  *
  * @author Jmanuel (Grupo-7)
- * @version 1.0
  */
 public class ResponsableTecnico extends Persona {
-    //Especialidad del responsable tecnico
     private String especialidad;
-
-    //Numero de licencia del responsable tecnico
     private String numeroLicencia;
+    private List<EstacionMeteorologica> estaciones;
+    private List<Mantenimiento> mantenimientos;
 
-    //Estaciones meteorologicas de las que esta a cargo el responsable tecnico (0..*).
-    //private List<EstacionMeteorologica> estaciones = new ArrayList<>();
+    /**
+     * Crea un responsable técnico con valores predeterminados.
+     */
+    public ResponsableTecnico() {
+        this("DNI PENDIENTE",
+                "NOMBRE PENDIENTE",
+                "APELLIDO PENDIENTE",
+                "CORREO PENDIENTE",
+                "CELULAR PENDIENTE",
+                "ESPECIALIDAD PENDIENTE",
+                "LICENCIA PENDIENTE",
+                new ArrayList<>(),
+                new ArrayList<>());
+    }
 
-    //Equipo que integra el responsable tecnico (0..1).
-    //private EquipoRespuesta equipoRespuesta;
+    /**
+     * Crea un responsable técnico con valores específicos.
+     *
+     * @param dni DNI del responsable técnico.
+     * @param nombre Nombre del responsable técnico.
+     * @param apellido Apellido del responsable técnico.
+     * @param correoElectronico Correo electrónico del responsable técnico.
+     * @param celular Celular del responsable técnico.
+     * @param especialidad Especialidad del responsable técnico.
+     * @param numeroLicencia Número de licencia del responsable técnico.
+     * @param estaciones Estaciones meteorológicas a cargo del responsable técnico.
+     * @param mantenimientos Mantenimientos que realiza el responsable técnico.
+     */
+    public ResponsableTecnico(String dni, String nombre, String apellido,
+                              String correoElectronico, String celular,
+                              String especialidad, String numeroLicencia,
+                              List<EstacionMeteorologica> estaciones,
+                              List<Mantenimiento> mantenimientos) {
+        super(dni, nombre, apellido, correoElectronico, celular);
+        this.especialidad = especialidad;
+        this.numeroLicencia = numeroLicencia;
+        this.estaciones = estaciones;
+        this.mantenimientos = mantenimientos;
+    }
 
-    //Mantenimientos que realiza el responsable tecnico (0..*).
-    //private List<Mantenimiento> mantenimientos = new ArrayList<>();
-
-    //Funcion que retorna las estaciones de las que esta a cargo el responsable tecnico.
+    /**
+     * Obtiene las estaciones meteorológicas a cargo del responsable técnico.
+     *
+     * @return Lista de estaciones a cargo del responsable técnico.
+     */
     public List<EstacionMeteorologica> getEstaciones() {
         return estaciones;
     }
 
-    //Funcion que agrega una estacion a cargo del responsable tecnico.
-    public void agregarEstacion(EstacionMeteorologica estacion) {
-        this.estaciones.add(estacion);
+    /**
+     * Establece las estaciones meteorológicas a cargo del responsable técnico.
+     *
+     * @param estaciones Lista de estaciones a asignar.
+     */
+    public void setEstaciones(List<EstacionMeteorologica> estaciones) {
+        this.estaciones = estaciones;
     }
 
-    //Funcion que quita una estacion a cargo del responsable tecnico.
-    public void quitarEstacion(EstacionMeteorologica estacion) {
-        this.estaciones.remove(estacion);
+    /**
+     * Agrega una estación meteorológica a cargo del responsable técnico.
+     *
+     * @param estacion Estación a agregar.
+     * @return true si la estacion fue agregada.
+     */
+    public boolean agregarEstacion(EstacionMeteorologica estacion) {
+        return this.estaciones.add(estacion);
     }
 
-    //Funcion que retorna el equipo que integra el responsable tecnico.
-    public EquipoRespuesta getEquipoRespuesta() {
-        return equipoRespuesta;
+    /**
+     * Quita una estación meteorológica a cargo del responsable técnico.
+     *
+     * @param estacion Estación a quitar.
+     * @return true si la estacion fue quitada.
+     */
+    public boolean quitarEstacion(EstacionMeteorologica estacion) {
+        return this.estaciones.remove(estacion);
     }
 
-    //Funcion que establece el equipo que integra el responsable tecnico.
-    public void setEquipoRespuesta(EquipoRespuesta equipoRespuesta) {
-        this.equipoRespuesta = equipoRespuesta;
-    }
-
-    //Funcion que retorna los mantenimientos que realiza el responsable tecnico.
+    /**
+     * Obtiene los mantenimientos que realiza el responsable técnico.
+     *
+     * @return Lista de mantenimientos del responsable técnico.
+     */
     public List<Mantenimiento> getMantenimientos() {
         return mantenimientos;
     }
 
-    //Funcion que agrega un mantenimiento realizado por el responsable tecnico.
-    public void agregarMantenimiento(Mantenimiento mantenimiento) {
-        this.mantenimientos.add(mantenimiento);
+    /**
+     * Establece los mantenimientos que realiza el responsable técnico.
+     *
+     * @param mantenimientos Lista de mantenimientos a asignar.
+     */
+    public void setMantenimientos(List<Mantenimiento> mantenimientos) {
+        this.mantenimientos = mantenimientos;
     }
 
-    //Funcion que retorna la especialidad del responsable tecnico.
+    /**
+     * Agrega un mantenimiento realizado por el responsable técnico.
+     *
+     * @param mantenimiento Mantenimiento a agregar.
+     * @return true si el mantenimiento fue agregado.
+     */
+    public boolean agregarMantenimiento(Mantenimiento mantenimiento) {
+        return this.mantenimientos.add(mantenimiento);
+    }
+
+    /**
+     * Quita un mantenimiento realizado por el responsable técnico.
+     *
+     * @param mantenimiento Mantenimiento a quitar.
+     * @return true si el mantenimiento fue quitado.
+     */
+    public boolean quitarMantenimiento(Mantenimiento mantenimiento) {
+        return this.mantenimientos.remove(mantenimiento);
+    }
+
+    /**
+     * Obtiene la especialidad del responsable técnico.
+     *
+     * @return Especialidad del responsable técnico.
+     */
     public String getEspecialidad() {
         return especialidad;
     }
 
-    //Funcion que establece la especialidad del responsable tecnico.
+    /**
+     * Establece la especialidad del responsable técnico.
+     *
+     * @param especialidad Especialidad a asignar.
+     */
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
 
-    //Funcion que retorna el numero de licencia del responsable tecnico.
+    /**
+     * Obtiene el número de licencia del responsable técnico.
+     *
+     * @return Número de licencia del responsable técnico.
+     */
     public String getNumeroLicencia() {
         return numeroLicencia;
     }
 
-    //Funcion que establece el numero de licencia del responsable tecnico.
+    /**
+     * Establece el número de licencia del responsable técnico.
+     *
+     * @param numeroLicencia Número de licencia a asignar.
+     */
     public void setNumeroLicencia(String numeroLicencia) {
         this.numeroLicencia = numeroLicencia;
     }
-
 }
