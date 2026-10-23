@@ -142,7 +142,7 @@ public class EquipoRespuesta {
      */
     public boolean agregarAlerta(Alerta a){
         //validar que no sea null o que no esté duplicado
-        if(a != null & this.alertas.contains(a)){
+        if(a != null && !this.alertas.contains(a)){
             return this.alertas.add(a);
         }
         return false;//no se pudo agregar
