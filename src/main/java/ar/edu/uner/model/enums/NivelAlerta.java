@@ -7,7 +7,9 @@
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
+
 package ar.edu.uner.model.enums;
+
 
 /**
  * Representa los niveles de gravedad que puede tener una alerta,
