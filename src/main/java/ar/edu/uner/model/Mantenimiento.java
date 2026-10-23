@@ -36,28 +36,45 @@ public class Mantenimiento {
     public Mantenimiento() {
         this(
         "ID PENDIENTE",
-        LocalDate.now(),
+        null,
         null,
         "DESCRIPCION PENDIENTE",
         null
                
         );
 }
-    /**
-     * crea una instancia de Mantenimiento
+        /**
+     * Crea un mantenimiento que no se aplica a ningún sensor.
+     *
      * @param idMantenimiento identificador del mantenimiento
-     * @param fecha fecha en que se realizo el mantenimiento 
+     * @param fecha fecha en que se realizó el mantenimiento
      * @param tipo tipo de mantenimiento realizado
      * @param descripcion descripción del mantenimiento
-     * @param responsableTecnico
+     * @param responsableTecnico responsable técnico que realizó el mantenimiento
      */
-     public Mantenimiento(String idMantenimiento, LocalDate fecha, TipoMantenimiento tipo, String descripcion,ResponsableTecnico responsableTecnico) {
+    public Mantenimiento(String idMantenimiento, LocalDate fecha, TipoMantenimiento tipo,
+            String descripcion, ResponsableTecnico responsableTecnico) {
+        this(idMantenimiento, fecha, tipo, descripcion, responsableTecnico, null);
+    }
+
+    /**
+     * Crea un mantenimiento que se aplica a un sensor.
+     *
+     * @param idMantenimiento identificador del mantenimiento
+     * @param fecha fecha en que se realizó el mantenimiento
+     * @param tipo tipo de mantenimiento realizado
+     * @param descripcion descripción del mantenimiento
+     * @param responsableTecnico responsable técnico que realizó el mantenimiento
+     * @param sensor sensor al que se aplica el mantenimiento
+     */
+    public Mantenimiento(String idMantenimiento, LocalDate fecha, TipoMantenimiento tipo,
+            String descripcion, ResponsableTecnico responsableTecnico, Sensor sensor) {
         this.idMantenimiento = idMantenimiento;
         this.fecha = fecha;
         this.tipo = tipo;
         this.descripcion = descripcion;
-        this.responsableTecnico=responsableTecnico;
-        
+        this.responsableTecnico = responsableTecnico;
+        this.sensor = sensor;
     }
      
     
