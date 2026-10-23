@@ -11,6 +11,7 @@
 
 package ar.edu.uner.model.enums;
 
+
 /**
  *Representa los tipos de eventos climaticos que se pueden
  * registrar en el sistema

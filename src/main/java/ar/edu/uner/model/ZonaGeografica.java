@@ -14,6 +14,7 @@ package ar.edu.uner.model;
 import ar.edu.uner.model.enums.NivelAlerta;
 import ar.edu.uner.model.enums.NivelVulnerabilidad;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,7 +140,18 @@ public class ZonaGeografica {
     }
 
     public double lluviaAcumulada24hs() {
-        return 0;
+        double acumuladoTotal = 0.0;
+        LocalDateTime limiteTiempo = LocalDateTime.now().minusHours(24);
+
+        // Imcompleto, faltan metodos de medicion
+        /*for (EstacionMeteorologica estacion : this.estacionMeteorologicas) {
+            for (Sensor sensor : estacion.getSensores()) {
+                //for (Medicion medicion : sensor.getMedicion()){
+
+                }
+            }
+        }*/
+        return acumuladoTotal;
     }
 
     public NivelAlerta evaluarRiesgo() {
