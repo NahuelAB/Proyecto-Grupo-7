@@ -133,6 +133,22 @@ public class EquipoRespuesta {
     return false; // No se Pudo agregar
 }
     
+    /**
+     * Agrega una alerta  a la lista de alertas con las que trabaja el
+     * equipo de respuesta
+     * @param a alerta a agregar
+     * @return {@code true} si se agregó correctamente,{@code false} si no se pudo agregar, 
+     * ya sea porque el parametro era null o ya se encontraba en la lista
+     */
+    public boolean agregarAlerta(Alerta a){
+        //validar que no sea null o que no esté duplicado
+        if(a != null & this.alertas.contains(a)){
+            return this.alertas.add(a);
+        }
+        return false;//no se pudo agregar
+    }
+  
+    
     
     
 }
