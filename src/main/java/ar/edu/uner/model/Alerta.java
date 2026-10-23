@@ -140,6 +140,24 @@ public class Alerta {
     }
 
     /**
+     * Devuelve la hora a la que fue creada la alerta.
+     * 
+     * @return hora creada de la alerta.
+     */
+    public LocalDateTime getFechaHoraEmision() {
+        return fechaHoraEmision;
+    }
+
+    /**
+     * Establece la hora a la que fue creada la alerta.
+     * 
+     * @param fHE hora creada de la alerta.
+     */
+    public void setFechaHoraEmision(LocalDateTime fHE) {
+        fechaHoraEmision = fHE;
+    }
+
+    /**
      * Devuelve la zona geografica de la alerta.
      * 
      * @return zona geografica de la alerta.
