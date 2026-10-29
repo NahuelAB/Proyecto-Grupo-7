@@ -6,9 +6,9 @@
 * Copyright (c) 2026 Grupo 7 - UNER
  */
 
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
-import ar.edu.uner.model.enums.EstadoOperativo;
+import ar.edu.uner.domain.enums.EstadoOperativo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

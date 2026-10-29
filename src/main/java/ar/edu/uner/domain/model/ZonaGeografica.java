@@ -9,10 +9,10 @@
  */
 
 
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
-import ar.edu.uner.model.enums.NivelAlerta;
-import ar.edu.uner.model.enums.NivelVulnerabilidad;
+import ar.edu.uner.domain.enums.NivelAlerta;
+import ar.edu.uner.domain.enums.NivelVulnerabilidad;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,7 +27,8 @@ import java.util.List;
  * @author Nahuel
  */
 public class ZonaGeografica {
-    private String idZona;
+    private static int contId = 1;  //Inicializo el contador en 1 xq al primero se le asigna ese
+    private int idZona; // cambie de String a int el tipo de dato
     private String nombre;
     private NivelVulnerabilidad nivelVulnerabilidad;
     private NivelAlerta nivelAlertaActual;
@@ -39,8 +40,7 @@ public class ZonaGeografica {
      * e inicializa su lista de valores históricos vacía.
      */
     public ZonaGeografica() {
-        this("ID ZONA PENDIENTE",
-                "NOMBRE PENDIENTE",
+        this("NOMBRE PENDIENTE",  //Borre que se le asigne el id a zona
                 null,
                 NivelAlerta.VERDE);
     }
@@ -49,20 +49,20 @@ public class ZonaGeografica {
      * Crea una zona geográfica con valores específicos
      * e inicializa su lista de valores históricos vacía.
      *
-     * @param idZona Identificador de la zona.
      * @param nombre Nombre de zona.
      * @param nivelVulnerabilidad Nivel de vulnerabilidad climática.
      * @param nivelAlertaActual Nivel de alerta vigente de la zona.
      */
-    public ZonaGeografica(String idZona, String nombre,
+    public ZonaGeografica(String nombre,  //Quite de aca el parametro del idZona ya que se asigna solo
                           NivelVulnerabilidad nivelVulnerabilidad,
                           NivelAlerta nivelAlertaActual) {
-        this.idZona = idZona;
+        this.idZona = contId;  // Aca se le asigna el valor que tiene el contador al momento de crear un objeto
         this.nombre = nombre;
         this.nivelVulnerabilidad = nivelVulnerabilidad;
         this.nivelAlertaActual = nivelAlertaActual;
         this.valoresHistoricos = new ArrayList<>();
         this.estacionMeteorologicas = new ArrayList<>();
+        contId++;  //Aca se le suma 1 al contador despues de la asignacion con el valor anterior q tenia
     }
 
     /**
@@ -70,18 +70,10 @@ public class ZonaGeografica {
      *
      * @return Identificador de la zona.
      */
-    public String getIdZona() {
+    public int getIdZona() {
         return idZona;
     }
 
-    /**
-     * Establece el identificador de la zona.
-     *
-     * @param idZona Identificador a asignar.
-     */
-    public void setIdZona(String idZona) {
-        this.idZona = idZona;
-    }
 
     /**
      * Obtiene el nombre de la zona.

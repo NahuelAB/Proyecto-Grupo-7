@@ -9,7 +9,7 @@
  */
 
 
-package ar.edu.uner.model.enums;
+package ar.edu.uner.domain.enums;
 /**
  * Representa el nivel de vulnerabilidad frente a un evento climatico.
  *

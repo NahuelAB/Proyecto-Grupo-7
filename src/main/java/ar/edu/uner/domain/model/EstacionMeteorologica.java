@@ -5,11 +5,15 @@
 *
 * Copyright (c) 2026 Grupo 7 - UNER
  */
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.edu.uner.domain.enums.EstadoOperativo;
+import ar.edu.uner.domain.enums.TipoEstacion;
+import ar.edu.uner.domain.enums.TipoMantenimiento;
 import ar.edu.uner.model.enums.*;
 
 
@@ -249,9 +253,9 @@ public class EstacionMeteorologica {
      * @param descripcion descripción del mantenimiento
      * @param responsableTecnico
      */
-    public void agregarMantenimiento(String idMantenimiento, LocalDate fecha, 
+    public void agregarMantenimiento(String idMantenimiento, LocalDate fecha,
                                      TipoMantenimiento tipo, String descripcion,
-                                    ResponsableTecnico responsableTecnico) {
+                                     ResponsableTecnico responsableTecnico) {
         mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, 
                           descripcion, responsableTecnico));
     }
