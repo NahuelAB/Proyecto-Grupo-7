@@ -11,9 +11,9 @@
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
-import ar.edu.uner.model.enums.TipoMantenimiento;
+import ar.edu.uner.domain.enums.TipoMantenimiento;
 import java.time.LocalDate;
 
 /**
