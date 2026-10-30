@@ -38,9 +38,7 @@ public class ResponsableTecnico extends Persona {
                 "CORREO PENDIENTE",
                 "CELULAR PENDIENTE",
                 "ESPECIALIDAD PENDIENTE",
-                "LICENCIA PENDIENTE",
-                new ArrayList<>(),
-                new ArrayList<>());
+                "LICENCIA PENDIENTE");
     }
 
     /**
@@ -53,19 +51,15 @@ public class ResponsableTecnico extends Persona {
      * @param celular Celular del responsable técnico.
      * @param especialidad Especialidad del responsable técnico.
      * @param numeroLicencia Número de licencia del responsable técnico.
-     * @param estaciones Estaciones meteorológicas a cargo del responsable técnico.
-     * @param mantenimientos Mantenimientos que realiza el responsable técnico.
      */
     public ResponsableTecnico(String dni, String nombre, String apellido,
                               String correoElectronico, String celular,
-                              String especialidad, String numeroLicencia,
-                              List<EstacionMeteorologica> estaciones,
-                              List<Mantenimiento> mantenimientos) {
+                              String especialidad, String numeroLicencia) {
         super(dni, nombre, apellido, correoElectronico, celular);
         this.especialidad = especialidad;
         this.numeroLicencia = numeroLicencia;
-        this.estaciones = estaciones;
-        this.mantenimientos = mantenimientos;
+        this.estaciones=new ArrayList<>();
+        this.mantenimientos=new ArrayList<>();
     }
 
     /**
@@ -90,10 +84,12 @@ public class ResponsableTecnico extends Persona {
      * Agrega una estación meteorológica a cargo del responsable técnico.
      *
      * @param estacion Estación a agregar.
-     * @return true si la estacion fue agregada.
+     * @return true si la estacion fue agregada y false si ya existia.
      */
     public boolean agregarEstacion(EstacionMeteorologica estacion) {
-        return this.estaciones.add(estacion);
+        if(!this.estaciones.contains(estacion)){
+            return this.estaciones.add(estacion);}
+        return false;
     }
 
     /**
@@ -128,10 +124,13 @@ public class ResponsableTecnico extends Persona {
      * Agrega un mantenimiento realizado por el responsable técnico.
      *
      * @param mantenimiento Mantenimiento a agregar.
-     * @return true si el mantenimiento fue agregado.
+     * @return true si el mantenimiento fue agregado, y false si ya existia.
      */
     public boolean agregarMantenimiento(Mantenimiento mantenimiento) {
-        return this.mantenimientos.add(mantenimiento);
+        if(!this.mantenimientos.contains(mantenimiento)){
+            return mantenimientos.add(mantenimiento);
+        }
+        return false;
     }
 
     /**
@@ -170,13 +169,5 @@ public class ResponsableTecnico extends Persona {
     public String getNumeroLicencia() {
         return numeroLicencia;
     }
-
-    /**
-     * Establece el número de licencia del responsable técnico.
-     *
-     * @param numeroLicencia Número de licencia a asignar.
-     */
-    public void setNumeroLicencia(String numeroLicencia) {
-        this.numeroLicencia = numeroLicencia;
-    }
 }
+
