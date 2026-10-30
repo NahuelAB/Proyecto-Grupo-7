@@ -7,7 +7,7 @@
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
  * @version 1.0
  */
 public class Medicion {
-    private String idMedicion;
+    private static int contID=1; //Agregue un contador, que se va incrementando a medida que se creen mediciones.
+    private int idMedicion; //Cambie id medicion de String a entero.
     private LocalDateTime fechaHora;
     private double milimetros;
     private boolean anomala;
@@ -31,40 +32,31 @@ public class Medicion {
      */
     public Medicion() {
         this(
-                "ID PENDIENTE",
-                LocalDateTime.now(),
+                null,
                 0.0,
                 false);
     }
 
     /**
      * Crea una instancia de Medicion.
-     * @param idMedicion identificador de la medición
      * @param fechaHora fecha y hora en que se registró la medición
      * @param milimetros cantidad de precipitación medida, en milímetros
      * @param anomala indica si la medición fue marcada como anómala
      */
-    public Medicion(String idMedicion, LocalDateTime fechaHora, double milimetros, boolean anomala) {
-        this.idMedicion = idMedicion;
+    public Medicion(LocalDateTime fechaHora, double milimetros, boolean anomala) {
+        this.idMedicion = contID;//Borre id medicion de los parametros del constructor.
         this.fechaHora = fechaHora;
         this.milimetros = milimetros;
         this.anomala = anomala;
+        contID++;//Incrementa el contador luego de asignar.
     }
 
     /**
      * Devuelve el identificador de la medición.
      * @return idMedicion
      */
-    public String getIdMedicion() {
+    public int getIdMedicion() {
         return idMedicion;
-    }
-
-    /**
-     * Asigna un identificador a la medición.
-     * @param idMedicion nuevo identificador de la medición
-     */
-    public void setIdMedicion(String idMedicion) {
-        this.idMedicion = idMedicion;
     }
 
     /**
@@ -115,3 +107,4 @@ public class Medicion {
         this.anomala = anomala;
     }
 }
+
