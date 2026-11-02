@@ -21,7 +21,9 @@ import ar.edu.uner.domain.enums.TipoEventoClimatico;
  * @author Guillermina
  */
 public class Alerta {
-    private String idAlerta;
+private static int contadorAlerta = 0;
+
+    private int idAlerta;
     private String descripcion;
     private boolean atendida;
     private NivelAlerta nivel;
@@ -34,27 +36,28 @@ public class Alerta {
      * Crea una alerta con valores predeterminados.
      */
     public Alerta() {
-        this("ALERTA PENDIENTE",
-            "DESCRIPCION PENDIENTE",
+        this("DESCRIPCION PENDIENTE",
             null,
             null);
     }
 
     /**
      * Crea una alerta con valores especificos.
-     * @param idAlerta identificador unico de la alerta.
+     * 
      * @param descripcion descripcion de la alerta.
      * @param nivel nivel de la alerta.
      * @param evento tipo de evento climatico.
      */
-    public Alerta(String idAlerta, String descripcion,
+    public Alerta(String descripcion,
                 NivelAlerta nivel, TipoEventoClimatico evento) {
-        this.idAlerta = idAlerta;
+        idAlerta = contadorAlerta;
         this.descripcion = descripcion;
         atendida = false;
         this.nivel = nivel;
         this.evento = evento;
         fechaHoraEmision = LocalDateTime.now(); 
+
+        contadorAlerta++;
     }
     
     /**
@@ -62,17 +65,8 @@ public class Alerta {
      * 
      * @return ID de la alerta.
      */
-    public String getIdAlerta() {
+    public int getIdAlerta() {
         return idAlerta;
-    }
-
-    /**
-     * Establece el ID de la alerta.
-     * 
-     * @param idAlerta nuevo ID de la alerta.
-     */
-    public void setIdAlerta(String idAlerta) {
-        this.idAlerta = idAlerta;
     }
 
     /**
