@@ -22,7 +22,9 @@ import ar.edu.uner.domain.enums.TipoMantenimiento;
  * @author Guillermina
  */
 public class EstacionMeteorologica {
-    private String idEstacion;
+    private static int contadorEstacion = 1;
+
+    private int idEstacion;
     private String nombre;
     private double latitud;
     private double longitud;
@@ -37,8 +39,7 @@ public class EstacionMeteorologica {
      * Crea una estacion meteorologica con valores predeterminados.
      */
     public EstacionMeteorologica() {
-        this("ID PENDIENTE", 
-            "NOMBRE PENDIENTE",
+        this("NOMBRE PENDIENTE",
             0,
             0,
             0);
@@ -47,21 +48,22 @@ public class EstacionMeteorologica {
     /**
      * Crea una estacion meteorologica con valores especificos.
      * 
-     * @param idEstacion identificador de la estacion.
      * @param nombre nombre de la estacion.
      * @param latitud latitud geografica expresada en grados decimales.
      * @param longitud longitud geografica expresada en grados decimales.
      * @param altitud altitud respecto del nivel del mar, expresada en metros.
      */
-    public EstacionMeteorologica(String idEstacion, String nombre,
+    public EstacionMeteorologica(String nombre,
                                 double latitud, double longitud,
                                 double altitud) {
-        this.idEstacion = idEstacion;
+        idEstacion = contadorEstacion;
         this.nombre = nombre;
         this.latitud = latitud;
         this.longitud = longitud;
         this.altitud = altitud;
         this.sensores = new ArrayList<Sensor>();
+
+        contadorEstacion++;
     }
 
     /**
@@ -69,17 +71,8 @@ public class EstacionMeteorologica {
      *
      * @return ID de estacion.
      */
-    public String getIdEstacion() {
+    public int getIdEstacion() {
         return idEstacion;
-    }
-
-    /**
-     * Establece el ID de la estacion.
-     * 
-     * @param idEstacion nuevo nombre de la estacion.
-     */
-    public void setIdEstacion(String idEstacion) {
-        this.idEstacion = idEstacion;
     }
 
     /**
