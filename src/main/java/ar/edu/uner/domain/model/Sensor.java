@@ -21,7 +21,9 @@ import java.util.ListIterator;
  * @author Guillermina
  */
 public class Sensor {
-    private String idSensor;
+    private static int contadorSensor = 1;
+
+    private int idSensor;
     private String marca;
     private String modelo;
     private double precision;
@@ -33,8 +35,7 @@ public class Sensor {
      * Crea un sensor con valores predeterminados.
      */
     public Sensor() {
-        this("ID PENDIENTE",
-            "MARCA PENDIENTE",
+        this("MARCA PENDIENTE",
             "MODELO PENDIENTE",
             0,
             null,
@@ -44,7 +45,6 @@ public class Sensor {
     /**
      * Crea un sensor con valores especificos.
      * 
-     * @param idSensor identificador unico.
      * @param marca marca del sensor.
      * @param modelo modelo del sensor.
      * @param precision precision del sensor (mm).
@@ -53,15 +53,16 @@ public class Sensor {
      * @param mes mes de la ultima calibracion.
      * @param dia dia de la ultima calibracion.
      */
-    public Sensor(String idSensor, String marca, String modelo,
+    public Sensor(String marca, String modelo,
                   double precision, EstadoOperativo estado, 
                   int anio, int mes, int dia) {
-        this.idSensor = idSensor;
+        idSensor = contadorSensor;
         this.marca = marca;
         this.modelo = modelo;
         this.precision = precision;
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
         
+        contadorSensor++;
     }
     
     /**
@@ -69,17 +70,8 @@ public class Sensor {
      * 
      * @return ID sensor.
      */
-    public String getIdSensor() {
+    public int getIdSensor() {
         return idSensor;
-    }
-
-    /**
-     * Establece el ID del sensor.
-     * 
-     * @param idSensor nuevo ID.
-     */
-    public void setIdSensor(String idSensor) {
-        this.idSensor = idSensor;
     }
 
     /**
