@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.TipoEventoClimatico;
-import ar.edu.uner.model.enums.*;
 
 
 /**
