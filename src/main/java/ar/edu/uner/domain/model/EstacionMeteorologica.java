@@ -5,12 +5,15 @@
 *
 * Copyright (c) 2026 Grupo 7 - UNER
  */
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import ar.edu.uner.model.enums.*;
+
+import ar.edu.uner.domain.enums.EstadoOperativo;
+import ar.edu.uner.domain.enums.TipoEstacion;
+import ar.edu.uner.domain.enums.TipoMantenimiento;
 
 
 /**
@@ -19,7 +22,9 @@ import ar.edu.uner.model.enums.*;
  * @author Guillermina
  */
 public class EstacionMeteorologica {
-    private String idEstacion;
+    private static int contadorEstacion = 1;
+
+    private int idEstacion;
     private String nombre;
     private double latitud;
     private double longitud;
@@ -34,8 +39,7 @@ public class EstacionMeteorologica {
      * Crea una estacion meteorologica con valores predeterminados.
      */
     public EstacionMeteorologica() {
-        this("ID PENDIENTE", 
-            "NOMBRE PENDIENTE",
+        this("NOMBRE PENDIENTE",
             0,
             0,
             0);
@@ -44,21 +48,22 @@ public class EstacionMeteorologica {
     /**
      * Crea una estacion meteorologica con valores especificos.
      * 
-     * @param idEstacion identificador de la estacion.
      * @param nombre nombre de la estacion.
      * @param latitud latitud geografica expresada en grados decimales.
      * @param longitud longitud geografica expresada en grados decimales.
      * @param altitud altitud respecto del nivel del mar, expresada en metros.
      */
-    public EstacionMeteorologica(String idEstacion, String nombre,
+    public EstacionMeteorologica(String nombre,
                                 double latitud, double longitud,
                                 double altitud) {
-        this.idEstacion = idEstacion;
+        idEstacion = contadorEstacion;
         this.nombre = nombre;
         this.latitud = latitud;
         this.longitud = longitud;
         this.altitud = altitud;
         this.sensores = new ArrayList<Sensor>();
+
+        contadorEstacion++;
     }
 
     /**
@@ -66,17 +71,8 @@ public class EstacionMeteorologica {
      *
      * @return ID de estacion.
      */
-    public String getIdEstacion() {
+    public int getIdEstacion() {
         return idEstacion;
-    }
-
-    /**
-     * Establece el ID de la estacion.
-     * 
-     * @param idEstacion nuevo nombre de la estacion.
-     */
-    public void setIdEstacion(String idEstacion) {
-        this.idEstacion = idEstacion;
     }
 
     /**
@@ -249,9 +245,9 @@ public class EstacionMeteorologica {
      * @param descripcion descripción del mantenimiento
      * @param responsableTecnico
      */
-    public void agregarMantenimiento(String idMantenimiento, LocalDate fecha, 
+    public void agregarMantenimiento(String idMantenimiento, LocalDate fecha,
                                      TipoMantenimiento tipo, String descripcion,
-                                    ResponsableTecnico responsableTecnico) {
+                                     ResponsableTecnico responsableTecnico) {
         mantenimientos.add(new Mantenimiento(idMantenimiento, fecha, tipo, 
                           descripcion, responsableTecnico));
     }

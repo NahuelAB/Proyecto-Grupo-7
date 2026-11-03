@@ -7,7 +7,7 @@
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;

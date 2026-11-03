@@ -9,7 +9,7 @@
  */
 
 
-package ar.edu.uner.model;
+package ar.edu.uner.domain.model;
 
 
 /**
