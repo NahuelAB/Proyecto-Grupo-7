@@ -60,7 +60,6 @@ public class ZonaGeografica {
         this.nombre = nombre;
         this.nivelVulnerabilidad = nivelVulnerabilidad;
         this.nivelAlertaActual = nivelAlertaActual;
-        this.valoresHistoricos = new ArrayList<>();
         this.estacionMeteorologicas = new ArrayList<>();
         contId++;  //Aca se le suma 1 al contador despues de la asignacion con el valor anterior q tenia
     }
@@ -151,21 +150,25 @@ public class ZonaGeografica {
     }
 
     /**
-     * Agrega un valor histórico mensual a la zona geográfica..
-     *
-     * @param valorHistorico Valor histórico a agregar.
-     */
-    public void agregarValorHistorico(ValorHistorico valorHistorico) {
-        valoresHistoricos.add(valorHistorico);
-    }
-
-    /**
      * Obtiene la lista de valores históricos de la zona geográfica.
      *
      * @return Lista de valores históricos.
      */
     public List<ValorHistorico> getValoresHistoricos() {
         return valoresHistoricos;
+    }
+
+    /**
+     * Agrega un valor histórico mensual a la zona geográfica.
+     *
+     * @param valorHistorico Valor histórico a agregar.
+     */
+    public boolean agregarValorHistorico(ValorHistorico valorHistorico) {
+        if (valorHistorico != null && !this.valoresHistoricos.contains(valorHistorico)) {
+            this.valoresHistoricos.add(valorHistorico);
+            return true;
+        }
+        return false;
     }
 
     /**
