@@ -166,6 +166,14 @@ public class Sensor {
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
     }
 
+    public List<Medicion> getMediciones() {
+        return mediciones;
+    }
+
+    public void setMediciones(List<Medicion> mediciones) {
+        this.mediciones = mediciones;
+    }
+
     /**
      * Registra una lectura de precipitacion.
      * 
