@@ -22,7 +22,9 @@ import java.util.List;
  * @author Maricela
  */
 public class EquipoRespuesta {
-    private String idEquipo;
+    private static int contEquipoRespuesta=1;
+    
+    private int idEquipo;
     private String nombreEquipo;
     private boolean disponible;
     private List<ResponsableTecnico>integrantes;
@@ -34,17 +36,18 @@ public class EquipoRespuesta {
      * Crea un equipo de respuesta con los datos indicados.
      * Las listas de integrantes y de alertas se inicializan vacías.
      *
-     * @param idEquipo     identificador único del equipo
      * @param nombreEquipo nombre del equipo
      * @param disponible    true si el equipo está disponible para
      *                     atender alertas,false en caso contrario
      */
-    public EquipoRespuesta(String idEquipo, String nombreEquipo, boolean disponible) {
-        this.idEquipo = idEquipo;
+    public EquipoRespuesta(String nombreEquipo, boolean disponible) {
+        idEquipo=contEquipoRespuesta;
         this.nombreEquipo = nombreEquipo;
         this.disponible = disponible;
         this.integrantes=new ArrayList<ResponsableTecnico>();
         this.alertas=new ArrayList<Alerta>();
+        
+        contEquipoRespuesta ++;
     }
     
      /**
@@ -55,25 +58,14 @@ public class EquipoRespuesta {
     this.integrantes = new ArrayList<>();
     this.alertas= new ArrayList<>();
     }
-    
-     
-     /**
-     * Devuelve el identificador del equipo.
-     *
-     * @return el identificador del equipo
-     */
-    public String getIdEquipo() {
+
+    public int getIdEquipo() {
         return idEquipo;
     }
     
-    /**
-     * Modifica el identificador del equipo.
-     *
-     * @param idEquipo el nuevo identificador del equipo
-     */
-    public void setIdEquipo(String idEquipo) {
-        this.idEquipo = idEquipo;
-    }
+     
+    
+    
     
     /**
      * Devuelve el nombre del equipo.
