@@ -41,7 +41,7 @@ public class GestionPersonal {
 
         for (ZonaGeografica zona : zonasGeograficas) {
             for (EstacionMeteorologica estacion :
-                    zona.getEstacionMeteorologicas()) {
+                    zona.getEstacionesMeteorologicas()) {
                 ResponsableTecnico responsable = estacion.getResponsable();
 
                 if (responsable != null
@@ -58,7 +58,7 @@ public class GestionPersonal {
 
         for (ZonaGeografica zona : zonasGeograficas) {
             for (EstacionMeteorologica estacion :
-                    zona.getEstacionMeteorologicas()) {
+                    zona.getEstacionesMeteorologicas()) {
                 for (Mantenimiento mantenimiento : estacion.getMantenimientos()) {
                     ResponsableTecnico responsable = mantenimiento.getResponsableTecnico();
 
