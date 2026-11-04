@@ -33,7 +33,7 @@ public class ZonaGeografica {
     private NivelVulnerabilidad nivelVulnerabilidad;
     private NivelAlerta nivelAlertaActual;
     private List<ValorHistorico> valoresHistoricos;
-    private List<EstacionMeteorologica> estacionMeteorologicas;
+    private List<EstacionMeteorologica> estacionesMeteorologicas;
 
     /**
      * Crea una zona geográfica con valores predeterminados
@@ -60,7 +60,7 @@ public class ZonaGeografica {
         this.nombre = nombre;
         this.nivelVulnerabilidad = nivelVulnerabilidad;
         this.nivelAlertaActual = nivelAlertaActual;
-        this.estacionMeteorologicas = new ArrayList<>();
+        this.estacionesMeteorologicas = new ArrayList<>();
         contId++;  //Aca se le suma 1 al contador despues de la asignacion con el valor anterior q tenia
     }
 
@@ -164,9 +164,9 @@ public class ZonaGeografica {
      * @param valorHistorico Valor histórico a agregar.
      */
     public boolean agregarValorHistorico(ValorHistorico valorHistorico) {
-        if (valorHistorico != null && !this.valoresHistoricos.contains(valorHistorico)) {
-            this.valoresHistoricos.add(valorHistorico);
-            return true;
+        if (valorHistorico != null &&
+                !this.valoresHistoricos.contains(valorHistorico)) {
+            return this.valoresHistoricos.add(valorHistorico);
         }
         return false;
     }
@@ -174,10 +174,13 @@ public class ZonaGeografica {
     /**
      * Agrega una estación meteorológica a la zona.
      *
-     * @param estacionMeteorologica Estación a agregar.
+     * @param estacion Estación a agregar.
      */
-    public void agregarEstacion(EstacionMeteorologica estacionMeteorologica) {
-        this.estacionMeteorologicas.add(estacionMeteorologica);
+    public boolean agregarEstacion(EstacionMeteorologica estacion) {
+        if (estacion != null && !estacionesMeteorologicas.contains(estacion)) {
+            return this.estacionesMeteorologicas.add(estacion);
+        }
+        return false;
     }
 
     /**
@@ -185,8 +188,8 @@ public class ZonaGeografica {
      *
      * @return Lista de estaciones de la zona.
      */
-    public List<EstacionMeteorologica> getEstacionMeteorologicas() {
-        return estacionMeteorologicas;
+    public List<EstacionMeteorologica> getEstacionesMeteorologicas() {
+        return estacionesMeteorologicas;
     }
 }
 
