@@ -161,16 +161,23 @@ public class GestionInfraestructura {
         estacion.instalarSensor(sensor);
         return true;
     }
+    
+        /**
+     * Busca la estación meteorológica en la que está instalado un sensor.
+     *
+     * @param s el sensor cuya estación se busca
+     * @return la estación en la que está instalado el sensor, o {@code null}
+     *         si el sensor no está instalado en ninguna estación registrada
+     */
 
-    public EstacionMeteorologica buscarEstacionDeSensor(Sensor s) {
+        public EstacionMeteorologica buscarEstacionDeSensor(Sensor s) {
         EstacionMeteorologica e = null;
-
-        for (EstacionMeteorologica es : estaciones) {
+        for (EstacionMeteorologica es : this.estaciones) {
             if (es.getSensores().contains(s)) {
                 e = es;
+                break;
             }
-
-            return e;
         }
+        return e;
     }
 }
