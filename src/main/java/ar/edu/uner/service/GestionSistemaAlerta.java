@@ -10,10 +10,7 @@
 
 package ar.edu.uner.service;
 
-import ar.edu.uner.domain.model.Sensor;
-import ar.edu.uner.domain.model.Medicion;
 import ar.edu.uner.domain.model.Alerta;
-import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.ZonaGeografica;
 import java.util.List;
 import java.util.ArrayList;
@@ -22,8 +19,8 @@ import ar.edu.uner.domain.enums.TipoEventoClimatico;
 import ar.edu.uner.domain.model.EquipoRespuesta;
 
 /**
- * Gestiona la infraestructura meteorológica: zonas geográficas,
- * estaciones meteorológicas y la emisión/asignación de alertas.
+ * Gestiona el sistema de alerta temprana: zonas geográficas
+ * y la emisión/asignación de alertas.
  *
  * @author Jmanuel (Grupo-7)
  */
@@ -31,25 +28,56 @@ public class GestionSistemaAlerta {
     private List<Alerta> alertas;
     private List<ZonaGeografica> zonasGeograficas;
 
-    public List<Alerta> getAlertas(){
+    /**
+     * Crea el gestor con las listas de alertas y zonas vacías.
+     */
+    public GestionSistemaAlerta() {
+        this.alertas = new ArrayList<>();
+        this.zonasGeograficas = new ArrayList<>();
+    }
+
+    /**
+     * Devuelve las alertas registradas en el sistema.
+     *
+     * @return Lista de alertas.
+     */
+    public List<Alerta> getAlertas() {
         return alertas;
     }
 
-    public boolean agregarAlertas(Alerta alerta){
-        return alertas.add(alerta);
+    /**
+     * Agrega una alerta al sistema.
+     *
+     * @param alerta Alerta a agregar.
+     * @return true si se agregó; false si es null o ya estaba en la lista.
+     */
+    public boolean agregarAlertas(Alerta alerta) {
+        if (alerta != null && !alertas.contains(alerta)) {
+            return alertas.add(alerta);
+        }
+        return false;
     }
 
-    public List<ZonaGeografica> getZonaGeograficas(){
+    /**
+     * Devuelve las zonas geográficas registradas en el sistema.
+     *
+     * @return Lista de zonas geográficas.
+     */
+    public List<ZonaGeografica> getZonaGeograficas() {
         return zonasGeograficas;
     }
 
-    public boolean agregarZonaGeografica(ZonaGeografica zonaGeografica){
-        return zonasGeograficas.add(zonaGeografica);
-    }
-
-    public GestionSistemaAlerta(){
-        this.alertas = new ArrayList<>();
-        this.zonasGeograficas = new ArrayList<>();
+    /**
+     * Agrega una zona geográfica al sistema.
+     *
+     * @param zonaGeografica Zona a agregar.
+     * @return true si se agregó; false si es null o ya estaba en la lista.
+     */
+    public boolean agregarZonaGeografica(ZonaGeografica zonaGeografica) {
+        if (zonaGeografica != null && !zonasGeograficas.contains(zonaGeografica)) {
+            return zonasGeograficas.add(zonaGeografica);
+        }
+        return false;
     }
 
     /**
@@ -62,25 +90,24 @@ public class GestionSistemaAlerta {
      *         y cambió respecto al nivel actual; o null si el nivel no cambió o se mantiene en VERDE.
      */
     public Alerta evaluarZona(ZonaGeografica zona) {
+        // Se guarda el nivel anterior porque evaluarRiesgo() lo actualiza
+        NivelAlerta anterior = zona.getNivelAlertaActual();
         NivelAlerta nuevo = zona.evaluarRiesgo();
 
-        // Si el nivel de riesgo no ha cambiado, no se genera una nueva alerta
-        if (nuevo == zona.getNivelAlertaActual()) {
+        // Si el nivel de riesgo no cambió, no se genera una nueva alerta
+        if (nuevo == anterior) {
             return null;
         }
 
-        // Actualiza el nivel vigente en la zona
-        zona.setNivelAlertaActual(nuevo);
-
-        // Nivel VERDE representa normalidad; no genera alerta en el sistema
+        // Nivel VERDE representa normalidad; no genera alerta
         if (nuevo == NivelAlerta.VERDE) {
             return null;
         }
 
-        // Emite y registra la alerta por Lluvia Copiosa
+        // Emite y registra la alerta por lluvia copiosa
         Alerta alerta = new Alerta("Lluvia acumulada en 24 hs: "
-                + zona.lluviaAcumulada24hs() + " mm", nuevo, TipoEventoClimatico.LLUVIA_COPIOSA);
-        alerta.setZona(zona);
+                + zona.lluviaAcumulada24hs() + " mm", nuevo,
+                TipoEventoClimatico.LLUVIA_COPIOSA, zona);
         agregarAlertas(alerta);
         return alerta;
     }
@@ -114,9 +141,9 @@ public class GestionSistemaAlerta {
      * @param descripcion Detalle o informe descriptivo redactado por el operador.
      * @return La Alerta creada y almacenada en el sistema.
      */
-    public Alerta registrarAlertaManual(ZonaGeografica zona, NivelAlerta nivel, TipoEventoClimatico tipo, String descripcion) {
-        Alerta alerta = new Alerta(descripcion, nivel, tipo);
-        alerta.setZona(zona);
+    public Alerta registrarAlertaManual(ZonaGeografica zona, NivelAlerta nivel,
+                                        TipoEventoClimatico tipo, String descripcion) {
+        Alerta alerta = new Alerta(descripcion, nivel, tipo, zona);
         agregarAlertas(alerta);
         return alerta;
     }
