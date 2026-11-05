@@ -21,7 +21,8 @@ import java.time.LocalDate;
  * @author Maricela
  */
 public class Mantenimiento {
-    private String idMantenimiento;
+    private static int contMantenimiento=1;
+    private int idMantenimiento;
     private LocalDate fecha;
     private TipoMantenimiento tipo;
     private String descripcion;
@@ -35,44 +36,56 @@ public class Mantenimiento {
     */
     public Mantenimiento() {
         this(
-        "ID PENDIENTE",
-        LocalDate.now(),
+        null,
         null,
         "DESCRIPCION PENDIENTE",
         null
+               
         );
 }
-    /**
-     * crea una instancia de Mantenimiento
-     * @param idMantenimiento identificador del mantenimiento
-     * @param fecha fecha en que se realizo el mantenimiento 
+        /**
+     * Crea un mantenimiento que no se aplica a ningún sensor.
+     *
+     * @param fecha fecha en que se realizó el mantenimiento
      * @param tipo tipo de mantenimiento realizado
      * @param descripcion descripción del mantenimiento
-     * @param responsableTecnico
+     * @param responsableTecnico responsable técnico que realizó el mantenimiento
      */
-     public Mantenimiento(String idMantenimiento, LocalDate fecha, TipoMantenimiento tipo, String descripcion,ResponsableTecnico responsableTecnico) {
-        this.idMantenimiento = idMantenimiento;
+    public Mantenimiento( LocalDate fecha, TipoMantenimiento tipo,
+            String descripcion, ResponsableTecnico responsableTecnico) {
+        this( fecha, tipo, descripcion, responsableTecnico,null);
+    }
+
+    /**
+     * Crea un mantenimiento que se aplica a un sensor.
+     *
+     * @param fecha fecha en que se realizó el mantenimiento
+     * @param tipo tipo de mantenimiento realizado
+     * @param descripcion descripción del mantenimiento
+     * @param responsableTecnico responsable técnico que realizó el mantenimiento
+     * @param sensor sensor al que se aplica el mantenimiento
+     */
+    public Mantenimiento( LocalDate fecha, TipoMantenimiento tipo,
+            String descripcion, ResponsableTecnico responsableTecnico, Sensor sensor) {
+        idMantenimiento = contMantenimiento;
         this.fecha = fecha;
         this.tipo = tipo;
         this.descripcion = descripcion;
-        this.responsableTecnico=responsableTecnico;
+        this.responsableTecnico = responsableTecnico;
+        this.sensor = sensor;
+        contMantenimiento ++;
     }
+     
+    
     
     /**
      * Devuelve la identidicación del mantenimiento
      * @return idMantenimiento
      */
-    public String getIdMantenimiento() {
+    public int getIdMantenimiento() {
         return idMantenimiento;
     }
-    /**
-     * Asigna una identificaión al mantenimiento
-     * @param idMantenimiento 
-     */
-
-    public void setIdMantenimiento(String idMantenimiento) {
-        this.idMantenimiento = idMantenimiento;
-    }
+    
     /**
      * Devuelve la fecha en que se realizó el mantenimiento
      * @return fecha
