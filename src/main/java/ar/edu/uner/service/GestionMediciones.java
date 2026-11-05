@@ -1,3 +1,11 @@
+/*
+* Sensor.java
+*
+* 2/11/2026
+*
+* Copyright (c) 2026 Grupo 7 - UNER
+ */
+
 package ar.edu.uner.service;
 
 import java.time.LocalDateTime;
@@ -7,14 +15,32 @@ import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.Medicion;
 import ar.edu.uner.domain.model.Sensor;
 
+/**
+ * Modulo de gestion que captura lecturas periodicas de precipitacion
+ * de los sensores y valida que cada valor este dentro del rango fisico
+ * admitido.
+ * 
+ * @author Guillermina
+ */
 public class GestionMediciones {
     private GestionInfraestructura infraestructura;
 
+    /**
+     * Crea la gestion de mediciones.
+     * @param infraestructura 
+     */
     public GestionMediciones(GestionInfraestructura infraestructura) {
         this.infraestructura = infraestructura;
-                            }
+    }
     
-
+    /**
+     * Registra una lectura de precipitación en un sensor.
+     * 
+     * @param idSensor sensor de la lectura.
+     * @param mm milimetros registrados.
+     * @param fh fecha y hora de la lectura.
+     * @return medicion registrada.
+     */
     public Medicion registrarLectura(int idSensor, double mm, LocalDateTime fh) {
         Sensor s = infraestructura.buscarSensor(idSensor);
         EstacionMeteorologica e = infraestructura.buscarEstacionDeSensor(s);
