@@ -28,8 +28,8 @@ import java.util.List;
  * @author Nahuel
  */
 public class ZonaGeografica {
-    private static int contId = 1;  //Inicializo el contador en 1 xq al primero se le asigna ese
-    private int idZona; // cambie de String a int el tipo de dato
+    private static int contId = 1;
+    private int idZona;
     private String nombre;
     private NivelVulnerabilidad nivelVulnerabilidad;
     private NivelAlerta nivelAlertaActual;
@@ -41,7 +41,7 @@ public class ZonaGeografica {
      * e inicializa su lista de valores históricos vacía.
      */
     public ZonaGeografica() {
-        this("NOMBRE PENDIENTE",  //Borre que se le asigne el id a zona
+        this("NOMBRE PENDIENTE",
                 null,
                 NivelAlerta.VERDE);
     }
@@ -54,15 +54,15 @@ public class ZonaGeografica {
      * @param nivelVulnerabilidad Nivel de vulnerabilidad climática.
      * @param nivelAlertaActual Nivel de alerta vigente de la zona.
      */
-    public ZonaGeografica(String nombre,  //Quite de aca el parametro del idZona ya que se asigna solo
+    public ZonaGeografica(String nombre,
                           NivelVulnerabilidad nivelVulnerabilidad,
                           NivelAlerta nivelAlertaActual) {
-        this.idZona = contId;  // Aca se le asigna el valor que tiene el contador al momento de crear un objeto
+        this.idZona = contId;
         this.nombre = nombre;
         this.nivelVulnerabilidad = nivelVulnerabilidad;
         this.nivelAlertaActual = nivelAlertaActual;
         this.estacionesMeteorologicas = new ArrayList<>();
-        contId++;  //Aca se le suma 1 al contador despues de la asignacion con el valor anterior q tenia
+        contId++;
     }
 
     /**
@@ -112,7 +112,6 @@ public class ZonaGeografica {
         this.nivelVulnerabilidad = nivelVulnerabilidad;
     }
 
-
     /**
      * Obtiene el nivel de alerta vigente de la zona.
      *
@@ -131,6 +130,16 @@ public class ZonaGeografica {
         this.nivelAlertaActual = nivelAlertaActual;
     }
 
+    /**
+     * Calcula el total acumulado de lluvia en milímetros registrados en la zona
+     * durante las últimas 24 horas a partir del momento actual.
+     *
+     * Recorre las estaciones meteorológicas asociadas a la zona y sus sensores,
+     * contando unicamente las mediciones de aquellos sensores que se encuentren
+     * operativos.
+     *
+     * @return Suma total de milímetros de precipitación acumulados en 24 horas.
+     */
     public double lluviaAcumulada24hs() {
         double acumuladoTotal = 0.0;
         LocalDateTime limiteTiempo = LocalDateTime.now().minusHours(24);
@@ -149,6 +158,12 @@ public class ZonaGeografica {
         return acumuladoTotal;
     }
 
+    /**
+     * Evalúa la lluvia acumulada en las últimas 24 en la zona
+     * y actualiza el nivel de alerta correspondiente según los umbrales.
+     *
+     * @return El nivel de alerta actual asignado a la zona geografica.
+     */
     public NivelAlerta evaluarRiesgo() {
         double acumulado24hs = lluviaAcumulada24hs();
 
