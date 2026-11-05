@@ -161,4 +161,16 @@ public class GestionInfraestructura {
         estacion.instalarSensor(sensor);
         return true;
     }
+
+    public EstacionMeteorologica buscarEstacionDeSensor(Sensor s) {
+        EstacionMeteorologica e = null;
+
+        for (EstacionMeteorologica es : estaciones) {
+            if (es.getSensores().contains(s)) {
+                e = es;
+            }
+
+            return e;
+        }
+    }
 }
