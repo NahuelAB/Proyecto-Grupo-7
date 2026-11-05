@@ -166,14 +166,6 @@ public class Sensor {
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
     }
 
-    public List<Medicion> getMediciones() {
-        return mediciones;
-    }
-
-    public void setMediciones(List<Medicion> mediciones) {
-        this.mediciones = mediciones;
-    }
-
     /**
      * Registra una lectura de precipitacion.
      * 
@@ -185,7 +177,6 @@ public class Sensor {
     public Medicion registrar(double mm, LocalDateTime fH) {
         int difAnomala = 100;
         boolean anomala = false;
-        String id = "M";
 
         ListIterator<Medicion> listIt = mediciones.listIterator();
 
@@ -194,7 +185,7 @@ public class Sensor {
                 anomala = true;
         }
         
-        Medicion m = new Medicion(id, fH, mm, anomala);
+        Medicion m = new Medicion(fH, mm, anomala);
         mediciones.add(m);
         return m;
     }
