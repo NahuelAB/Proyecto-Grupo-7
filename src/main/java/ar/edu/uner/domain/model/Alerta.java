@@ -21,7 +21,7 @@ import ar.edu.uner.domain.enums.TipoEventoClimatico;
  * @author Guillermina
  */
 public class Alerta {
-private static int contadorAlerta = 0;
+private static int contIdAlerta = 1;
 
     private int idAlerta;
     private String descripcion;
@@ -38,6 +38,7 @@ private static int contadorAlerta = 0;
     public Alerta() {
         this("DESCRIPCION PENDIENTE",
             null,
+            null,
             null);
     }
 
@@ -49,15 +50,17 @@ private static int contadorAlerta = 0;
      * @param evento tipo de evento climatico.
      */
     public Alerta(String descripcion,
-                NivelAlerta nivel, TipoEventoClimatico evento) {
-        idAlerta = contadorAlerta;
+                NivelAlerta nivel, TipoEventoClimatico evento,
+                ZonaGeografica zona) {
+        idAlerta = contIdAlerta;
         this.descripcion = descripcion;
         atendida = false;
         this.nivel = nivel;
         this.evento = evento;
         fechaHoraEmision = LocalDateTime.now(); 
+        this.zona = zona;
 
-        contadorAlerta++;
+        contIdAlerta++;
     }
     
     /**
