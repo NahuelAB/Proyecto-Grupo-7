@@ -1,150 +1,196 @@
 /*
- * GestionSistemaAlerta.java
+ * GestionInfraestructura.java
  *
  * Version 1.0
  *
- * 03/11/2026
+ * 04/11/2026
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
-
 package ar.edu.uner.service;
 
-import ar.edu.uner.domain.model.Alerta;
+import ar.edu.uner.domain.model.EstacionMeteorologica;
+import ar.edu.uner.domain.model.Sensor;
 import ar.edu.uner.domain.model.ZonaGeografica;
-import java.util.List;
 import java.util.ArrayList;
-import ar.edu.uner.domain.enums.NivelAlerta;
-import ar.edu.uner.domain.enums.TipoEventoClimatico;
-import ar.edu.uner.domain.model.EquipoRespuesta;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * Gestiona el sistema de alerta temprana: zonas geográficas
- * y la emisión/asignación de alertas.
+ * Clase que gestiona la infraestructura meteorológica del sistema.
+ * Permite registrar zonas geográficas (o cuencas hidrográficas),
+ * estaciones meteorológicas y sensores.
  *
- * @author Jmanuel (Grupo-7)
+ * @author Maricela
  */
-public class GestionSistemaAlerta {
-    private List<Alerta> alertas;
-    private List<ZonaGeografica> zonasGeograficas;
+public class GestionInfraestructura {
+    private List<ZonaGeografica> zonas;
+    private List<EstacionMeteorologica> estaciones;
+    private List<Sensor> sensores;
 
+    //Constructor
     /**
-     * Crea el gestor con las listas de alertas y zonas vacías.
+     * Crea la gestión de infraestructura sin registros.
+     * Las listas de zonas, estaciones y sensores se inicializan vacías.
      */
-    public GestionSistemaAlerta() {
-        this.alertas = new ArrayList<>();
-        this.zonasGeograficas = new ArrayList<>();
+    public GestionInfraestructura() {
+        this.zonas = new ArrayList<ZonaGeografica>();
+        this.estaciones = new ArrayList<EstacionMeteorologica>();
+        this.sensores = new ArrayList<Sensor>();
     }
 
-    /**
-     * Devuelve las alertas registradas en el sistema.
+        /**
+     * Devuelve las zonas geográficas registradas.
+     * La lista devuelta no se puede modificar; para registrar una zona
+     * se debe usar {@link #registrarZona(ZonaGeografica)}.
      *
-     * @return Lista de alertas.
+     * @return lista no modificable de las zonas registradas
      */
-    public List<Alerta> getAlertas() {
-        return alertas;
+    public List<ZonaGeografica> getZonas() {
+        return Collections.unmodifiableList(this.zonas);
     }
+    
 
+    //Registrar
     /**
-     * Agrega una alerta al sistema.
+     * Registra una zona geográfica o cuenca hidrográfica.
      *
-     * @param alerta Alerta a agregar.
-     * @return true si se agregó; false si es null o ya estaba en la lista.
+     * @param zona la zona a registrar
+     * @return {@code true} si se registró correctamente, {@code false} si
+     *         era nula o ya estaba registrada
      */
-    public boolean agregarAlertas(Alerta alerta) {
-        if (alerta != null && !alertas.contains(alerta)) {
-            return alertas.add(alerta);
+    public boolean registrarZona(ZonaGeografica zona) {
+        if (zona != null && !this.zonas.contains(zona)) {
+            return this.zonas.add(zona);
         }
         return false;
     }
 
     /**
-     * Devuelve las zonas geográficas registradas en el sistema.
+     * Registra un sensor. El sensor queda registrado sin estar instalado
+     * en ninguna estación.
      *
-     * @return Lista de zonas geográficas.
+     * @param sensor el sensor a registrar
+     * @return {@code true} si se registró correctamente, {@code false} si
+     *         era nulo o ya estaba registrado
      */
-    public List<ZonaGeografica> getZonaGeograficas() {
-        return zonasGeograficas;
-    }
-
-    /**
-     * Agrega una zona geográfica al sistema.
-     *
-     * @param zonaGeografica Zona a agregar.
-     * @return true si se agregó; false si es null o ya estaba en la lista.
-     */
-    public boolean agregarZonaGeografica(ZonaGeografica zonaGeografica) {
-        if (zonaGeografica != null && !zonasGeograficas.contains(zonaGeografica)) {
-            return zonasGeograficas.add(zonaGeografica);
+    public boolean registrarSensor(Sensor sensor) {
+        if (sensor != null && !this.sensores.contains(sensor)) {
+            return this.sensores.add(sensor);
         }
         return false;
     }
 
     /**
-     * Evalúa el nivel de riesgo de una zona geográfica según la precipitación
-     * acumulada en las últimas 24 horas y emite automáticamente una alerta de
-     * tipo LLUVIA_COPIOSA si el riesgo cambia y supera el nivel VERDE.
+     * Registra una estación meteorológica y la asocia a la zona indicada.
      *
-     * @param zona La zona geográfica a evaluar.
-     * @return La Alerta emitida si se superó un umbral crítico (AMARILLA, NARANJA o ROJA)
-     *         y cambió respecto al nivel actual; o null si el nivel no cambió o se mantiene en VERDE.
+     * @param estacion la estación a registrar
+     * @param idZona identificador de la zona a la que pertenece la estación
+     * @return {@code true} si se registró correctamente, {@code false} si la
+     *         estación era nula, ya estaba registrada o no existe una zona
+     *         con ese identificador
      */
-    public Alerta evaluarZona(ZonaGeografica zona) {
-        // Se guarda el nivel anterior porque evaluarRiesgo() lo actualiza
-        NivelAlerta anterior = zona.getNivelAlertaActual();
-        NivelAlerta nuevo = zona.evaluarRiesgo();
-
-        // Si el nivel de riesgo no cambió, no se genera una nueva alerta
-        if (nuevo == anterior) {
-            return null;
-        }
-
-        // Nivel VERDE representa normalidad; no genera alerta
-        if (nuevo == NivelAlerta.VERDE) {
-            return null;
-        }
-
-        // Emite y registra la alerta por lluvia copiosa
-        Alerta alerta = new Alerta("Lluvia acumulada en 24 hs: "
-                + zona.lluviaAcumulada24hs() + " mm", nuevo,
-                TipoEventoClimatico.LLUVIA_COPIOSA, zona);
-        agregarAlertas(alerta);
-        return alerta;
-    }
-
-    /**
-     * Asigna un equipo de respuesta técnica a una alerta crítica existente.
-     * Verifica que la alerta requiera atención de emergencia (nivel NARANJA o ROJA)
-     * y que el equipo se encuentre disponible.
-     *
-     * @param alerta La alerta a la cual se asignará la respuesta.
-     * @param equipo El equipo de respuesta humana/técnica a asignar.
-     * @return true si la asignación fue exitosa; false si la alerta no requiere equipo
-     *         o si el equipo no está disponible.
-     */
-    public boolean asignarEquipo(Alerta alerta, EquipoRespuesta equipo) {
-        if (!alerta.requiereEquipo() || !equipo.isDisponible()) {
+    public boolean registrarEstacion(EstacionMeteorologica estacion, int idZona) {
+        if (estacion == null || this.estaciones.contains(estacion)) {
             return false;
         }
-        alerta.agregarEquipo(equipo);
-        equipo.agregarAlerta(alerta);
-        return true;
+        ZonaGeografica zona = this.buscarZona(idZona);
+        if (zona == null) {
+            return false;
+        }
+        zona.agregarEstacion(estacion);
+        return this.estaciones.add(estacion);
     }
 
+    //Buscar
     /**
-     * Permite a un operador registrar manualmente una alerta en el sistema,
-     * orientada a eventos específicos como CRECIDA_RIO o TORMENTA_SEVERA.
+     * Busca una zona registrada a partir de su identificador.
      *
-     * @param zona Zona geográfica afectada por el evento.
-     * @param nivel Nivel de severidad asignado por el operador (VERDE, AMARILLA, NARANJA, ROJA).
-     * @param tipo Tipo de evento climático (ej. CRECIDA_RIO, TORMENTA_SEVERA).
-     * @param descripcion Detalle o informe descriptivo redactado por el operador.
-     * @return La Alerta creada y almacenada en el sistema.
+     * @param idZona identificador de la zona buscada
+     * @return la zona con ese identificador, o {@code null} si no hay
+     *         ninguna zona registrada con ese identificador
      */
-    public Alerta registrarAlertaManual(ZonaGeografica zona, NivelAlerta nivel,
-                                        TipoEventoClimatico tipo, String descripcion) {
-        Alerta alerta = new Alerta(descripcion, nivel, tipo, zona);
-        agregarAlertas(alerta);
-        return alerta;
+    public ZonaGeografica buscarZona(int idZona) {
+        ZonaGeografica encontrada=null;
+        for (ZonaGeografica z : this.zonas) {
+            if (z.getIdZona() == idZona) {
+                encontrada= z;
+                break;
+            }
+        }
+        return encontrada;
+    }
+        /**
+     * Busca un sensor registrado a partir de su identificador.
+     *
+     * @param idSensor identificador del sensor buscado
+     * @return el sensor con ese identificador, o {@code null} si no hay
+     *         ningún sensor registrado con ese identificador
+     */
+    public Sensor buscarSensor(int idSensor) {
+        Sensor encontrado = null;
+        for (Sensor s : this.sensores) {
+            if (s.getIdSensor() == idSensor) {
+                encontrado = s;
+                break;
+            }
+        }
+        return encontrado;
+    }
+    
+        /**
+     * Busca una estación meteorológica registrada a partir de su identificador.
+     *
+     * @param idEstacion identificador de la estación buscada
+     * @return la estación con ese identificador, o {@code null} si no hay
+     *         ninguna estación registrada con ese identificador
+     */
+    public EstacionMeteorologica buscarEstacion(int idEstacion){
+        EstacionMeteorologica encontrada=null;
+        for (EstacionMeteorologica e:this.estaciones){
+            if(e.getIdEstacion()==idEstacion){
+                encontrada=e;
+                break;
+            }
+        }
+        return encontrada;
+        
+    } 
+    
+        /**
+     * Instala un sensor registrado en una estación registrada.
+     *
+     * @param idSensor identificador del sensor a instalar
+     * @param idEstacion identificador de la estación donde se instala el sensor
+     * @return {@code true} si se instaló correctamente, {@code false} si no
+     *         existe el sensor o la estación con esos identificadores
+     */
+    public boolean instalarSensor(int idSensor, int idEstacion) {
+        Sensor sensor = this.buscarSensor(idSensor);
+        EstacionMeteorologica estacion = this.buscarEstacion(idEstacion);
+        if (sensor == null || estacion == null) {
+            return false;
+        }
+        estacion.instalarSensor(sensor);
+        return true;
+    }
+    
+        /**
+     * Busca la estación meteorológica en la que está instalado un sensor.
+     *
+     * @param s el sensor cuya estación se busca
+     * @return la estación en la que está instalado el sensor, o {@code null}
+     *         si el sensor no está instalado en ninguna estación registrada
+     */
+
+        public EstacionMeteorologica buscarEstacionDeSensor(Sensor s) {
+        EstacionMeteorologica e = null;
+        for (EstacionMeteorologica es : this.estaciones) {
+            if (es.getSensores().contains(s)) {
+                e = es;
+                break;
+            }
+        }
+        return e;
     }
 }
