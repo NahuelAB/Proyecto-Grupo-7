@@ -11,6 +11,7 @@
 
 package ar.edu.uner.domain.model;
 
+import ar.edu.uner.domain.enums.EstadoOperativo;
 import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.NivelVulnerabilidad;
 
@@ -134,18 +135,33 @@ public class ZonaGeografica {
         double acumuladoTotal = 0.0;
         LocalDateTime limiteTiempo = LocalDateTime.now().minusHours(24);
 
-        // Imcompleto, faltan metodos de medicion
-        /*for (EstacionMeteorologica estacion : this.estacionMeteorologicas) {
+        for (EstacionMeteorologica estacion : estacionesMeteorologicas) {
             for (Sensor sensor : estacion.getSensores()) {
-                //for (Medicion medicion : sensor.getMedicion()){
-
+                if (sensor.getEstado() == EstadoOperativo.OPERATIVO) {
+                    for (Medicion medicion : sensor.getMediciones()){
+                        if (medicion.getFechaHora().isAfter(limiteTiempo)) {
+                            acumuladoTotal += medicion.getMilimetros();
+                        }
+                    }
                 }
             }
-        }*/
+        }
         return acumuladoTotal;
     }
 
     public NivelAlerta evaluarRiesgo() {
+        double acumulado24hs = lluviaAcumulada24hs();
+
+        if (acumulado24hs < 50) {
+            nivelAlertaActual = NivelAlerta.VERDE;
+        } else if (acumulado24hs < 100) {
+            nivelAlertaActual = NivelAlerta.AMARILLA;
+        } else if (acumulado24hs < 150) {
+            nivelAlertaActual = NivelAlerta.NARANJA;
+        } else {
+            nivelAlertaActual = NivelAlerta.ROJA;
+        }
+
         return nivelAlertaActual;
     }
 
