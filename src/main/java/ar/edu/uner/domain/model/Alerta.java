@@ -21,7 +21,7 @@ import ar.edu.uner.domain.enums.TipoEventoClimatico;
  * @author Guillermina
  */
 public class Alerta {
-private static int contIdAlerta = 1;
+private static int contadorAlerta = 1;
 
     private int idAlerta;
     private String descripcion;
@@ -52,7 +52,7 @@ private static int contIdAlerta = 1;
     public Alerta(String descripcion,
                 NivelAlerta nivel, TipoEventoClimatico evento,
                 ZonaGeografica zona) {
-        idAlerta = contIdAlerta;
+        idAlerta = contadorAlerta;
         this.descripcion = descripcion;
         atendida = false;
         this.nivel = nivel;
@@ -60,7 +60,7 @@ private static int contIdAlerta = 1;
         fechaHoraEmision = LocalDateTime.now(); 
         this.zona = zona;
 
-        contIdAlerta++;
+        contadorAlerta++;
     }
     
     /**
