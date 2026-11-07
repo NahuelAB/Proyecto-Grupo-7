@@ -232,4 +232,10 @@ public class Sensor {
     public boolean requiereCalibracion(LocalDate fechaActual) {
         return ultimaCalibracion.plusMonths(12).isBefore(fechaActual);
     }
+
+    @Override 
+    public String toString() {
+        return "Sensor: " + idSensor + " (" + marca + ", " + modelo 
+        + ") | " + estado + " | Ultima calibracion: " + ultimaCalibracion;
+    }
 }
