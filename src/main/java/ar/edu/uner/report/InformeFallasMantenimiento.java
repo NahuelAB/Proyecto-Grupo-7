@@ -45,7 +45,7 @@ public class InformeFallasMantenimiento {
         }
 
         if (!condicion) {
-            System.out.println("ninguna")
+            System.out.println("ninguna");
         }
 
         System.out.println("Sensores que requieren calibracion: ");
@@ -64,10 +64,11 @@ public class InformeFallasMantenimiento {
 
     private void mostrarSensor(Sensor s) {
         EstacionMeteorologica e = infraestructura.buscarEstacionDeSensor(s);
-        /*String ubicacion = "sin instalar";
+        String ubicacion = "sin instalar";
         if (e != null) {
             ubicacion = "Estacion: " + e.getIdEstacion();
-        }*/
-        //PODRIA USARSE TOSTRING
+        }
+        
+        System.out.println(s.toString() + " | " + ubicacion);
     }
 }
