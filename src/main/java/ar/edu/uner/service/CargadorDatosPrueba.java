@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class CargadorDatosPrueba {
     public static void cargadorDatosIniciales(String[] args) {
 
-        // Creacion gestor Personal
-        GestionPersonal gestorPersonal = new GestionPersonal();
+        /* Creacion gestor Personal
+        //GestionPersonal gestorPersonal = new GestionPersonal();
 
         // Creacion Responsables
         ResponsableTecnico supervisorUruguay = new ResponsableTecnico(
@@ -32,7 +32,7 @@ public class CargadorDatosPrueba {
         equipoAlpha.agregarIntegrante(supervisorParana);
         equipoAlpha.agregarIntegrante(tecnicoMantenimiento);
 
-        gestorPersonal.agregarEquipo(equipoAlpha);
+        //gestorPersonal.agregarEquipo(equipoAlpha);
 
         // Creacion Sensor
         Sensor pluviometroConcordia = new Sensor("Vaisala", "RG13",
@@ -53,7 +53,7 @@ public class CargadorDatosPrueba {
         ZonaGeografica cuencaUruguay = new ZonaGeografica(
                 "Cuencua Rio Uruguay", NivelVulnerabilidad.ALTO, NivelAlerta.VERDE);
         cuencaUruguay.agregarEstacion(estacionConcordia);
-        gestorPersonal.agregarZona(cuencaUruguay);
+        //gestorPersonal.agregarZona(cuencaUruguay);*/
     }
 
 }

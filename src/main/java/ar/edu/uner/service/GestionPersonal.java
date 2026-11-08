@@ -27,39 +27,17 @@ import java.util.List;
  */
 
 public class GestionPersonal {
-    private final List<ZonaGeografica> zonasGeograficas;
-    private final List<EquipoRespuesta> equiposRespuesta;
+    private GestionInfraestructura infraestructura;
+    private List<EquipoRespuesta> equiposRespuesta;
 
     /**
-     * Crea una gestión de personal sin zonas ni equipos registrados.
+     * Crea una gestión de personal con atributo de GestionInfraestructura
+     * para utilizar su lista de ZonaGeográficas e
+     * inicialización de lista para equipos registrados.
      */
-    public GestionPersonal() {
-        zonasGeograficas = new ArrayList<>();
-        equiposRespuesta = new ArrayList<>();
-    }
-
-    /**
-     * Obtiene las zonas geográficas registradas.
-     *
-     * @return Copia de la lista de zonas registradas.
-     */
-    public List<ZonaGeografica> obtenerZonasGeograficas() {
-        return new ArrayList<>(zonasGeograficas);
-    }
-
-    /**
-     * Registra una zona geográfica si no es null y todavía no está
-     * registrada.
-     *
-     * @param zona Zona geográfica a registrar.
-     * @return true si la zona se registró, false si es null o ya estaba.
-     */
-
-    public boolean agregarZona(ZonaGeografica zona) {
-        if (zona != null && !zonasGeograficas.contains(zona)) {
-            return zonasGeograficas.add(zona);
-        }
-        return false;
+    public GestionPersonal(GestionInfraestructura infraestructura) {
+        this.infraestructura = infraestructura;
+        this.equiposRespuesta = new ArrayList<>();
     }
 
     /**
@@ -85,9 +63,14 @@ public class GestionPersonal {
     public List<EstacionMeteorologica> getEstaciones() {
         List<EstacionMeteorologica> estaciones = new ArrayList<>();
 
-        for (ZonaGeografica zona : zonasGeograficas) {
-            if (!zona.getEstacionesMeteorologicas().isEmpty()) {
-                estaciones.addAll(zona.getEstacionesMeteorologicas());
+        for (ZonaGeografica zona : infraestructura.getZonas()) {
+
+            for (EstacionMeteorologica estacion :
+                    zona.getEstacionesMeteorologicas()) {
+
+                if (!estaciones.contains(estacion)) {
+                    estaciones.add(estacion);
+                }
             }
         }
         return estaciones;
@@ -149,6 +132,7 @@ public class GestionPersonal {
 
                 if (mantenimiento.getTipo() == TipoMantenimiento.CALIBRACION) {
                     ResponsableTecnico responsable = mantenimiento.getResponsableTecnico();
+
                     if (responsable != null &&
                             !responsablesCalibracion.contains(responsable)) {
                         responsablesCalibracion.add(responsable);
