@@ -12,6 +12,7 @@ import ar.edu.uner.domain.enums.EstadoOperativo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.ListIterator;
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
@@ -61,7 +62,8 @@ public class Sensor {
         this.modelo = modelo;
         this.precision = precision;
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
-        
+        mediciones = new ArrayList<Medicion>();            
+
         contadorSensor++;
     }
     
@@ -167,6 +169,24 @@ public class Sensor {
     }
 
     /**
+     * Devuelve la lista de mediciones del sensor.
+     * 
+     * @return lista de mediciones.
+     */
+    public List<Medicion> getMediciones() {
+        return mediciones;
+    }
+
+    /**
+     * Establece la lista de mediciones del sensor.
+     * 
+     * @param mediciones nueva lista de mediciones.
+     */
+    public void setMediciones(List<Medicion> mediciones) {
+        this.mediciones = mediciones;
+    }
+
+    /**
      * Registra una lectura de precipitacion.
      * 
      * @param mm milimetros registrados.
@@ -199,7 +219,7 @@ public class Sensor {
      */
     public boolean validar(double mm) {
         return ((mm >= 0) && (mm <= 500));
-    }
+    }//AGREGAR THROW EXCEPCION
 
     /**
      * Verifica si el sensor requiere calibracion.
@@ -211,5 +231,11 @@ public class Sensor {
      */
     public boolean requiereCalibracion(LocalDate fechaActual) {
         return ultimaCalibracion.plusMonths(12).isBefore(fechaActual);
+    }
+
+    @Override 
+    public String toString() {
+        return "Sensor: " + idSensor + " (" + marca + ", " + modelo 
+        + ") | " + estado + " | Ultima calibracion: " + ultimaCalibracion;
     }
 }

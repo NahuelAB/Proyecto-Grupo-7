@@ -50,6 +50,17 @@ public class GestionInfraestructura {
     public List<ZonaGeografica> getZonas() {
         return Collections.unmodifiableList(this.zonas);
     }
+
+    /**
+     * Devuelve los sensores registrados.
+     * La lista devuelta no se puede modificar; para registrar una zona
+     * se debe usar {@link #registrarZona(ZonaGeografica)}.
+     * 
+     * @return lista no modificable de los sensores registrados.
+     */
+    public List<Sensor> getSensores() {
+        return Collections.unmodifiableList(this.sensores);
+    }
     
 
     //Registrar

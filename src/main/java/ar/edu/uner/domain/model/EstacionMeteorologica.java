@@ -61,7 +61,8 @@ public class EstacionMeteorologica {
         this.latitud = latitud;
         this.longitud = longitud;
         this.altitud = altitud;
-        this.sensores = new ArrayList<Sensor>();
+        sensores = new ArrayList<Sensor>();
+        mantenimientos = new ArrayList<Mantenimiento>();
 
         contadorEstacion++;
     }
@@ -234,7 +235,7 @@ public class EstacionMeteorologica {
      * @param mantenimientos nueva lista de mantenimientos.
      */
     public void setMantenimientos(List<Mantenimiento> mantenimientos) {
-        this.mantenimientos = new ArrayList<>(mantenimientos);
+        this.mantenimientos = mantenimientos;
     }
 
     /**

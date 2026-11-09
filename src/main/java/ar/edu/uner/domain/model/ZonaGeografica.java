@@ -35,6 +35,7 @@ public class ZonaGeografica {
     private NivelAlerta nivelAlertaActual;
     private List<ValorHistorico> valoresHistoricos;
     private List<EstacionMeteorologica> estacionesMeteorologicas;
+    private List<Alerta> historialAlertas;
 
     /**
      * Crea una zona geográfica con valores predeterminados
@@ -62,6 +63,8 @@ public class ZonaGeografica {
         this.nivelVulnerabilidad = nivelVulnerabilidad;
         this.nivelAlertaActual = nivelAlertaActual;
         this.estacionesMeteorologicas = new ArrayList<>();
+        this.valoresHistoricos = new ArrayList<>();
+        this.historialAlertas = new ArrayList<>();
         contId++;
     }
 
@@ -221,6 +224,17 @@ public class ZonaGeografica {
      */
     public List<EstacionMeteorologica> getEstacionesMeteorologicas() {
         return estacionesMeteorologicas;
+    }
+
+    public List<Alerta> getHistorialAlertas() {
+        return historialAlertas;
+    }
+
+    public boolean agregarAlerta(Alerta alerta) {
+        if (alerta != null && !historialAlertas.contains(alerta)) {
+            return this.historialAlertas.add(alerta);
+        }
+        return false;
     }
 }
 

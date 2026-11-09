@@ -20,8 +20,8 @@ import ar.edu.uner.domain.enums.TipoEventoClimatico;
  * 
  * @author Guillermina
  */
-public class Alerta {
-private static int contIdAlerta = 1;
+public class Alerta implements Comparable<Alerta> {
+private static int contadorAlerta = 1;
 
     private int idAlerta;
     private String descripcion;
@@ -52,7 +52,7 @@ private static int contIdAlerta = 1;
     public Alerta(String descripcion,
                 NivelAlerta nivel, TipoEventoClimatico evento,
                 ZonaGeografica zona) {
-        idAlerta = contIdAlerta;
+        idAlerta = contadorAlerta;
         this.descripcion = descripcion;
         atendida = false;
         this.nivel = nivel;
@@ -60,7 +60,7 @@ private static int contIdAlerta = 1;
         fechaHoraEmision = LocalDateTime.now(); 
         this.zona = zona;
 
-        contIdAlerta++;
+        contadorAlerta++;
     }
     
     /**
@@ -205,6 +205,24 @@ private static int contIdAlerta = 1;
         }
         return false;
     }
-    
-    
+
+    /**
+     * Compara dos alertas por severidad, de mayor a menor (ROJA primero).
+     * Si tienen el mismo nivel, la más reciente va primero.
+     *
+     * @param otraAlerta Alerta con la que se compara.
+     * @return Negativo, cero o positivo según el orden entre las alertas.
+     */
+    @Override
+    public int compareTo(Alerta otraAlerta) {
+
+        int nivelComparacion = otraAlerta.getNivel().compareTo(this.getNivel());
+
+        if (nivelComparacion == 0){
+            return otraAlerta.getFechaHoraEmision().compareTo
+                    (this.getFechaHoraEmision());
+        }
+
+        return nivelComparacion;
+    }
 }
