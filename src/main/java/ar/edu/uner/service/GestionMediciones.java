@@ -14,6 +14,7 @@ import ar.edu.uner.domain.enums.EstadoOperativo;
 import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.Medicion;
 import ar.edu.uner.domain.model.Sensor;
+import ar.edu.uner.exception.LecturaInvalidaException;
 
 /**
  * Modulo de gestion que captura lecturas periodicas de precipitacion
@@ -41,16 +42,17 @@ public class GestionMediciones {
      * @param fh fecha y hora de la lectura.
      * @return medicion registrada.
      */
-    public Medicion registrarLectura(int idSensor, double mm, LocalDateTime fh) {
+    public Medicion registrarLectura(int idSensor, double mm, LocalDateTime fh) 
+                                    throws LecturaInvalidaException {
         Sensor s = infraestructura.buscarSensor(idSensor);
         EstacionMeteorologica e = infraestructura.buscarEstacionDeSensor(s);
         Medicion m = null;
         
         if (e!=null
-            && e.estaOperativa()
-            && (s.getEstado() == EstadoOperativo.OPERATIVO)
-            && s.validar(mm)) {
-                m = s.registrar(mm, fh);
+                && e.estaOperativa()
+                && (s.getEstado() == EstadoOperativo.OPERATIVO)) {
+            s.validar(mm);
+            m = s.registrar(mm, fh);
         }
         
         return m;
