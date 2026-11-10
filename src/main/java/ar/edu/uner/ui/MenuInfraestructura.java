@@ -2,13 +2,14 @@ package ar.edu.uner.ui;
 
 import ar.edu.uner.service.GestionInfraestructura;
 
-public class MenuInfraestructura {
+public class MenuInfraestructura implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
 
     public MenuInfraestructura(GestionInfraestructura gestorInfraestructura) {
         this.gestorInfraestructura = gestorInfraestructura;
     }
 
+    @Override
     public void ejecutar() {
     /*
     Registrar zona: nombre y nivel de vulnerabilidad. El id lo asigna el sistema.

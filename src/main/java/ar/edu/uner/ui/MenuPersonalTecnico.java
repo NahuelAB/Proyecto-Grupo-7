@@ -3,13 +3,14 @@ package ar.edu.uner.ui;
 import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.GestionPersonal;
 
-public class MenuPersonalTecnico {
+public class MenuPersonalTecnico implements Ejecutable {
     GestionPersonal gestorPersonal;
 
     public MenuPersonalTecnico(GestionPersonal gestorPersonal) {
         this.gestorPersonal = gestorPersonal;
     }
 
+    @Override
     public void ejecutar() {
     /*
     Registrar responsable técnico, con DNI único.

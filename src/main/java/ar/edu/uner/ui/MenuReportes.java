@@ -2,13 +2,14 @@ package ar.edu.uner.ui;
 
 import ar.edu.uner.service.GestionInfraestructura;
 
-public class MenuReportes {
+public class MenuReportes implements Ejecutable {
     GestionInfraestructura gestorInfraestructura;
 
     public MenuReportes(GestionInfraestructura gestorInfraestructura) {
         this.gestorInfraestructura = gestorInfraestructura;
     }
 
+    @Override
     public void ejecutar() {
     /*
     Histórico de precipitaciones por estación o zona: diario, semanal y mensual, con el mensual comparado contra la media histórica.
