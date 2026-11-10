@@ -50,6 +50,17 @@ public class GestionInfraestructura {
     public List<ZonaGeografica> getZonas() {
         return Collections.unmodifiableList(this.zonas);
     }
+    
+        /**
+     * Devuelve las estaciones meteorológicas registradas.
+     * La lista devuelta no se puede modificar; para registrar una estación
+     * se debe usar {@link #registrarEstacion(EstacionMeteorologica, int)}.
+     *
+     * @return lista no modificable de las estaciones registradas
+     */
+    public List<EstacionMeteorologica> getEstaciones(){
+        return Collections.unmodifiableList(this.estaciones);
+    }
 
     /**
      * Devuelve los sensores registrados.
@@ -218,4 +229,6 @@ public class GestionInfraestructura {
             }
             return true;
         }
+        
+        
 }
