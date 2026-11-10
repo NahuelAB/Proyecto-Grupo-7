@@ -9,6 +9,8 @@
 package ar.edu.uner.domain.model;
 
 import ar.edu.uner.domain.enums.EstadoOperativo;
+import ar.edu.uner.exception.LecturaInvalidaException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -213,13 +215,14 @@ public class Sensor {
 
     /**
      * Verifica que la medicion este entre 0 y 500 mm.
+     * 
      * @param mm valor a validar.
-     * @return true si es un numero entre 0 y 500 mm,
-     *         false en caso contrario.
      */
-    public boolean validar(double mm) {
-        return ((mm >= 0) && (mm <= 500));
-    }//AGREGAR THROW EXCEPCION
+    public void validar(double mm) throws LecturaInvalidaException{
+        if (mm < 0 || mm > 500) {
+            throw new LecturaInvalidaException("Lectura fuera de rango (0-500");
+        }
+    }
 
     /**
      * Verifica si el sensor requiere calibracion.
