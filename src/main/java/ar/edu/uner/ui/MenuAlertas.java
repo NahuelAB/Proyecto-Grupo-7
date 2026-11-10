@@ -4,13 +4,14 @@ package ar.edu.uner.ui;
 
 import ar.edu.uner.service.GestionInfraestructura;
 
-public class MenuAlertas {
+public class MenuAlertas implements Ejecutable{
     private GestionInfraestructura gestorInfraestructura;
 
     public MenuAlertas(GestionInfraestructura gestorInfraestructura) {
         this.gestorInfraestructura = gestorInfraestructura;
     }
 
+    @Override
     public void ejecutar() {
     /*
     Registrar una alerta manual (crecida de río o tormenta severa): zona, nivel y descripción.
