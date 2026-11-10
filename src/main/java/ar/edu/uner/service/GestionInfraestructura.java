@@ -9,6 +9,7 @@
  */
 package ar.edu.uner.service;
 
+import ar.edu.uner.domain.enums.EstadoOperativo;
 import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.Sensor;
 import ar.edu.uner.domain.model.ZonaGeografica;
@@ -48,6 +49,17 @@ public class GestionInfraestructura {
      */
     public List<ZonaGeografica> getZonas() {
         return Collections.unmodifiableList(this.zonas);
+    }
+    
+        /**
+     * Devuelve las estaciones meteorológicas registradas.
+     * La lista devuelta no se puede modificar; para registrar una estación
+     * se debe usar {@link #registrarEstacion(EstacionMeteorologica, int)}.
+     *
+     * @return lista no modificable de las estaciones registradas
+     */
+    public List<EstacionMeteorologica> getEstaciones(){
+        return Collections.unmodifiableList(this.estaciones);
     }
 
     /**
@@ -179,10 +191,10 @@ public class GestionInfraestructura {
     public boolean instalarSensor(int idSensor, int idEstacion) {
         Sensor sensor = this.buscarSensor(idSensor);
         EstacionMeteorologica estacion = this.buscarEstacion(idEstacion);
-        if (sensor == null || estacion == null) {
+        if (sensor == null || estacion == null && !sensorOperativo(sensor))  {
             return false;
         }
-        estacion.instalarSensor(sensor);
+           estacion.getSensores().add(sensor);//revisar
         return true;
     }
     
@@ -204,4 +216,19 @@ public class GestionInfraestructura {
         }
         return e;
     }
+        
+        public  boolean sensorOperativo(Sensor s){
+            for (ZonaGeografica z : zonas) {
+                for (EstacionMeteorologica estacion : z.getEstacionesMeteorologicas()) {
+                    for (Sensor sensor : estacion.getSensores()) {
+                        if (sensor.getEstado() == EstadoOperativo.OPERATIVO) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        
+        
 }
