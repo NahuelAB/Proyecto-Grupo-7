@@ -143,8 +143,13 @@ public class GestionSistemaAlerta {
      */
     public Alerta registrarAlertaManual(ZonaGeografica zona, NivelAlerta nivel,
                                         TipoEventoClimatico tipo, String descripcion) {
+        if (zona == null || nivel == null || descripcion == null
+                || tipo == TipoEventoClimatico.LLUVIA_COPIOSA) {
+            return null; // solo CRECIDA_RIO y TORMENTA_SEVERA pueden ser manuales
+        }
         Alerta alerta = new Alerta(descripcion, nivel, tipo, zona);
         agregarAlertas(alerta);
+        zona.agregarAlerta(alerta);
         return alerta;
     }
 }
