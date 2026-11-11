@@ -1,7 +1,7 @@
 /*
  * ResponsableTecnico.java
  *
- * Version 1.0
+ * Version 1.5
  *
  * 19/10/2026
  *
@@ -169,5 +169,16 @@ public class ResponsableTecnico extends Persona {
     public String getNumeroLicencia() {
         return numeroLicencia;
     }
+    /**
+     * Devuelve los datos del responsable tecnico en una sola linea.
+     *
+     * @return texto con DNI, nombre completo, especialidad y numero de licencia.
+     */
+    @Override
+    public String toString() {
+        return getDni() + " | " + getNombreCompleto() + " | " + especialidad
+                + " | Licencia: " + numeroLicencia;
+    }
 }
+
 
