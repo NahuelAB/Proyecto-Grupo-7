@@ -1,4 +1,4 @@
-package ar.edu.uner.service.GestionInformes;
+package ar.edu.uner.service.gestioninformes;
 
 public class GestionHistorialAlertas {
 
