@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Maricela
  */
-public class InformeEstaciones {
+public class RankingVolumetria {
     private GestionInfraestructura infraestructura;
 
     /**
@@ -33,7 +33,7 @@ public class InformeEstaciones {
      *
      * @param infraestructura gestión de infraestructura del sistema
      */
-    public InformeEstaciones(GestionInfraestructura infraestructura) {
+    public RankingVolumetria(GestionInfraestructura infraestructura) {
         this.infraestructura = infraestructura;
     }
     

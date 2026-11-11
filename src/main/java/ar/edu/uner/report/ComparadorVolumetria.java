@@ -20,7 +20,7 @@ import java.util.Comparator;
  * @author Maricela
  */
 public class ComparadorVolumetria implements Comparator<EstacionMeteorologica> {
-    private InformeEstaciones informe;
+    private RankingVolumetria informe;
     private LocalDate desde;
     private LocalDate hasta;
 
@@ -31,7 +31,7 @@ public class ComparadorVolumetria implements Comparator<EstacionMeteorologica> {
      * @param desde fecha de inicio del rango
      * @param hasta fecha de fin del rango
      */
-    public ComparadorVolumetria(InformeEstaciones informe, LocalDate desde, LocalDate hasta) {
+    public ComparadorVolumetria(RankingVolumetria informe, LocalDate desde, LocalDate hasta) {
         this.informe = informe;
         this.desde = desde;
         this.hasta = hasta;
