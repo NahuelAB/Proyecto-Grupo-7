@@ -25,7 +25,7 @@ public class LectorFechas {
         return fecha;
     }
 
-    public LocalDateTime leerFechaHora(Scanner sc) {
+    public static LocalDateTime leerFechaHora(Scanner sc) {
         LocalDateTime fechaHora = null;
         while (fechaHora == null) {
             LocalDate fecha = leerFecha(sc);
