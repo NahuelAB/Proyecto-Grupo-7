@@ -39,6 +39,7 @@ private static int contadorAlerta = 1;
         this("DESCRIPCION PENDIENTE",
             null,
             null,
+            null,
             null);
     }
 
@@ -51,13 +52,13 @@ private static int contadorAlerta = 1;
      */
     public Alerta(String descripcion,
                 NivelAlerta nivel, TipoEventoClimatico evento,
-                ZonaGeografica zona) {
+                ZonaGeografica zona, LocalDateTime fechaHoraEmision) {
         idAlerta = contadorAlerta;
         this.descripcion = descripcion;
         atendida = false;
         this.nivel = nivel;
         this.evento = evento;
-        fechaHoraEmision = LocalDateTime.now(); 
+        this.fechaHoraEmision = fechaHoraEmision;
         this.zona = zona;
 
         contadorAlerta++;
