@@ -65,6 +65,8 @@ public class Sensor {
         this.precision = precision;
         this.estado = estado;
         this.ultimaCalibracion = ultimaCalibracion;
+        this.estado = estado;
+        ultimaCalibracion = LocalDate.of(anio, mes, dia);
         mediciones = new ArrayList<Medicion>();            
 
         contadorSensor++;

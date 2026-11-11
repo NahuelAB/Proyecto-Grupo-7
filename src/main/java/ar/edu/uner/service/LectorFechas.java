@@ -16,6 +16,7 @@ public class LectorFechas {
             int mes = sc.nextInt();
             System.out.print("Día: ");
             int dia = sc.nextInt();
+            sc.nextLine(); // Limpia el buffer
             try {
                 fecha = LocalDate.of(anio, mes, dia);
             } catch (DateTimeException ex) {
