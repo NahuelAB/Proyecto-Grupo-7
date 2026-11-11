@@ -15,7 +15,7 @@ import ar.edu.uner.service.GestionPersonal;
 
 import java.util.Scanner;
 
-public class MenuPrincipal {
+public class MenuPrincipal implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionPersonal gestorPersonal;
     private Scanner scanner;
@@ -44,6 +44,7 @@ public class MenuPrincipal {
         return scanner.nextInt();
     }
 
+    @Override
     public void ejecutar(){
         int opcion;
 
