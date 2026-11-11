@@ -1,5 +1,5 @@
 package ar.edu.uner.service.gestioninformes;
 
-public class GestionComparadorVolumetria {
+public class GestionInformeVolumetria {
 
 }
