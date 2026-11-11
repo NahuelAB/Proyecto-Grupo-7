@@ -1,0 +1,192 @@
+/*
+ * InformeHistoricoPrecipitaciones.java
+ *
+ * Version 1.0
+ *
+ * 11/11/2026
+ *
+ * Copyright (c) 2026 Grupo 7 - UNER
+ */
+package ar.edu.uner.report;
+
+import ar.edu.uner.domain.model.EstacionMeteorologica;
+import ar.edu.uner.domain.model.Medicion;
+import ar.edu.uner.domain.model.Sensor;
+import ar.edu.uner.domain.model.ValorHistorico;
+import ar.edu.uner.domain.model.ZonaGeografica;
+
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.IsoFields;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Informe del histórico de precipitaciones de una estación o de una zona:
+ * milímetros acumulados diarios, semanales y mensuales. Los acumulados
+ * mensuales se comparan con la media histórica mensual de la zona.
+ *
+ * @author Jmanuel (Grupo-7)
+ */
+public class InformeHistoricoPrecipitaciones {
+
+    /**
+     * Muestra el histórico de precipitaciones de una estación. El acumulado
+     * mensual se compara con la media histórica mensual de la zona a la
+     * que pertenece la estación.
+     *
+     * @param estacion estación a informar
+     * @param zona zona de la estación, con la media histórica mensual
+     */
+    public void mostrarEstacion(EstacionMeteorologica estacion, ZonaGeografica zona) {
+        System.out.println("HISTORICO DE PRECIPITACIONES - ESTACION " + estacion.getNombre());
+        System.out.println("---------------------------------");
+
+        List<EstacionMeteorologica> estaciones = List.of(estacion);
+        mostrarDiario(estaciones);
+        mostrarSemanal(estaciones);
+        mostrarMensual(estaciones, zona);
+    }
+
+    /**
+     * Muestra el histórico de precipitaciones de una zona, sumando todas
+     * sus estaciones. El acumulado mensual se compara con la media
+     * histórica mensual de la zona.
+     *
+     * @param zona zona a informar
+     */
+    public void mostrarZona(ZonaGeografica zona) {
+        System.out.println("HISTORICO DE PRECIPITACIONES - ZONA " + zona.getNombre());
+        System.out.println("---------------------------------");
+
+        List<EstacionMeteorologica> estaciones = zona.getEstacionesMeteorologicas();
+        mostrarDiario(estaciones);
+        mostrarSemanal(estaciones);
+        mostrarMensual(estaciones, zona);
+    }
+
+    /**
+     * Calcula los milímetros acumulados por día.
+     *
+     * @param estaciones estaciones cuyas lecturas se acumulan
+     * @return acumulado de cada fecha, ordenado por fecha
+     */
+    public Map<LocalDate, Double> acumuladoDiario(List<EstacionMeteorologica> estaciones) {
+        Map<LocalDate, Double> r = new TreeMap<>();
+        for (Medicion m : medicionesDe(estaciones)) {
+            r.merge(m.getFechaHora().toLocalDate(), m.getMilimetros(), Double::sum);
+        }
+        return r;
+    }
+
+    /**
+     * Calcula los milímetros acumulados por semana del año (por ejemplo,
+     * 2026-S45).
+     *
+     * @param estaciones estaciones cuyas lecturas se acumulan
+     * @return acumulado de cada semana, ordenado por semana
+     */
+    public Map<String, Double> acumuladoSemanal(List<EstacionMeteorologica> estaciones) {
+        Map<String, Double> r = new TreeMap<>();
+        for (Medicion m : medicionesDe(estaciones)) {
+            LocalDate f = m.getFechaHora().toLocalDate();
+            String semana = f.get(IsoFields.WEEK_BASED_YEAR) + "-S"
+                    + String.format("%02d", f.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR));
+            r.merge(semana, m.getMilimetros(), Double::sum);
+        }
+        return r;
+    }
+
+    /**
+     * Calcula los milímetros acumulados por mes.
+     *
+     * @param estaciones estaciones cuyas lecturas se acumulan
+     * @return acumulado de cada mes, ordenado por mes
+     */
+    public Map<YearMonth, Double> acumuladoMensual(List<EstacionMeteorologica> estaciones) {
+        Map<YearMonth, Double> r = new TreeMap<>();
+        for (Medicion m : medicionesDe(estaciones)) {
+            r.merge(YearMonth.from(m.getFechaHora()), m.getMilimetros(), Double::sum);
+        }
+        return r;
+    }
+
+    /**
+     * Reúne las mediciones de todos los sensores de las estaciones indicadas.
+     *
+     * @param estaciones estaciones cuyas mediciones se reúnen
+     * @return lista con todas las mediciones
+     */
+    private List<Medicion> medicionesDe(List<EstacionMeteorologica> estaciones) {
+        List<Medicion> res = new ArrayList<>();
+        for (EstacionMeteorologica e : estaciones) {
+            for (Sensor s : e.getSensores()) {
+                res.addAll(s.getMediciones());
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Muestra los milímetros acumulados por día.
+     *
+     * @param estaciones estaciones cuyas lecturas se acumulan
+     */
+    private void mostrarDiario(List<EstacionMeteorologica> estaciones) {
+        System.out.println("Acumulado diario: ");
+        Map<LocalDate, Double> diario = acumuladoDiario(estaciones);
+        if (diario.isEmpty()) {
+            System.out.println("sin lecturas.");
+        } else {
+            for (Map.Entry<LocalDate, Double> e : diario.entrySet()) {
+                System.out.println(e.getKey() + " | " + e.getValue() + " mm");
+            }
+        }
+    }
+
+    /**
+     * Muestra los milímetros acumulados por semana.
+     *
+     * @param estaciones estaciones cuyas lecturas se acumulan
+     */
+    private void mostrarSemanal(List<EstacionMeteorologica> estaciones) {
+        System.out.println("Acumulado semanal: ");
+        Map<String, Double> semanal = acumuladoSemanal(estaciones);
+        if (semanal.isEmpty()) {
+            System.out.println("sin lecturas.");
+        } else {
+            for (Map.Entry<String, Double> e : semanal.entrySet()) {
+                System.out.println(e.getKey() + " | " + e.getValue() + " mm");
+            }
+        }
+    }
+
+    /**
+     * Muestra los milímetros acumulados por mes, junto con la media
+     * histórica de ese mes en la zona para compararla. Si la zona no tiene
+     * cargada la media de un mes, lo indica.
+     *
+     * @param estaciones estaciones cuyas lecturas se acumulan
+     * @param zona zona con los valores históricos mensuales
+     */
+    private void mostrarMensual(List<EstacionMeteorologica> estaciones, ZonaGeografica zona) {
+        System.out.println("Acumulado mensual: ");
+        Map<YearMonth, Double> mensual = acumuladoMensual(estaciones);
+        if (mensual.isEmpty()) {
+            System.out.println("sin lecturas.");
+            return;
+        }
+        for (Map.Entry<YearMonth, Double> e : mensual.entrySet()) {
+            String linea = e.getKey() + " | " + e.getValue() + " mm";
+            String media = " | sin media historica";
+            for (ValorHistorico v : zona.getValoresHistoricos()) {
+                if (v.getMes() == e.getKey().getMonthValue()) {
+                    media = " | media historica: " + v.getAcumuladoMedio() + " mm";
+                }
+            }
+            System.out.println(linea + media);
+        }
+    }
+}
