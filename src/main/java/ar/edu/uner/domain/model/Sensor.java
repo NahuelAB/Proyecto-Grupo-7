@@ -63,6 +63,7 @@ public class Sensor {
         this.marca = marca;
         this.modelo = modelo;
         this.precision = precision;
+        this.estado = estado;
         ultimaCalibracion = LocalDate.of(anio, mes, dia);
         mediciones = new ArrayList<Medicion>();            
 
