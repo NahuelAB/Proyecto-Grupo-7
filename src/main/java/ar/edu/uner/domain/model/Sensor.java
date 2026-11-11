@@ -42,7 +42,7 @@ public class Sensor {
             "MODELO PENDIENTE",
             0,
             null,
-            0, 0, 0);
+            null);
     }
 
     /**
@@ -58,12 +58,13 @@ public class Sensor {
      */
     public Sensor(String marca, String modelo,
                   double precision, EstadoOperativo estado, 
-                  int anio, int mes, int dia) {
+                  LocalDate ultimaCalibracion) {
         idSensor = contadorSensor;
         this.marca = marca;
         this.modelo = modelo;
         this.precision = precision;
-        ultimaCalibracion = LocalDate.of(anio, mes, dia);
+        this.estado = estado;
+        this.ultimaCalibracion = ultimaCalibracion;
         mediciones = new ArrayList<Medicion>();            
 
         contadorSensor++;
@@ -166,8 +167,8 @@ public class Sensor {
      * @param mes mes de la ultima calibracion.
      * @param dia dia de la ultima calibracion.
      */
-    public void setUltimaCalibracion(int anio, int mes, int dia) {
-        ultimaCalibracion = LocalDate.of(anio, mes, dia);
+    public void setUltimaCalibracion(LocalDate ultimaCalibracion) {
+        this.ultimaCalibracion = ultimaCalibracion;
     }
 
     /**
