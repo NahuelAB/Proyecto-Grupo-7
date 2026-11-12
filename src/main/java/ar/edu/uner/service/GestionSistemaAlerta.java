@@ -1,7 +1,7 @@
 /*
  * GestionSistemaAlerta.java
  *
- * Version 1.0
+ * Version 1.3
  *
  * 03/11/2026
  *
@@ -12,6 +12,7 @@ package ar.edu.uner.service;
 
 import ar.edu.uner.domain.model.Alerta;
 import ar.edu.uner.domain.model.ZonaGeografica;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import ar.edu.uner.domain.enums.NivelAlerta;
@@ -107,8 +108,9 @@ public class GestionSistemaAlerta {
         // Emite y registra la alerta por lluvia copiosa
         Alerta alerta = new Alerta("Lluvia acumulada en 24 hs: "
                 + zona.lluviaAcumulada24hs() + " mm", nuevo,
-                TipoEventoClimatico.LLUVIA_COPIOSA, zona);
+                TipoEventoClimatico.LLUVIA_COPIOSA, zona, LocalDateTime.now());
         agregarAlertas(alerta);
+        zona.agregarAlerta(alerta);
         return alerta;
     }
 
@@ -147,7 +149,7 @@ public class GestionSistemaAlerta {
                 || tipo == TipoEventoClimatico.LLUVIA_COPIOSA) {
             return null; // solo CRECIDA_RIO y TORMENTA_SEVERA pueden ser manuales
         }
-        Alerta alerta = new Alerta(descripcion, nivel, tipo, zona);
+        Alerta alerta = new Alerta(descripcion, nivel, tipo, zona, LocalDateTime.now());
         agregarAlertas(alerta);
         zona.agregarAlerta(alerta);
         return alerta;
