@@ -3,10 +3,12 @@ package ar.edu.uner.ui;
 import ar.edu.uner.domain.enums.EstadoOperativo;
 import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.NivelVulnerabilidad;
+import ar.edu.uner.domain.enums.TipoEstacion;
 import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.Sensor;
 import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.service.GestionInfraestructura;
+import ar.edu.uner.service.UtilidadesMenu;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,9 +21,9 @@ public class MenuInfraestructura implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private Scanner scanner;
 
-    public MenuInfraestructura(GestionInfraestructura gestorInfraestructura) {
+    public MenuInfraestructura(GestionInfraestructura gestorInfraestructura, Scanner scanner) {
         this.gestorInfraestructura = gestorInfraestructura;
-        this.scanner = new Scanner(System.in);
+        this.scanner = scanner;
     }
 
     @Override
@@ -155,8 +157,19 @@ public class MenuInfraestructura implements Ejecutable {
         double altitud = scanner.nextDouble();
         scanner.nextLine();
 
+        System.out.println("Ingrese el estado operativo estación: ");
+        System.out.println("1 - Operativo  2 - En Mantenimiento" +
+                "  3 - Fuera de servicio");
+        EstadoOperativo estado = estadoOp(scanner);
+
+        System.out.println("Ingrese el tipo de estación: ");
+        System.out.println(" 1 - Automática 2 - Convencional");
+        TipoEstacion tipoEstacion = tipoEstacion(scanner);
+
         EstacionMeteorologica estacion = new EstacionMeteorologica(nombre, latitud,
                 longitud, altitud);
+        estacion.setEstadoOp(estado);
+        estacion.setTipoEst(tipoEstacion);
 
         boolean resultado = gestorInfraestructura.registrarEstacion(estacion, idZona);
         System.out.println(resultado ? "¡Registro de estacion meteorologica Exitosa!"
@@ -236,7 +249,7 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.print("Ingrese el ID de la Estación de destino: ");
         int idEstacion = scanner.nextInt();
 
-        boolean resultado = gestorInfraestructura.instalarSensor(idSensor, idEstacion);
+        boolean resultado = gestorInfraestructura.instalarSensor2(idSensor, idEstacion);
         System.out.println(resultado ? "¡Instalación de sensor Exitoso!" :
                 "No se pudo instalar el sensor.");
     }
@@ -295,7 +308,21 @@ public class MenuInfraestructura implements Ejecutable {
     }
 
     void retirarSensor() {
+        System.out.println();
+        System.out.println("===== RETIRAR SENSOR =====");
 
+        if (!UtilidadesMenu.mostrarSensoresInstalados(gestorInfraestructura)) {
+            return;
+        }
+
+        System.out.print("Ingrese el ID del sensor a retirar: ");
+        int idSensor = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean resultado = gestorInfraestructura.retirarSensor(idSensor);
+        System.out.println(resultado
+                ? "¡Sensor retirado exitosamente!"
+                : "No se pudo retirar el sensor. Verifique que el ID sea correcto.");
     }
 }
 

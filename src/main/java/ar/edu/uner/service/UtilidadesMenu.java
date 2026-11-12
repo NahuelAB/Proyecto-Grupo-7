@@ -3,6 +3,9 @@ package ar.edu.uner.service;
 import ar.edu.uner.domain.enums.EstadoOperativo;
 import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.NivelVulnerabilidad;
+import ar.edu.uner.domain.enums.TipoEstacion;
+import ar.edu.uner.domain.model.EstacionMeteorologica;
+import ar.edu.uner.domain.model.Sensor;
 
 import java.util.Scanner;
 
@@ -73,5 +76,42 @@ public class UtilidadesMenu {
         }
 
         return estadoOp;
+    }
+
+    public static TipoEstacion tipoEstacion(Scanner scanner) {
+        int opt = scanner.nextInt();
+        scanner.nextLine();
+
+        TipoEstacion tipoEstacion;
+
+        switch(opt) {
+            case 1: tipoEstacion = TipoEstacion.AUTOMATICA;break;
+            case 2: tipoEstacion = TipoEstacion.CONVENCIONAL;break;
+            default:
+                System.out.println("Opción no válida. Se asignó CONVECIONAL por defecto.");
+                tipoEstacion = TipoEstacion.CONVENCIONAL;
+        }
+
+        return tipoEstacion;
+    }
+
+    public static boolean mostrarSensoresInstalados(GestionInfraestructura gestor) {
+        boolean hayInstalados = false;
+
+        System.out.println("--- Sensores Instalados ---");
+        for (EstacionMeteorologica estacion : gestor.getEstaciones()) {
+            for (Sensor sensor : estacion.getSensores()) {
+                System.out.println("ID Sensor: " + sensor.getIdSensor()
+                        + " Estación: " + estacion.getNombre()
+                        + " (ID: " + estacion.getIdEstacion() + ")");
+                hayInstalados = true;
+            }
+        }
+
+        if (!hayInstalados) {
+            System.out.println("No hay sensores instalados en ninguna estación.");
+        }
+
+        return hayInstalados;
     }
 }
