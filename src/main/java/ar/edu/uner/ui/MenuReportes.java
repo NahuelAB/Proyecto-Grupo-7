@@ -15,7 +15,6 @@ public class MenuReportes implements Ejecutable {
 
     public MenuReportes(GestionEstadisticaAnomaliaClimatica menuEstAnomCli,
                         GestionHistorialAlertas menuHistorialAlertas,
-                        GestionInformeEstaciones menuInformesEstaciones,
                         GestionInformeFallasMantenimiento menuInformeFallasMant,
                         GestionInformeFichaTecnica menuInformeFichaT,
                         GestionInformeVolumetria menuInformeVol,

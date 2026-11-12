@@ -11,6 +11,7 @@
 package ar.edu.uner.ui;
 
 import ar.edu.uner.service.*;
+import ar.edu.uner.service.gestioninformes.*;
 
 import java.util.Scanner;
 
@@ -93,7 +94,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuAlertas.ejecutar();
                     break;
                 case 5:
-                    MenuReportes menuReportes = new MenuReportes(gestorInfraestructura);
+                    MenuReportes menuReportes = new MenuReportes(GestionEstadisticaAnomaliaClimatica, GestionHistorialAlertas);
                     menuReportes.ejecutar();
                     break;
                 case 0:
