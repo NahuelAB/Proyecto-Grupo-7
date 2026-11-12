@@ -15,12 +15,14 @@ import ar.edu.uner.service.GestionPersonal;
 import ar.edu.uner.service.GestionSistemaAlerta;
 import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.LectorFechas;
+import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
 
 public class MenuSistemaAlerta implements Ejecutable{
     private Scanner sc;
     private GestionSistemaAlerta gestion;
     private GestionPersonal personal;
     private GestionInfraestructura gestionInfra;
+    private int opcion;
 
     public MenuSistemaAlerta(GestionSistemaAlerta gestion,
                             GestionPersonal personal, 
@@ -35,7 +37,6 @@ public class MenuSistemaAlerta implements Ejecutable{
 
     @Override
     public void ejecutar() {
-        int opcion;
 
         do {
             System.out.println("SISTEMA DE ALERTA TEMPRANA");
@@ -45,8 +46,8 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println("3. Asignar equipo de respuesta a una alerta");
             System.out.println("4. Ver alertas");
             System.out.println("0. Volver");
-            System.out.println("Opcion: ");
-            opcion = sc.nextInt();
+            System.out.print("Ingrese una opcion: ");
+            opcion = leerOpcion(sc);
 
             switch (opcion) {
                 case 1:
@@ -96,8 +97,8 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("Tipo de evento:");
         System.out.println("1. Crecida de rio");
         System.out.println("2. Tormenta severa");
-        System.out.print("Opcion: ");
-        int opcion = sc.nextInt();
+        System.out.print("Ingrese el tipo de evento: ");
+        opcion = leerOpcion(sc);
         TipoEventoClimatico tipo;
         if (opcion == 1) {
             tipo = TipoEventoClimatico.CRECIDA_RIO;
@@ -113,8 +114,8 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("2. Amarilla");
         System.out.println("3. Naranja");
         System.out.println("4. Roja");
-        System.out.print("Opcion: ");
-        opcion = sc.nextInt();
+        System.out.print("Ingrese el nivel de alerta: ");
+        opcion = leerOpcion(sc);
         NivelAlerta nivel;
 
         switch (opcion) {
@@ -139,7 +140,6 @@ public class MenuSistemaAlerta implements Ejecutable{
                 return;
         }
 
-        sc.nextLine();
         System.out.println("Descripcion: ");
         String descripcion = sc.nextLine();
 
@@ -191,10 +191,10 @@ public class MenuSistemaAlerta implements Ejecutable{
         for (int i = 0; i < zonas.size(); i++) {
             System.out.println((i + 1) + ". " + zonas.get(i));
         }
-        System.out.println("Elegir zona: ");
-        int opcion = sc.nextInt();
+        System.out.print("Elegir zona: ");
+        opcion = leerOpcion(sc);
         if (opcion < 1 || opcion > zonas.size()) {
-            System.out.println("Opcion invalida.");
+            System.out.println("Zona invalida.");
             return null;
         }
 
@@ -215,10 +215,10 @@ public class MenuSistemaAlerta implements Ejecutable{
         for (int i = 0; i < pendientes.size(); i++) {
             System.out.println((i + 1) + ". " + pendientes.get(i));
         }
-        System.out.println("Elegir alerta: ");
-        int opcion = sc.nextInt();
+        System.out.print("Elegir alerta: ");
+        opcion = leerOpcion(sc);
         if (opcion < 1 || opcion > pendientes.size()) {
-            System.out.println("Opcion invalida.");
+            System.out.println("Alerta invalida.");
             return null;
         }
 
@@ -238,10 +238,10 @@ public class MenuSistemaAlerta implements Ejecutable{
         for (int i = 0; i < equiposDisp.size(); i++) {
             System.out.println((i + 1) + ". " + equiposDisp.get(i));
         }
-        System.out.println("Elegir equipo: ");
-        int opcion = sc.nextInt();
+        System.out.print("Elegir equipo: ");
+        opcion = leerOpcion(sc);
         if (opcion < 1 || opcion > equiposDisp.size()) {
-            System.out.println("Opcion invalida.");
+            System.out.println("Equipo invalido.");
             return null;
         }
 

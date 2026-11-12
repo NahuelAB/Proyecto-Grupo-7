@@ -16,8 +16,6 @@ public class UtilidadesMenu {
     private UtilidadesMenu() {};
 
     public static int leerOpcion(Scanner scanner) {
-        System.out.print("Elija una opción: ");
-
         int opcion = scanner.nextInt();
         scanner.nextLine();
 
