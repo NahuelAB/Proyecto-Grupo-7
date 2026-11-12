@@ -55,7 +55,7 @@ public class MenuInfraestructura implements Ejecutable {
                     retirarSensor();
 
                 case 6:
-                    // cambiarEstado();
+                    cambiarEstadoEstacionOSensor();
                     break;
 
                 case 7:
@@ -127,7 +127,7 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println();
         System.out.println("===== REGISTRO DE ESTACION METEOROLOGICA =====");
 
-        if (!mostrarZonas()) {
+        if (!mostrarZonas(gestorInfraestructura)) {
             return;
         }
 
@@ -176,21 +176,6 @@ public class MenuInfraestructura implements Ejecutable {
                 : "No se pudo registrar la estación.");
     }
 
-    boolean mostrarZonas() {
-        List<ZonaGeografica> zonas = gestorInfraestructura.getZonas();
-
-        if (zonas.isEmpty()) {
-            System.out.println("No hay zonas registradas. Registre una primero.");
-            return false;
-        }
-
-        for (ZonaGeografica zona : zonas) {
-            System.out.println("Zona Geografica: " + zona.getNombre()
-                    + " ID: " + zona.getIdZona());
-        }
-
-        return true;
-    }
 
     // Metodos registro sensor
 
@@ -235,14 +220,14 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println();
         System.out.println("===== INSTALAR SENSOR =====");
 
-        if (!mostrarSensoresDisponibles()) {
+        if (!mostrarSensoresDisponibles(gestorInfraestructura)) {
             return;
         }
 
         System.out.print("Ingrese el ID del Sensor a instalar: ");
         int idSensor = scanner.nextInt();
 
-        if (!mostrarEstacionesParaInstalar()) {
+        if (!mostrarEstacionesParaInstalar(gestorInfraestructura)) {
             return;
         }
 
@@ -254,58 +239,6 @@ public class MenuInfraestructura implements Ejecutable {
                 "No se pudo instalar el sensor.");
     }
 
-    boolean mostrarSensoresDisponibles() {
-        List<Sensor> sensores = gestorInfraestructura.getSensores();
-        List<EstacionMeteorologica> estaciones =
-                gestorInfraestructura.getEstaciones();
-        boolean hayDisponibles = false;
-
-        System.out.println("--- Sensores Libres (No asignados) ---");
-
-        for (Sensor sensor : sensores) {
-            boolean asignado = false;
-
-            for (EstacionMeteorologica estacion : estaciones) {
-                if (estacion.getSensores() != null &&
-                        estacion.getSensores().contains(sensor)) {
-                    asignado = true;
-                    break;
-                }
-            }
-
-            if (!asignado) {
-                System.out.println("ID: " + sensor.getIdSensor() +
-                        " Marca: " + sensor.getMarca() +
-                        " Estado: " + sensor.getEstado());
-                hayDisponibles = true;
-            }
-        }
-
-        if (!hayDisponibles) {
-            System.out.println("No hay sensores libres registrados.");
-        }
-
-        return hayDisponibles;
-    }
-
-    boolean mostrarEstacionesParaInstalar() {
-        List<EstacionMeteorologica> estaciones =
-                gestorInfraestructura.getEstaciones();
-
-        if (estaciones.isEmpty()) {
-            System.out.println("No hay estaciones registradas en el sistema.");
-            return false;
-        }
-
-        System.out.println("--- Estaciones Disponibles ---");
-        for (EstacionMeteorologica estacion : estaciones) {
-            System.out.println("ID: " + estacion.getIdEstacion() +
-                    " Nombre: " + estacion.getNombre() +
-                    " Estado: " + estacion.getEstadoOp());
-        }
-
-        return true;
-    }
 
     void retirarSensor() {
         System.out.println();
@@ -324,6 +257,92 @@ public class MenuInfraestructura implements Ejecutable {
                 ? "¡Sensor retirado exitosamente!"
                 : "No se pudo retirar el sensor. Verifique que el ID sea correcto.");
     }
+
+    void cambiarEstadoEstacionOSensor() {
+        int tipoElemento;
+
+        System.out.println();
+        System.out.println("===== CAMBIAR ESTADO OPERATIVO =====");
+        System.out.println("1 - Estación Meteorológica");
+        System.out.println("2 - Sensor");
+        System.out.print("Seleccione qué desea modificar: ");
+        tipoElemento = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (tipoElemento) {
+            case 1:
+                cambiarEstadoEstacion();
+                break;
+
+            case 2:
+                cambiarEstadoSensor();
+                break;
+
+            default:
+                System.out.println("Opción no válida.");
+                break;
+        }
+    }
+
+    private void cambiarEstadoEstacion() {
+        int idEstacion;
+        EstadoOperativo nuevoEstado;
+
+        if (!UtilidadesMenu.mostrarTodasLasEstaciones(gestorInfraestructura)) {
+            return;
+        }
+
+        System.out.print("Ingrese el ID de la estación: ");
+        idEstacion = scanner.nextInt();
+        scanner.nextLine();
+
+        EstacionMeteorologica estacion = gestorInfraestructura.buscarEstacion(idEstacion);
+
+        if (estacion == null) {
+            System.out.println("Error: No existe una estación con el ID ingresado.");
+            return;
+        }
+
+        System.out.println("Estado actual: " + estacion.getEstadoOp());
+        System.out.println("Seleccione el nuevo estado operativo:");
+        System.out.println("1 - Operativo  2 - En Mantenimiento" +
+                "  3 - Fuera de servicio");
+        nuevoEstado = UtilidadesMenu.estadoOp(scanner);
+
+        estacion.setEstadoOp(nuevoEstado);
+        System.out.println("¡Estado de la estación actualizado a " + nuevoEstado + "!");
+    }
+
+    private void cambiarEstadoSensor() {
+        int idSensor;
+        EstadoOperativo nuevoEstado;
+
+        if (!UtilidadesMenu.mostrarTodosLosSensores(gestorInfraestructura)) {
+            return;
+        }
+
+        System.out.print("Ingrese el ID del sensor: ");
+        idSensor = scanner.nextInt();
+        scanner.nextLine();
+
+        Sensor sensor = gestorInfraestructura.buscarSensor(idSensor);
+
+        if (sensor == null) {
+            System.out.println("Error: No existe un sensor con el ID ingresado.");
+            return;
+        }
+
+        System.out.println("Estado actual: " + sensor.getEstado());
+        System.out.println("Seleccione el nuevo estado operativo:");
+        System.out.println("1 - Operativo  2 - En Mantenimiento" +
+                "  3 - Fuera de servicio");
+        nuevoEstado = UtilidadesMenu.estadoOp(scanner);
+
+        sensor.setEstado(nuevoEstado);
+        System.out.println("¡Estado del sensor actualizado a " + nuevoEstado + "!");
+    }
+
+    
 }
 
 
