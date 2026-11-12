@@ -131,7 +131,7 @@ public class MenuInfraestructura implements Ejecutable {
             return;
         }
 
-        System.out.println("Seleccione un ID");
+        System.out.println("Seleccione un ID: ");
         int idZona = scanner.nextInt();
         scanner.nextLine();
 

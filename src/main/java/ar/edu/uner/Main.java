@@ -11,7 +11,7 @@ public class Main {
         GestionSistemaAlerta gestorSistAlerta = new GestionSistemaAlerta();
 
         // 2. Cargar datos iniciales
-        // CargadorDatosPruebas.cargarDatosIniciales(gestorInfra, gestorPersonal);
+        CargadorDatosPrueba.cargarDatosIniciales(gestorInfra, gestorPersonal);
 
         // 3. Crear e iniciar el menu principal
         MenuPrincipal menu = new MenuPrincipal(gestorInfra, gestorPersonal, gestorSistAlerta);
