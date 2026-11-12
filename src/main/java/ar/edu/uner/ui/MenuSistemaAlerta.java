@@ -11,19 +11,26 @@ import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.TipoEventoClimatico;
 import ar.edu.uner.domain.model.Alerta;
 import ar.edu.uner.domain.model.EquipoRespuesta;
+import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.service.GestionPersonal;
 import ar.edu.uner.service.GestionSistemaAlerta;
+import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.LectorFechas;
 
 public class MenuSistemaAlerta implements Ejecutable{
     private Scanner sc;
     private GestionSistemaAlerta gestion;
     private GestionPersonal personal;
+    private GestionInfraestructura gestionInfra;
+    private ZonaGeografica zonaGeo;
 
     public MenuSistemaAlerta(GestionSistemaAlerta gestion,
-                            GestionPersonal personal, Scanner sc) {
+                            GestionPersonal personal, 
+                            GestionInfraestructura gestionInfra,
+                            Scanner sc) {
         this.gestion = gestion;
         this.personal = personal;
+        this.gestionInfra = gestionInfra;
         this.sc = sc;
 
     }
@@ -178,7 +185,7 @@ public class MenuSistemaAlerta implements Ejecutable{
     }
 
     private ZonaGeografica elegirZona() {
-        List<ZonaGeografica> zonas = gestion.getZonaGeograficas();
+        List<ZonaGeografica> zonas = gestionInfra.getZonas();
         if (zonas.isEmpty()) {
             System.out.println("No hay zonas cargadas");
             return null;
