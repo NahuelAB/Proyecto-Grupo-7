@@ -236,5 +236,10 @@ public class ZonaGeografica {
         }
         return false;
     }
+
+    @Override 
+    public String toString() {
+        return "ID: " + idZona + " | Nombre: " + nombre;
+    }
 }
 
