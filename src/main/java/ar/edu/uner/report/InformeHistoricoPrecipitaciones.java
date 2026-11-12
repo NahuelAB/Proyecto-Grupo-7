@@ -1,7 +1,7 @@
 /*
  * InformeHistoricoPrecipitaciones.java
  *
- * Version 1.0
+ * Version 1.1
  *
  * 11/11/2026
  *
@@ -21,9 +21,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Informe del histórico de precipitaciones de una estación o de una zona:
- * milímetros acumulados diarios, semanales y mensuales. Los acumulados
- * mensuales se comparan con la media histórica mensual de la zona.
+ * Informe del histórico de precipitaciones de una estación o de una zona.
+ * Calcula los milímetros acumulados diarios, semanales y mensuales y
+ * devuelve los datos; la presentación en pantalla está a cargo de
+ * GestionInformeEstaciones.
  * Las semanas son de 7 días, contadas desde el 1 de enero de cada año.
  *
  * @author Jmanuel (Grupo-7)
@@ -31,61 +32,164 @@ import java.util.List;
 public class InformeHistoricoPrecipitaciones {
 
     /**
-     * Muestra el histórico de precipitaciones de una estación. El acumulado
-     * mensual se compara con la media histórica mensual de la zona a la
-     * que pertenece la estación.
+     * Reúne las mediciones de todos los sensores de una estación.
      *
-     * @param estacion estación a informar
-     * @param zona zona de la estación, con la media histórica mensual
+     * @param estacion estación de la que se obtienen las mediciones
+     * @return lista con todas las mediciones de la estación
      */
-    public void mostrarEstacion(EstacionMeteorologica estacion, ZonaGeografica zona) {
-        System.out.println("HISTORICO DE PRECIPITACIONES - ESTACION " + estacion.getNombre());
-        System.out.println("---------------------------------");
-
-        List<Medicion> mediciones = medicionesDe(List.of(estacion));
-        mostrarDiario(mediciones);
-        mostrarSemanal(mediciones);
-        mostrarMensual(mediciones, zona);
-    }
-
-    /**
-     * Muestra el histórico de precipitaciones de una zona, sumando todas
-     * sus estaciones. El acumulado mensual se compara con la media
-     * histórica mensual de la zona.
-     *
-     * @param zona zona a informar
-     */
-    public void mostrarZona(ZonaGeografica zona) {
-        System.out.println("HISTORICO DE PRECIPITACIONES - ZONA " + zona.getNombre());
-        System.out.println("---------------------------------");
-
-        List<Medicion> mediciones = medicionesDe(zona.getEstacionesMeteorologicas());
-        mostrarDiario(mediciones);
-        mostrarSemanal(mediciones);
-        mostrarMensual(mediciones, zona);
-    }
-
-    /**
-     * Reúne las mediciones de todos los sensores de las estaciones indicadas.
-     *
-     * @param estaciones estaciones cuyas mediciones se reúnen
-     * @return lista con todas las mediciones
-     */
-    private List<Medicion> medicionesDe(List<EstacionMeteorologica> estaciones) {
+    public List<Medicion> medicionesDeEstacion(EstacionMeteorologica estacion) {
         List<Medicion> res = new ArrayList<>();
-        for (EstacionMeteorologica e : estaciones) {
-            for (Sensor s : e.getSensores()) {
-                res.addAll(s.getMediciones());
-            }
+        for (Sensor s : estacion.getSensores()) {
+            res.addAll(s.getMediciones());
         }
         return res;
     }
 
     /**
-     * Calcula un número que identifica la semana de una medición. Las
-     * semanas son de 7 días contadas desde el 1 de enero. El número es
-     * año * 100 + semana (por ejemplo, 202645 es la semana 45 de 2026),
-     * así se pueden ordenar de la más antigua a la más nueva.
+     * Reúne las mediciones de todas las estaciones de una zona.
+     *
+     * @param zona zona de la que se obtienen las mediciones
+     * @return lista con todas las mediciones de la zona
+     */
+    public List<Medicion> medicionesDeZona(ZonaGeografica zona) {
+        List<Medicion> res = new ArrayList<>();
+        for (EstacionMeteorologica e : zona.getEstacionesMeteorologicas()) {
+            res.addAll(medicionesDeEstacion(e));
+        }
+        return res;
+    }
+
+    /**
+     * Obtiene los días que tienen lecturas.
+     *
+     * @param mediciones mediciones a revisar
+     * @return fechas sin repetir, de la más antigua a la más nueva
+     */
+    public List<LocalDate> diasConLecturas(List<Medicion> mediciones) {
+        List<LocalDate> fechas = new ArrayList<>();
+        for (Medicion m : mediciones) {
+            LocalDate f = m.getFechaHora().toLocalDate();
+            if (!fechas.contains(f)) {
+                fechas.add(f);
+            }
+        }
+        Collections.sort(fechas);
+        return fechas;
+    }
+
+    /**
+     * Calcula los milímetros acumulados en un día.
+     *
+     * @param mediciones mediciones a acumular
+     * @param fecha día a acumular
+     * @return milímetros acumulados en ese día
+     */
+    public double acumuladoDelDia(List<Medicion> mediciones, LocalDate fecha) {
+        double total = 0;
+        for (Medicion m : mediciones) {
+            if (m.getFechaHora().toLocalDate().equals(fecha)) {
+                total += m.getMilimetros();
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Obtiene las semanas que tienen lecturas. Cada semana se identifica
+     * con año * 100 + semana (por ejemplo, 202645 es la semana 45 de 2026).
+     *
+     * @param mediciones mediciones a revisar
+     * @return claves de semana sin repetir, de la más antigua a la más nueva
+     */
+    public List<Integer> semanasConLecturas(List<Medicion> mediciones) {
+        List<Integer> semanas = new ArrayList<>();
+        for (Medicion m : mediciones) {
+            int semana = claveSemana(m);
+            if (!semanas.contains(semana)) {
+                semanas.add(semana);
+            }
+        }
+        Collections.sort(semanas);
+        return semanas;
+    }
+
+    /**
+     * Calcula los milímetros acumulados en una semana.
+     *
+     * @param mediciones mediciones a acumular
+     * @param semana clave de la semana (año * 100 + semana)
+     * @return milímetros acumulados en esa semana
+     */
+    public double acumuladoDeLaSemana(List<Medicion> mediciones, int semana) {
+        double total = 0;
+        for (Medicion m : mediciones) {
+            if (claveSemana(m) == semana) {
+                total += m.getMilimetros();
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Obtiene los meses que tienen lecturas. Cada mes se identifica con
+     * año * 100 + mes (por ejemplo, 202611 es noviembre de 2026).
+     *
+     * @param mediciones mediciones a revisar
+     * @return claves de mes sin repetir, del más antiguo al más nuevo
+     */
+    public List<Integer> mesesConLecturas(List<Medicion> mediciones) {
+        List<Integer> meses = new ArrayList<>();
+        for (Medicion m : mediciones) {
+            int mes = claveMes(m);
+            if (!meses.contains(mes)) {
+                meses.add(mes);
+            }
+        }
+        Collections.sort(meses);
+        return meses;
+    }
+
+    /**
+     * Calcula los milímetros acumulados en un mes.
+     *
+     * @param mediciones mediciones a acumular
+     * @param mes clave del mes (año * 100 + mes)
+     * @return milímetros acumulados en ese mes
+     */
+    public double acumuladoDelMes(List<Medicion> mediciones, int mes) {
+        double total = 0;
+        for (Medicion m : mediciones) {
+            if (claveMes(m) == mes) {
+                total += m.getMilimetros();
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Busca el valor histórico de un mes en una zona.
+     *
+     * @param zona zona con los valores históricos mensuales
+     * @param mes mes del año (1 a 12)
+     * @return el valor histórico del mes, o null si la zona es null o no
+     *         tiene cargado ese mes
+     */
+    public ValorHistorico buscarValorHistorico(ZonaGeografica zona, int mes) {
+        ValorHistorico encontrado = null;
+        if (zona != null) {
+            for (ValorHistorico v : zona.getValoresHistoricos()) {
+                if (v.getMes() == mes) {
+                    encontrado = v;
+                    break;
+                }
+            }
+        }
+        return encontrado;
+    }
+
+    /**
+     * Calcula un número que identifica la semana de una medición:
+     * año * 100 + semana, con semanas de 7 días desde el 1 de enero.
      *
      * @param m medición de la que se obtiene la semana
      * @return número que identifica el año y la semana
@@ -97,9 +201,8 @@ public class InformeHistoricoPrecipitaciones {
     }
 
     /**
-     * Calcula un número que identifica el mes de una medición. El número
-     * es año * 100 + mes (por ejemplo, 202611 es noviembre de 2026), así
-     * se pueden ordenar del más antiguo al más nuevo.
+     * Calcula un número que identifica el mes de una medición:
+     * año * 100 + mes.
      *
      * @param m medición de la que se obtiene el mes
      * @return número que identifica el año y el mes
@@ -107,115 +210,5 @@ public class InformeHistoricoPrecipitaciones {
     private int claveMes(Medicion m) {
         LocalDate f = m.getFechaHora().toLocalDate();
         return f.getYear() * 100 + f.getMonthValue();
-    }
-
-    /**
-     * Muestra los milímetros acumulados por día, de la fecha más antigua
-     * a la más nueva.
-     *
-     * @param mediciones mediciones a acumular
-     */
-    private void mostrarDiario(List<Medicion> mediciones) {
-        System.out.println("Acumulado diario: ");
-        if (mediciones.isEmpty()) {
-            System.out.println("sin lecturas.");
-            return;
-        }
-
-        List<LocalDate> fechas = new ArrayList<>();
-        for (Medicion m : mediciones) {
-            LocalDate f = m.getFechaHora().toLocalDate();
-            if (!fechas.contains(f)) {
-                fechas.add(f);
-            }
-        }
-        Collections.sort(fechas);
-
-        for (LocalDate f : fechas) {
-            double total = 0;
-            for (Medicion m : mediciones) {
-                if (m.getFechaHora().toLocalDate().equals(f)) {
-                    total += m.getMilimetros();
-                }
-            }
-            System.out.println(f + " | " + total + " mm");
-        }
-    }
-
-    /**
-     * Muestra los milímetros acumulados por semana, de la más antigua a
-     * la más nueva.
-     *
-     * @param mediciones mediciones a acumular
-     */
-    private void mostrarSemanal(List<Medicion> mediciones) {
-        System.out.println("Acumulado semanal: ");
-        if (mediciones.isEmpty()) {
-            System.out.println("sin lecturas.");
-            return;
-        }
-
-        List<Integer> semanas = new ArrayList<>();
-        for (Medicion m : mediciones) {
-            int semana = claveSemana(m);
-            if (!semanas.contains(semana)) {
-                semanas.add(semana);
-            }
-        }
-        Collections.sort(semanas);
-
-        for (int semana : semanas) {
-            double total = 0;
-            for (Medicion m : mediciones) {
-                if (claveSemana(m) == semana) {
-                    total += m.getMilimetros();
-                }
-            }
-            System.out.println((semana / 100) + "-S" + String.format("%02d", semana % 100)
-                    + " | " + total + " mm");
-        }
-    }
-
-    /**
-     * Muestra los milímetros acumulados por mes, del más antiguo al más
-     * nuevo, junto con la media histórica de ese mes en la zona para
-     * compararla. Si la zona no tiene cargada la media de un mes, lo indica.
-     *
-     * @param mediciones mediciones a acumular
-     * @param zona zona con los valores históricos mensuales
-     */
-    private void mostrarMensual(List<Medicion> mediciones, ZonaGeografica zona) {
-        System.out.println("Acumulado mensual: ");
-        if (mediciones.isEmpty()) {
-            System.out.println("sin lecturas.");
-            return;
-        }
-
-        List<Integer> meses = new ArrayList<>();
-        for (Medicion m : mediciones) {
-            int mes = claveMes(m);
-            if (!meses.contains(mes)) {
-                meses.add(mes);
-            }
-        }
-        Collections.sort(meses);
-
-        for (int mes : meses) {
-            double total = 0;
-            for (Medicion m : mediciones) {
-                if (claveMes(m) == mes) {
-                    total += m.getMilimetros();
-                }
-            }
-
-            String media = " | sin media historica";
-            for (ValorHistorico v : zona.getValoresHistoricos()) {
-                if (v.getMes() == mes % 100) {
-                    media = " | media historica: " + v.getAcumuladoMedio() + " mm";
-                }
-            }
-            System.out.println((mes / 100) + "-" + String.format("%02d", mes % 100)
-                    + " | " + total + " mm" + media);
-        }
     }
 }
