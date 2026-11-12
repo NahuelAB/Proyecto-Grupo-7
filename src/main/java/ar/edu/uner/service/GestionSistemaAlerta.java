@@ -1,7 +1,7 @@
 /*
  * GestionSistemaAlerta.java
  *
- * Version 1.3
+ * Version 1.4
  *
  * 03/11/2026
  *
@@ -26,15 +26,18 @@ import ar.edu.uner.domain.model.EquipoRespuesta;
  * @author Jmanuel (Grupo-7)
  */
 public class GestionSistemaAlerta {
+    private GestionInfraestructura infraestructura;
     private List<Alerta> alertas;
-    private List<ZonaGeografica> zonasGeograficas;
 
     /**
-     * Crea el gestor con las listas de alertas y zonas vacías.
+     * Crea el gestor con el atributo GestionInfraestructura, para utilizar
+     * su lista de zonas geográficas, y con la lista de alertas vacía.
+     *
+     * @param infraestructura Gestor de infraestructura con las zonas registradas.
      */
-    public GestionSistemaAlerta() {
+    public GestionSistemaAlerta(GestionInfraestructura infraestructura) {
+        this.infraestructura = infraestructura;
         this.alertas = new ArrayList<>();
-        this.zonasGeograficas = new ArrayList<>();
     }
 
     /**
@@ -60,25 +63,20 @@ public class GestionSistemaAlerta {
     }
 
     /**
-     * Devuelve las zonas geográficas registradas en el sistema.
+     * Método auxiliar que reúne las zonas geográficas registradas
+     * en la gestión de infraestructura.
      *
-     * @return Lista de zonas geográficas.
+     * @return Lista con todas las zonas geográficas registradas.
      */
     public List<ZonaGeografica> getZonaGeograficas() {
-        return zonasGeograficas;
-    }
+        List<ZonaGeografica> zonas = new ArrayList<>();
 
-    /**
-     * Agrega una zona geográfica al sistema.
-     *
-     * @param zonaGeografica Zona a agregar.
-     * @return true si se agregó; false si es null o ya estaba en la lista.
-     */
-    public boolean agregarZonaGeografica(ZonaGeografica zonaGeografica) {
-        if (zonaGeografica != null && !zonasGeograficas.contains(zonaGeografica)) {
-            return zonasGeograficas.add(zonaGeografica);
+        for (ZonaGeografica zona : infraestructura.getZonas()) {
+            if (!zonas.contains(zona)) {
+                zonas.add(zona);
+            }
         }
-        return false;
+        return zonas;
     }
 
     /**
