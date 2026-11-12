@@ -1,3 +1,10 @@
+/*
+ * MenuInfraestructura.java
+ * Version 1.0
+ * 12/11/2026
+ * Copyright (c) 2026 Grupo 7 - UNER
+ */
+
 package ar.edu.uner.ui;
 
 import ar.edu.uner.domain.enums.EstadoOperativo;
@@ -6,32 +13,54 @@ import ar.edu.uner.domain.enums.NivelVulnerabilidad;
 import ar.edu.uner.domain.enums.TipoEstacion;
 import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.Sensor;
+import ar.edu.uner.domain.model.ValorHistorico;
 import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.service.GestionInfraestructura;
+import ar.edu.uner.service.LectorFechas;
 import ar.edu.uner.service.UtilidadesMenu;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 import static ar.edu.uner.service.LectorFechas.leerFecha;
 import static ar.edu.uner.service.UtilidadesMenu.*;
 
+
+/**
+ * Interfaz de usuario por consola encargada de gestionar la infraestructura
+ * meteorológica del sistema. Permite registrar zonas geográficas, estaciones
+ * y sensores, administrar la instalación y retiro de sensores, actualizar
+ * estados operativos, cargar valores históricos mensuales y listar elementos.
+ *
+ * @author Nahuel
+ */
 public class MenuInfraestructura implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private Scanner scanner;
 
+    /**
+     * Construye el menú de infraestructura asociando el gestor de servicio y
+     * el lector de entrada estándar.
+     *
+     * @param gestorInfraestructura gestor central de infraestructura meteorológica
+     * @param scanner               lector de entrada por consola
+     */
     public MenuInfraestructura(GestionInfraestructura gestorInfraestructura, Scanner scanner) {
         this.gestorInfraestructura = gestorInfraestructura;
         this.scanner = scanner;
     }
 
+    /**
+     * Inicia el ciclo principal de interacción del menú de infraestructura
+     * hasta que el usuario selecciona la opción de salida.
+     */
     @Override
     public void ejecutar() {
         int opcion;
 
         do {
             mostrarOpciones();
+            System.out.println("Ingrese una opción: ");
             opcion = leerOpcion(scanner);
 
             switch (opcion) {
@@ -53,17 +82,18 @@ public class MenuInfraestructura implements Ejecutable {
 
                 case 5:
                     retirarSensor();
+                    break;
 
                 case 6:
                     cambiarEstadoEstacionOSensor();
                     break;
 
                 case 7:
-                    // registrarValoresHistoricos();
+                    registrarValoresHistoricos();
                     break;
 
                 case 8:
-                    // listarZonasEstacionesSensores();
+                    listarZonasEstacionesSensores();
                     break;
 
                 case 0:
@@ -77,6 +107,10 @@ public class MenuInfraestructura implements Ejecutable {
         } while (opcion != 0);
     }
 
+    /**
+     * Despliega por consola las opciones disponibles en el módulo de
+     * infraestructura meteorológica.
+     */
     public void mostrarOpciones() {
         System.out.println();
         System.out.println("===== SISTEMA DE INFRAESTRUCTURA =====");
@@ -91,8 +125,10 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("0. Salir");
     }
 
-
-    //Metodos para registro Zona
+    /**
+     * Solicita los datos por consola y registra una nueva zona geográfica
+     * con su nivel de vulnerabilidad y nivel de alerta inicial.
+     */
     void registrarZona() {
         System.out.println();
         System.out.println("===== REGISTRO DE ZONA GEOGRAFICA =====");
@@ -122,7 +158,10 @@ public class MenuInfraestructura implements Ejecutable {
     }
 
 
-    // Metodos para registro estacion
+    /**
+     * Solicita los datos de ubicación, estado y tipo por consola y registra
+     * una nueva estación meteorológica vinculada a una zona existente.
+     */
     void registrarEstacion() {
         System.out.println();
         System.out.println("===== REGISTRO DE ESTACION METEOROLOGICA =====");
@@ -176,9 +215,10 @@ public class MenuInfraestructura implements Ejecutable {
                 : "No se pudo registrar la estación.");
     }
 
-
-    // Metodos registro sensor
-
+    /**
+     * Solicita marca, modelo, precisión, estado operativo y fecha de última
+     * calibración para dar de alta un nuevo sensor en el sistema.
+     */
     void registrarSensor() {
         System.out.println();
         System.out.println("===== REGISTRO DE SENSOR =====");
@@ -215,7 +255,10 @@ public class MenuInfraestructura implements Ejecutable {
                 "No se pudo registrar el sensor.");
     }
 
-
+    /**
+     * Muestra los sensores disponibles y las estaciones habilitadas para
+     * vincular un sensor operativo a una estación meteorológica.
+     */
     void instalarSensor() {
         System.out.println();
         System.out.println("===== INSTALAR SENSOR =====");
@@ -234,12 +277,15 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.print("Ingrese el ID de la Estación de destino: ");
         int idEstacion = scanner.nextInt();
 
-        boolean resultado = gestorInfraestructura.instalarSensor2(idSensor, idEstacion);
+        boolean resultado = gestorInfraestructura.instalarSensor(idSensor, idEstacion);
         System.out.println(resultado ? "¡Instalación de sensor Exitoso!" :
                 "No se pudo instalar el sensor.");
     }
 
-
+    /**
+     * Lista los sensores actualmente instalados y permite retirar uno de su
+     * estación meteorológica para dejarlo disponible.
+     */
     void retirarSensor() {
         System.out.println();
         System.out.println("===== RETIRAR SENSOR =====");
@@ -258,6 +304,10 @@ public class MenuInfraestructura implements Ejecutable {
                 : "No se pudo retirar el sensor. Verifique que el ID sea correcto.");
     }
 
+    /**
+     * Despliega un submenú para seleccionar si se desea modificar el estado
+     * operativo de una estación meteorológica o de un sensor.
+     */
     void cambiarEstadoEstacionOSensor() {
         int tipoElemento;
 
@@ -284,6 +334,10 @@ public class MenuInfraestructura implements Ejecutable {
         }
     }
 
+    /**
+     * Permite seleccionar una estación meteorológica por su identificador y
+     * actualizar su estado operativo.
+     */
     private void cambiarEstadoEstacion() {
         int idEstacion;
         EstadoOperativo nuevoEstado;
@@ -313,6 +367,10 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("¡Estado de la estación actualizado a " + nuevoEstado + "!");
     }
 
+    /**
+     * Permite seleccionar un sensor por su identificador y actualizar su
+     * estado operativo.
+     */
     private void cambiarEstadoSensor() {
         int idSensor;
         EstadoOperativo nuevoEstado;
@@ -342,17 +400,109 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("¡Estado del sensor actualizado a " + nuevoEstado + "!");
     }
 
-    
-}
-
-
-/*
-    Registrar zona: nombre y nivel de vulnerabilidad. El id lo asigna el sistema.
-    Registrar estación: elegir zona, tipo (automática o convencional), coordenadas y estado.
-    Registrar sensor: marca, modelo, precisión y fecha de última calibración.
-    Instalar sensor en una estación, con la regla de que un sensor está en una sola estación.
-    Retirar o trasladar un sensor a otra estación.
-    Cambiar el estado de una estación o de un sensor (operativo, en mantenimiento o fuera de servicio).
-    Cargar los valores históricos mensuales de una zona.
-    Listar zonas, estaciones y sensores con sus ids.
+    /**
+     * Solicita una zona geográfica, un mes de referencia y el acumulado medio
+     * en milímetros para registrar un valor histórico mensual en dicha zona.
      */
+    void registrarValoresHistoricos() {
+        int idZona;
+        int mes;
+        double acumuladoMedio;
+        ZonaGeografica zona;
+        LocalDate fecha;
+        ValorHistorico valorHistorico;
+        boolean resultado = false;
+
+        System.out.println();
+        System.out.println("===== REGISTRO DE VALORES HISTÓRICOS MENSUALES =====");
+
+        if (gestorInfraestructura.getZonas().isEmpty()) {
+            System.out.println("No hay zonas geográficas registradas. Registre una primero.");
+            return;
+        }
+
+        UtilidadesMenu.listarZonas(gestorInfraestructura);
+
+        System.out.print("Ingrese el ID de la zona geográfica: ");
+        idZona = scanner.nextInt();
+        scanner.nextLine();
+
+        zona = gestorInfraestructura.buscarZona(idZona);
+        if (zona == null) {
+            System.out.println("Error: No existe una zona geográfica con ese ID.");
+            return;
+        }
+
+        if (!zona.getValoresHistoricos().isEmpty()) {
+            System.out.println("--- Valores ya cargados en esta zona ---");
+            for (ValorHistorico vh : zona.getValoresHistoricos()) {
+                System.out.println("Mes: " + vh.getMes()
+                        + " | Acumulado medio: " + vh.getAcumuladoMedio() + " mm");
+            }
+        }
+
+        System.out.println("Ingrese una fecha correspondiente al mes histórico:");
+        fecha = LectorFechas.leerFecha(scanner);
+        mes = fecha.getMonthValue();
+
+        for (ValorHistorico vh : zona.getValoresHistoricos()) {
+            if (vh.getMes() == mes) {
+                System.out.println("Error: Ya existe un valor histórico registrado para el mes "
+                        + mes + " en esta zona.");
+                return;
+            }
+        }
+
+        do {
+            System.out.print("Ingrese el acumulado medio histórico (mm): ");
+            acumuladoMedio = scanner.nextDouble();
+            scanner.nextLine();
+
+            if (acumuladoMedio < 0) {
+                System.out.println("El acumulado medio no puede ser negativo.");
+            }
+        } while (acumuladoMedio < 0);
+
+        valorHistorico = new ValorHistorico(mes, acumuladoMedio);
+        resultado = zona.agregarValorHistorico(valorHistorico);
+
+        System.out.println(resultado
+                ? "¡Valor histórico mensual registrado exitosamente!"
+                : "No se pudo registrar el valor histórico.");
+    }
+
+    /**
+     * Despliega un submenú para consultar y listar por consola las zonas
+     * geográficas, las estaciones meteorológicas o los sensores registrados.
+     */
+    void listarZonasEstacionesSensores() {
+        int opcion;
+
+        System.out.println();
+        System.out.println("===== LISTAR INFRAESTRUCTURA =====");
+        System.out.println("1 - Zonas Geográficas");
+        System.out.println("2 - Estaciones Meteorológicas");
+        System.out.println("3 - Sensores");
+        System.out.print("Seleccione qué desea listar: ");
+        opcion = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (opcion) {
+            case 1:
+                UtilidadesMenu.listarZonas(gestorInfraestructura);
+                break;
+
+            case 2:
+                UtilidadesMenu.listarEstaciones(gestorInfraestructura);
+                break;
+
+            case 3:
+                UtilidadesMenu.listarSensores(gestorInfraestructura);
+                break;
+
+            default:
+                System.out.println("Opción no válida.");
+                break;
+        }
+    }
+}
