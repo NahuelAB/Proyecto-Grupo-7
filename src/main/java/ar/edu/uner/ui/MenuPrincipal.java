@@ -49,6 +49,7 @@ public class MenuPrincipal implements Ejecutable {
 
         do {
             mostrarOpciones();
+            System.out.println("Ingrese una opción: ");
             opcion = leerOpcion(scanner);
 
             switch (opcion) {

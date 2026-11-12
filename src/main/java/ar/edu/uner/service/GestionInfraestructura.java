@@ -188,15 +188,22 @@ public class GestionInfraestructura {
      * @return {@code true} si se instaló correctamente, {@code false} si no
      *         existe el sensor o la estación con esos identificadores
      */
-    public boolean instalarSensor(int idSensor, int idEstacion) {
-        Sensor sensor = this.buscarSensor(idSensor);
-        EstacionMeteorologica estacion = this.buscarEstacion(idEstacion);
-        if (sensor == null || estacion == null && !sensorOperativo(sensor))  {
-            return false;
+        public boolean instalarSensor(int idSensor, int idEstacion) {
+            Sensor sensor = buscarSensor(idSensor);
+            EstacionMeteorologica estacion = buscarEstacion(idEstacion);
+
+            if (sensor == null || estacion == null) {
+                return false;
+            }
+            if (!sensorOperativo(sensor)) {
+                return false;
+            }
+            if (buscarEstacionDeSensor(sensor) != null) {
+                return false;   // ya está instalado en alguna estación
+            }
+
+            return estacion.instalarSensor(sensor);
         }
-           estacion.getSensores().add(sensor);//revisar
-        return true;
-    }
     
         /**
      * Busca la estación meteorológica en la que está instalado un sensor.
@@ -216,40 +223,11 @@ public class GestionInfraestructura {
         }
         return e;
     }
-        
-        public  boolean sensorOperativo(Sensor s){
-            for (ZonaGeografica z : zonas) {
-                for (EstacionMeteorologica estacion : z.getEstacionesMeteorologicas()) {
-                    for (Sensor sensor : estacion.getSensores()) {
-                        if (sensor.getEstado() == EstadoOperativo.OPERATIVO) {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
 
-        public boolean sensorOperativo2(Sensor s) {
+        public boolean sensorOperativo(Sensor s) {
             return s != null && s.getEstado() == EstadoOperativo.OPERATIVO;
         }
 
-        public boolean instalarSensor2(int idSensor, int idEstacion) {
-            Sensor sensor = buscarSensor(idSensor);
-            EstacionMeteorologica estacion = buscarEstacion(idEstacion);
-
-            if (sensor == null || estacion == null) {
-                return false;
-            }
-            if (!sensorOperativo2(sensor)) {
-                return false;
-            }
-            if (buscarEstacionDeSensor(sensor) != null) {
-                return false;   // ya está instalado en alguna estación
-            }
-
-            return estacion.instalarSensor(sensor);
-        }
 
     public boolean retirarSensor(int idSensor) {
         Sensor sensor = buscarSensor(idSensor);
@@ -266,5 +244,13 @@ public class GestionInfraestructura {
         return estacion.retirarSensor(sensor);
     }
 
-    
+    public ZonaGeografica buscarZonaDeEstacion(EstacionMeteorologica estacionBuscada) {
+        for (ZonaGeografica zona : this.zonas) {
+            if (zona.getEstacionesMeteorologicas().contains(estacionBuscada)) {
+                return zona;
+            }
+        }
+        return null;
+    }
+
 }

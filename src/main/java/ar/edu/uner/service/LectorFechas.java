@@ -9,6 +9,7 @@ public class LectorFechas {
 
     public static LocalDate leerFecha(Scanner sc) {
         LocalDate fecha = null;
+
         while (fecha == null) {
             System.out.print("Año: ");
             int anio = sc.nextInt();
@@ -17,6 +18,7 @@ public class LectorFechas {
             System.out.print("Día: ");
             int dia = sc.nextInt();
             sc.nextLine(); // Limpia el buffer
+
             try {
                 fecha = LocalDate.of(anio, mes, dia);
             } catch (DateTimeException ex) {
@@ -28,6 +30,7 @@ public class LectorFechas {
 
     public static LocalDateTime leerFechaHora(Scanner sc) {
         LocalDateTime fechaHora = null;
+
         while (fechaHora == null) {
             LocalDate fecha = leerFecha(sc);
             System.out.print("Hora: ");
