@@ -14,6 +14,8 @@ import ar.edu.uner.service.*;
 
 import java.util.Scanner;
 
+import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
+
 public class MenuPrincipal implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionPersonal gestorPersonal;
@@ -40,11 +42,6 @@ public class MenuPrincipal implements Ejecutable {
         System.out.println("0. Salir");
     }
 
-    private int leerOpcion() {
-        System.out.print("Elija una opción: ");
-
-        return scanner.nextInt();
-    }
 
     @Override
     public void ejecutar(){
@@ -52,7 +49,7 @@ public class MenuPrincipal implements Ejecutable {
 
         do {
             mostrarOpciones();
-            opcion = leerOpcion();
+            opcion = leerOpcion(scanner);
 
             switch (opcion) {
                 case 1:

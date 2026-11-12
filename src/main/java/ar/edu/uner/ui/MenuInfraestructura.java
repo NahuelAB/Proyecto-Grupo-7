@@ -9,11 +9,11 @@ import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.service.GestionInfraestructura;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 import static ar.edu.uner.service.LectorFechas.leerFecha;
+import static ar.edu.uner.service.UtilidadesMenu.*;
 
 public class MenuInfraestructura implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
@@ -30,7 +30,7 @@ public class MenuInfraestructura implements Ejecutable {
 
         do {
             mostrarOpciones();
-            opcion = leerOpcion();
+            opcion = leerOpcion(scanner);
 
             switch (opcion) {
                 case 1:
@@ -89,17 +89,8 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("0. Salir");
     }
 
-    private int leerOpcion() {
-        System.out.print("Elija una opción: ");
-
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-
-        return opcion;
-    }
 
     //Metodos para registro Zona
-
     void registrarZona() {
         System.out.println();
         System.out.println("===== REGISTRO DE ZONA GEOGRAFICA =====");
@@ -115,11 +106,11 @@ public class MenuInfraestructura implements Ejecutable {
 
         System.out.println("Ingrese nivel de vulnerabilidad: ");
         System.out.println("1 - Bajo  2 - Medio  3 - Alto  4 - Muy Alta");
-        NivelVulnerabilidad nivelV = nivelVulni();
+        NivelVulnerabilidad nivelV = nivelVulni(scanner);
 
         System.out.println("Ingrese nivel de alerta: ");
         System.out.println("1 - Verde  2 - Amarilla  3 - Naranja  4 - Roja");
-        NivelAlerta nivelA = nivelAlerta();
+        NivelAlerta nivelA = nivelAlerta(scanner);
 
         ZonaGeografica zona = new ZonaGeografica(nombre, nivelV, nivelA);
 
@@ -128,51 +119,6 @@ public class MenuInfraestructura implements Ejecutable {
                 "No se pudo registrar la zona.");
     }
 
-    NivelVulnerabilidad nivelVulni() {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
-
-        NivelVulnerabilidad nivel;
-
-        switch(opt) {
-            case 1: nivel = NivelVulnerabilidad.BAJO;
-            break;
-            case 2: nivel = NivelVulnerabilidad.MEDIO;
-            break;
-            case 3: nivel = NivelVulnerabilidad.ALTO;
-            break;
-            case 4: nivel = NivelVulnerabilidad.MUY_ALTO;
-            break;
-            default:
-                System.out.println("Opción no válida. Se asignó BAJO por defecto.");
-                nivel = NivelVulnerabilidad.BAJO;
-        }
-
-        return nivel;
-    }
-
-    NivelAlerta nivelAlerta() {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
-
-        NivelAlerta nivelA;
-
-        switch(opt) {
-            case 1: nivelA = NivelAlerta.VERDE;
-                break;
-            case 2: nivelA = NivelAlerta.AMARILLA;
-                break;
-            case 3: nivelA = NivelAlerta.NARANJA;
-                break;
-            case 4: nivelA = NivelAlerta.ROJA;
-                break;
-            default:
-                System.out.println("Opción no válida. Se asignó VERDE por defecto.");
-                nivelA = NivelAlerta.VERDE;
-        }
-
-        return nivelA;
-    }
 
     // Metodos para registro estacion
     void registrarEstacion() {
@@ -258,39 +204,19 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("Ingrese el estado operativo del sensor: ");
         System.out.println("1 - Operativo  2 - En Mantenimiento" +
                 "  3 - Fuera de servicio");
-        EstadoOperativo estado = estadoOp();
+        EstadoOperativo estado = estadoOp(scanner);
 
         System.out.println("Ingrese fecha de la ultima calibración: ");
         LocalDate fecha = leerFecha(scanner);
 
         Sensor sensor = new Sensor(marca, modelo, precision, estado,
-                fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth());
+                fecha);
 
         boolean resultado = gestorInfraestructura.registrarSensor(sensor);
         System.out.println(resultado ? "¡Registro de sensor Exitoso!" :
                 "No se pudo registrar el sensor.");
     }
 
-    EstadoOperativo estadoOp() {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
-
-        EstadoOperativo estadoOp;
-
-        switch(opt) {
-            case 1: estadoOp = EstadoOperativo.OPERATIVO;
-                break;
-            case 2: estadoOp = EstadoOperativo.EN_MANTENIMIENTO;
-                break;
-            case 3: estadoOp = EstadoOperativo.FUERA_DE_SERVICIO;
-                break;
-            default:
-                System.out.println("Opción no válida. Se asignó VERDE por defecto.");
-                estadoOp = EstadoOperativo.FUERA_DE_SERVICIO;
-        }
-
-        return estadoOp;
-    }
 
     void instalarSensor() {
         System.out.println();
@@ -369,7 +295,7 @@ public class MenuInfraestructura implements Ejecutable {
     }
 
     void retirarSensor() {
-        
+
     }
 }
 
