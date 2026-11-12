@@ -28,6 +28,11 @@ public class MenuPrincipal implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionPersonal gestorPersonal;
     private GestionSistemaAlerta gestorSistemaAlerta;
+    private GestionEstadisticaAnomaliaClimatica gestorInfEstAnomClim;
+    private GestionHistorialAlertas gestorInfHistAlerta;
+    private GestionInformeFallasMantenimiento gestorInfFallasMant;
+    private GestionInformeFichaTecnica gestorInfFichaTec;
+    private GestionInformeVolumetria gestorInfVol;
     private Scanner scanner;
 
     /**
@@ -40,10 +45,19 @@ public class MenuPrincipal implements Ejecutable {
      */
     public MenuPrincipal(GestionInfraestructura gestorInfraestructura,
                          GestionPersonal gestorPersonal,
-                        GestionSistemaAlerta gestorSistemaAlerta) {
+                        GestionSistemaAlerta gestorSistemaAlerta,
+                        GestionEstadisticaAnomaliaClimatica gestorInfEstAnomClim,
+                        GestionHistorialAlertas gestorInfHistAlerta,
+                        GestionInformeFallasMantenimiento gestorInfFallasMant,
+                        GestionInformeFichaTecnica gestorInfFichaTec,
+                        GestionInformeVolumetria gestorInfVol) {
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorPersonal = gestorPersonal;
         this.gestorSistemaAlerta = gestorSistemaAlerta;
+        this.gestorInfEstAnomClim = gestorInfEstAnomClim;
+        this.gestorInfFallasMant = gestorInfFallasMant;
+        this.gestorInfFichaTec = gestorInfFichaTec;
+        this.gestorInfVol = gestorInfVol;
         scanner = new Scanner(System.in);
     }
 
@@ -86,7 +100,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuPersonal.ejecutar();
                     break;
                 case 3:
-                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura,scanner);
+                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura);
                     menuMediciones.ejecutar();
                     break;
                 case 4:
@@ -94,7 +108,8 @@ public class MenuPrincipal implements Ejecutable {
                     menuAlertas.ejecutar();
                     break;
                 case 5:
-                    MenuReportes menuReportes = new MenuReportes(GestionEstadisticaAnomaliaClimatica, GestionHistorialAlertas);
+                    MenuReportes menuReportes = new MenuReportes(gestorInfEstAnomClim, gestorInfHistAlerta, gestorInfFallasMant,
+                                                                gestorInfFichaTec, gestorInfVol, scanner);
                     menuReportes.ejecutar();
                     break;
                 case 0:
