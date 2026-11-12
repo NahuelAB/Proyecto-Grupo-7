@@ -8,7 +8,7 @@ public class Main {
         // 1. Instaciar los servicios centrales
         GestionInfraestructura gestorInfra = new GestionInfraestructura();
         GestionPersonal gestorPersonal = new GestionPersonal(gestorInfra);
-        GestionSistemaAlerta gestorSistAlerta = new GestionSistemaAlerta();
+        GestionSistemaAlerta gestorSistAlerta = new GestionSistemaAlerta(gestorInfra);
 
         // 2. Cargar datos iniciales
         CargadorDatosPrueba.cargarDatosIniciales(gestorInfra, gestorPersonal);
