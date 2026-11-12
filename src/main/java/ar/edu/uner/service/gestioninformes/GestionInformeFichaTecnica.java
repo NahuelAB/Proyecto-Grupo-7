@@ -56,7 +56,7 @@ public class GestionInformeFichaTecnica {
         }
 
         System.out.println("Estación " + estacion.getIdEstacion() + " | "
-                + estacion.getNombre() + " | " + estacion.getEstado());
+                + estacion.getNombre() + " | " + estacion.getEstadoOp());
 
         if (estacion.getResponsable() != null) {
             System.out.println("Responsable a cargo: " + estacion.getResponsable());
