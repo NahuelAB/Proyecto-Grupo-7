@@ -53,7 +53,7 @@ public class MenuPrincipal implements Ejecutable {
 
             switch (opcion) {
                 case 1:
-                    MenuInfraestructura menuInfra = new MenuInfraestructura(gestorInfraestructura);
+                    MenuInfraestructura menuInfra = new MenuInfraestructura(gestorInfraestructura, scanner);
                     menuInfra.ejecutar();
                     break;
                 case 2:

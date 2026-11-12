@@ -229,6 +229,42 @@ public class GestionInfraestructura {
             }
             return true;
         }
-        
-        
+
+        public boolean sensorOperativo2(Sensor s) {
+            return s != null && s.getEstado() == EstadoOperativo.OPERATIVO;
+        }
+
+        public boolean instalarSensor2(int idSensor, int idEstacion) {
+            Sensor sensor = buscarSensor(idSensor);
+            EstacionMeteorologica estacion = buscarEstacion(idEstacion);
+
+            if (sensor == null || estacion == null) {
+                return false;
+            }
+            if (!sensorOperativo2(sensor)) {
+                return false;
+            }
+            if (buscarEstacionDeSensor(sensor) != null) {
+                return false;   // ya está instalado en alguna estación
+            }
+
+            return estacion.instalarSensor(sensor);
+        }
+
+    public boolean retirarSensor(int idSensor) {
+        Sensor sensor = buscarSensor(idSensor);
+
+        if (sensor == null) {
+            return false;
+        }
+
+        EstacionMeteorologica estacion = buscarEstacionDeSensor(sensor);
+        if (estacion == null) {
+            return false;   // no estaba instalado
+        }
+
+        return estacion.retirarSensor(sensor);
+    }
+
+    
 }

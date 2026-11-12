@@ -267,10 +267,11 @@ public class EstacionMeteorologica {
      * 
      * @param s nuevo sensor agregado.
      */
-    public void instalarSensor(Sensor s) {
-        sensores.add(s);
-        //s.setEstacion(this); Establece que la estación meteorológica 
-        // actual es la estación a la que pertenece ese sensor.
+    public boolean instalarSensor(Sensor s) {
+        if (s != null && !this.sensores.contains(s)) {
+            return this.sensores.add(s);
+        }
+        return false;
     }
 
     /**
@@ -278,8 +279,11 @@ public class EstacionMeteorologica {
      * 
      * @param s sensor a remover.
      */
-    public void retirarSensor(Sensor s) {
-        sensores.remove(s);
+    public boolean retirarSensor(Sensor s) {
+        if (s != null && this.sensores.contains(s)) {
+            return this.sensores.remove(s);
+        }
+        return false;
     }
 
     /**
