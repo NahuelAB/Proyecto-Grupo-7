@@ -144,12 +144,13 @@ public class GestionSistemaAlerta {
      * @return La Alerta creada y almacenada en el sistema.
      */
     public Alerta registrarAlertaManual(ZonaGeografica zona, NivelAlerta nivel,
-                                        TipoEventoClimatico tipo, String descripcion) {
+                                        TipoEventoClimatico tipo, String descripcion,
+                                        LocalDateTime fechaHora) {
         if (zona == null || nivel == null || descripcion == null
                 || tipo == TipoEventoClimatico.LLUVIA_COPIOSA) {
             return null; // solo CRECIDA_RIO y TORMENTA_SEVERA pueden ser manuales
         }
-        Alerta alerta = new Alerta(descripcion, nivel, tipo, zona, LocalDateTime.now());
+        Alerta alerta = new Alerta(descripcion, nivel, tipo, zona, fechaHora);
         agregarAlertas(alerta);
         zona.agregarAlerta(alerta);
         return alerta;

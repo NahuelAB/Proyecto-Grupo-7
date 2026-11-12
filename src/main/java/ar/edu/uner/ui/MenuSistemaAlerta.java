@@ -11,7 +11,6 @@ import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.TipoEventoClimatico;
 import ar.edu.uner.domain.model.Alerta;
 import ar.edu.uner.domain.model.EquipoRespuesta;
-import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.service.GestionPersonal;
 import ar.edu.uner.service.GestionSistemaAlerta;
 import ar.edu.uner.service.GestionInfraestructura;
@@ -22,7 +21,6 @@ public class MenuSistemaAlerta implements Ejecutable{
     private GestionSistemaAlerta gestion;
     private GestionPersonal personal;
     private GestionInfraestructura gestionInfra;
-    private ZonaGeografica zonaGeo;
 
     public MenuSistemaAlerta(GestionSistemaAlerta gestion,
                             GestionPersonal personal, 
@@ -148,7 +146,7 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("Fecha y hora de la alerta");
         LocalDateTime fechaHora = LectorFechas.leerFechaHora(sc);
 
-        Alerta alerta = gestion.registrarAlertaManual(zona, nivel, tipo, descripcion);
+        Alerta alerta = gestion.registrarAlertaManual(zona, nivel, tipo, descripcion, fechaHora);
         if (alerta == null) {
             System.out.println("No se pudo registrar la alerta.");
         } else {
@@ -168,7 +166,7 @@ public class MenuSistemaAlerta implements Ejecutable{
         if (gestion.asignarEquipo(alerta, equipo)) {
             System.out.println("Equipo asignado.");
         } else {
-            System.out.println("No se pudo asignar: la alerta no requiere euipo o el equipo no esta disponible.");
+            System.out.println("No se pudo asignar: la alerta no requiere equipo o el equipo no esta disponible.");
         }
     }
 
