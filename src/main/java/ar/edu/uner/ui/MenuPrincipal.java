@@ -65,7 +65,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuMediciones.ejecutar();
                     break;
                 case 4:
-                    MenuSistemaAlerta menuAlertas = new MenuSistemaAlerta(gestorSistemaAlerta, gestorPersonal, scanner);
+                    MenuSistemaAlerta menuAlertas = new MenuSistemaAlerta(gestorSistemaAlerta, gestorPersonal, gestorInfraestructura, scanner);
                     menuAlertas.ejecutar();
                     break;
                 case 5:
