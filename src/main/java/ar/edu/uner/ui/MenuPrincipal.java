@@ -86,7 +86,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuPersonal.ejecutar();
                     break;
                 case 3:
-                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura);
+                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura,scanner);
                     menuMediciones.ejecutar();
                     break;
                 case 4:
