@@ -16,12 +16,27 @@ import java.util.Scanner;
 
 import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
 
+/**
+ * Menú principal de la interfaz de usuario por consola del sistema
+ * meteorológico. Coordina la navegación hacia los distintos módulos
+ * de gestión, operación y reportes.
+ *
+ * @author Nahuel
+ */
 public class MenuPrincipal implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionPersonal gestorPersonal;
     private GestionSistemaAlerta gestorSistemaAlerta;
     private Scanner scanner;
 
+    /**
+     * Construye el menú principal inicializando las referencias a los
+     * servicios centrales del sistema y el lector de entrada estándar.
+     *
+     * @param gestorInfraestructura gestor central de zonas, estaciones y sensores
+     * @param gestorPersonal        gestor de responsables técnicos y equipos de respuesta
+     * @param gestorSistemaAlerta   gestor del sistema de alertas tempranas
+     */
     public MenuPrincipal(GestionInfraestructura gestorInfraestructura,
                          GestionPersonal gestorPersonal,
                         GestionSistemaAlerta gestorSistemaAlerta) {
@@ -31,6 +46,10 @@ public class MenuPrincipal implements Ejecutable {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Despliega por consola las opciones principales disponibles para acceder
+     * a cada módulo del sistema meteorológico.
+     */
     public void mostrarOpciones() {
         System.out.println();
         System.out.println("===== SISTEMA METEOROLOGICO =====");
@@ -42,7 +61,11 @@ public class MenuPrincipal implements Ejecutable {
         System.out.println("0. Salir");
     }
 
-
+    /**
+     * Inicia el ciclo principal de interacción del menú por consola,
+     * delegando la ejecución al submenú seleccionado hasta que el usuario
+     * elige la opción de salida.
+     */
     @Override
     public void ejecutar(){
         int opcion;
