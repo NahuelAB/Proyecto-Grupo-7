@@ -10,20 +10,22 @@
 
 package ar.edu.uner.ui;
 
-import ar.edu.uner.service.GestionInfraestructura;
-import ar.edu.uner.service.GestionPersonal;
+import ar.edu.uner.service.*;
 
 import java.util.Scanner;
 
 public class MenuPrincipal implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionPersonal gestorPersonal;
+    private GestionSistemaAlerta gestorSistemaAlerta;
     private Scanner scanner;
 
     public MenuPrincipal(GestionInfraestructura gestorInfraestructura,
-                         GestionPersonal gestorPersonal) {
+                         GestionPersonal gestorPersonal,
+                        GestionSistemaAlerta gestorSistemaAlerta) {
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorPersonal = gestorPersonal;
+        this.gestorSistemaAlerta = gestorSistemaAlerta;
         scanner = new Scanner(System.in);
     }
 
@@ -66,7 +68,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuMediciones.ejecutar();
                     break;
                 case 4:
-                    MenuAlertas menuAlertas = new MenuAlertas(gestorInfraestructura);
+                    MenuSistemaAlerta menuAlertas = new MenuSistemaAlerta(gestorSistemaAlerta, gestorPersonal, scanner);
                     menuAlertas.ejecutar();
                     break;
                 case 5:

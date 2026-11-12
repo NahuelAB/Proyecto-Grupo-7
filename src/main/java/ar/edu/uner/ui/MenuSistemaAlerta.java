@@ -11,7 +11,6 @@ import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.TipoEventoClimatico;
 import ar.edu.uner.domain.model.Alerta;
 import ar.edu.uner.domain.model.EquipoRespuesta;
-import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.GestionPersonal;
 import ar.edu.uner.service.GestionSistemaAlerta;
 import ar.edu.uner.service.LectorFechas;
@@ -21,11 +20,12 @@ public class MenuSistemaAlerta implements Ejecutable{
     private GestionSistemaAlerta gestion;
     private GestionPersonal personal;
 
-    public MenuSistemaAlerta(Scanner sc, GestionSistemaAlerta gestion,
-                            GestionPersonal personal) {
-        this.sc = sc;
+    public MenuSistemaAlerta(GestionSistemaAlerta gestion,
+                            GestionPersonal personal, Scanner sc) {
         this.gestion = gestion;
         this.personal = personal;
+        this.sc = sc;
+
     }
 
     @Override
