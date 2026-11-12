@@ -29,7 +29,6 @@ public class GestionInfraestructura {
     private List<EstacionMeteorologica> estaciones;
     private List<Sensor> sensores;
 
-    //Constructor
     /**
      * Crea la gestión de infraestructura sin registros.
      * Las listas de zonas, estaciones y sensores se inicializan vacías.
@@ -72,9 +71,7 @@ public class GestionInfraestructura {
     public List<Sensor> getSensores() {
         return Collections.unmodifiableList(this.sensores);
     }
-    
 
-    //Registrar
     /**
      * Registra una zona geográfica o cuenca hidrográfica.
      *
@@ -125,7 +122,6 @@ public class GestionInfraestructura {
         return this.estaciones.add(estacion);
     }
 
-    //Buscar
     /**
      * Busca una zona registrada a partir de su identificador.
      *
@@ -143,7 +139,8 @@ public class GestionInfraestructura {
         }
         return encontrada;
     }
-        /**
+
+    /**
      * Busca un sensor registrado a partir de su identificador.
      *
      * @param idSensor identificador del sensor buscado
@@ -161,7 +158,7 @@ public class GestionInfraestructura {
         return encontrado;
     }
     
-        /**
+    /**
      * Busca una estación meteorológica registrada a partir de su identificador.
      *
      * @param idEstacion identificador de la estación buscada
@@ -180,7 +177,7 @@ public class GestionInfraestructura {
         
     } 
     
-        /**
+    /**
      * Instala un sensor registrado en una estación registrada.
      *
      * @param idSensor identificador del sensor a instalar
@@ -188,62 +185,84 @@ public class GestionInfraestructura {
      * @return {@code true} si se instaló correctamente, {@code false} si no
      *         existe el sensor o la estación con esos identificadores
      */
-        public boolean instalarSensor(int idSensor, int idEstacion) {
-            Sensor sensor = buscarSensor(idSensor);
-            EstacionMeteorologica estacion = buscarEstacion(idEstacion);
+      public boolean instalarSensor(int idSensor, int idEstacion) {
+          Sensor sensor = buscarSensor(idSensor);
+          EstacionMeteorologica estacion = buscarEstacion(idEstacion);
 
-            if (sensor == null || estacion == null) {
-                return false;
-            }
-            if (!sensorOperativo(sensor)) {
-                return false;
-            }
-            if (buscarEstacionDeSensor(sensor) != null) {
-                return false;   // ya está instalado en alguna estación
-            }
+          if (sensor == null || estacion == null) {
+              return false;
+          }
+          if (!sensorOperativo(sensor)) {
+              return false;
+          }
+          if (buscarEstacionDeSensor(sensor) != null) {
+              return false;   // ya está instalado en alguna estación
+          }
 
-            return estacion.instalarSensor(sensor);
-        }
-    
-        /**
-     * Busca la estación meteorológica en la que está instalado un sensor.
-     *
-     * @param s el sensor cuya estación se busca
-     * @return la estación en la que está instalado el sensor, o {@code null}
-     *         si el sensor no está instalado en ninguna estación registrada
-     */
+          return estacion.instalarSensor(sensor);
+      }
 
+      /**
+       * Busca la estación meteorológica en la que está instalado un sensor.
+       *
+       * @param s el sensor cuya estación se busca
+       * @return la estación en la que está instalado el sensor, o {@code null}
+       *         si el sensor no está instalado en ninguna estación registrada
+       */
         public EstacionMeteorologica buscarEstacionDeSensor(Sensor s) {
-        EstacionMeteorologica e = null;
-        for (EstacionMeteorologica es : this.estaciones) {
-            if (es.getSensores().contains(s)) {
-                e = es;
-                break;
-            }
-        }
-        return e;
-    }
+            EstacionMeteorologica e = null;
 
+            for (EstacionMeteorologica es : this.estaciones) {
+                if (es.getSensores().contains(s)) {
+                    e = es;
+                    break;
+                }
+            }
+            return e;
+        }
+
+      /**
+       * Verifica si un sensor se encuentra en estado operativo.
+       *
+       * @param s el sensor cuyo estado se desea comprobar
+       * @return {@code true} si el sensor no es nulo y su estado es
+       *         {@link EstadoOperativo#OPERATIVO}, {@code false} en caso contrario
+       */
         public boolean sensorOperativo(Sensor s) {
             return s != null && s.getEstado() == EstadoOperativo.OPERATIVO;
         }
 
+       /**
+        * Retira un sensor instalado de su estación meteorológica actual,
+        * dejándolo disponible en el sistema.
+        *
+        * @param idSensor identificador del sensor a retirar
+        * @return {@code true} si se retiró correctamente, {@code false} si no
+        *         existe un sensor con ese identificador o no estaba instalado
+        *         en ninguna estación
+        */
+        public boolean retirarSensor(int idSensor) {
+            Sensor sensor = buscarSensor(idSensor);
 
-    public boolean retirarSensor(int idSensor) {
-        Sensor sensor = buscarSensor(idSensor);
+            if (sensor == null) {
+                return false;
+            }
 
-        if (sensor == null) {
-            return false;
+            EstacionMeteorologica estacion = buscarEstacionDeSensor(sensor);
+                if (estacion == null) {
+                return false;   // no estaba instalado
+            }
+
+            return estacion.retirarSensor(sensor);
         }
 
-        EstacionMeteorologica estacion = buscarEstacionDeSensor(sensor);
-        if (estacion == null) {
-            return false;   // no estaba instalado
-        }
-
-        return estacion.retirarSensor(sensor);
-    }
-
+    /**
+     * Busca la zona geográfica a la que pertenece una estación meteorológica.
+     *
+     * @param estacionBuscada la estación cuya zona se desea obtener
+     * @return la zona geográfica que contiene a la estación, o {@code null}
+     *         si no está asociada a ninguna zona registrada
+     */
     public ZonaGeografica buscarZonaDeEstacion(EstacionMeteorologica estacionBuscada) {
         for (ZonaGeografica zona : this.zonas) {
             if (zona.getEstacionesMeteorologicas().contains(estacionBuscada)) {
@@ -252,5 +271,4 @@ public class GestionInfraestructura {
         }
         return null;
     }
-
 }

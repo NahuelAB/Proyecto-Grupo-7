@@ -77,7 +77,6 @@ public class ZonaGeografica {
         return idZona;
     }
 
-
     /**
      * Obtiene el nombre de la zona.
      *

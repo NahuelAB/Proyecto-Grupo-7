@@ -7,7 +7,6 @@ import ar.edu.uner.domain.enums.TipoEstacion;
 import ar.edu.uner.domain.model.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class CargadorDatosPrueba {
 
@@ -55,44 +54,22 @@ public class CargadorDatosPrueba {
         gestorInfra.instalarSensor(sensorSalto2.getIdSensor(), estacionSalto.getIdEstacion());
         gestorInfra.instalarSensor(sensorVillaguay1.getIdSensor(), estacionVillaguay.getIdEstacion());
         gestorInfra.instalarSensor(sensorVillaguay2.getIdSensor(), estacionVillaguay.getIdEstacion());
-    }
-}
 
-        /* Creacion gestor Personal
-        //GestionPersonal gestorPersonal = new GestionPersonal();
 
-        // Creacion Responsables
         ResponsableTecnico supervisorUruguay = new ResponsableTecnico(
                 "35123456", "Juan", "Pérez", "juan.perez@uner.edu.ar",
                 "343111222", "Hidrología", "LIC-001" );
-        ResponsableTecnico supervisorParana = new ResponsableTecnico(
+        ResponsableTecnico supervisorVillaguay = new ResponsableTecnico(
                 "36987654", "María", "Gómez", "maria.gomez@uner.edu.ar",
                 "343333444", "Meteorología Operativa", "LIC-002" );
         ResponsableTecnico tecnicoMantenimiento = new ResponsableTecnico(
                 "38444555", "Carlos", "López", "carlos.lopez@uner.edu.ar",
                 "343555666", "Instrumentación y Calibración", "LIC-003" );
+    }
+}
 
-        // Creacion EquipoRespuesta
-        EquipoRespuesta equipoAlpha = new EquipoRespuesta(
-                "Equipo Alpha", true);
-        equipoAlpha.agregarIntegrante(supervisorParana);
-        equipoAlpha.agregarIntegrante(tecnicoMantenimiento);
 
-        //gestorPersonal.agregarEquipo(equipoAlpha);
 
-        // Creacion Sensor
-        Sensor pluviometroConcordia = new Sensor("Vaisala", "RG13",
-                0.1, EstadoOperativo.OPERATIVO, 2026, 8, 20);
-        pluviometroConcordia.registrar(25.5, LocalDateTime.now().minusHours(2));
-        pluviometroConcordia.registrar(30.0, LocalDateTime.now().minusHours(8));
-        pluviometroConcordia.registrar(15.0, LocalDateTime.now().minusHours(30));
+        // Creacion Responsables
 
-        // Creacion Estacion meteorologica
-        EstacionMeteorologica estacionConcordia = new EstacionMeteorologica(
-                "Estacion Concordia", 20, 10, 30);
-        estacionConcordia.setTipoEst(TipoEstacion.AUTOMATICA);
-        estacionConcordia.setEstadoOp(EstadoOperativo.OPERATIVO);
-        estacionConcordia.setResponsable(supervisorUruguay);
-        estacionConcordia.instalarSensor(pluviometroConcordia);
-        */
 
