@@ -11,6 +11,7 @@ public class MenuReportes implements Ejecutable {
     private GestionInformeFallasMantenimiento menuInformeFallasMant;
     private GestionInformeFichaTecnica menuInformeFichaT;
     private GestionInformeVolumetria menuInformeVol;
+    
     private Scanner sc;
 
     public MenuReportes(GestionEstadisticaAnomaliaClimatica menuEstAnomCli,
@@ -18,12 +19,14 @@ public class MenuReportes implements Ejecutable {
                         GestionInformeFallasMantenimiento menuInformeFallasMant,
                         GestionInformeFichaTecnica menuInformeFichaT,
                         GestionInformeVolumetria menuInformeVol,
+                        GestionInformeEstaciones menuInformesEstaciones,
                         Scanner sc) {
     this.menuEstAnomCli = menuEstAnomCli;
     this.menuHistorialAlertas = menuHistorialAlertas;
     this.menuInformeFallasMant = menuInformeFallasMant;
     this.menuInformeFichaT = menuInformeFichaT;
     this.menuInformeVol = menuInformeVol;
+    this.menuInformesEstaciones = menuInformesEstaciones;
     this.sc = sc;
     }
 
@@ -44,7 +47,7 @@ public class MenuReportes implements Ejecutable {
 
             switch (opcion) {
                 case 1: 
-                    //ACA VA EL MENU DE INFORME HISTORICO PRECIPITACIONES CUANDO SE CREE
+                    menuInformesEstaciones.mostrar();
                     break;
 
                 case 2:
