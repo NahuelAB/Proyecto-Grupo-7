@@ -171,9 +171,12 @@ public class MenuInfraestructura implements Ejecutable {
         }
 
         System.out.println("Seleccione un ID: ");
-        int idZona = scanner.nextInt();
-        scanner.nextLine();
+        int idZona = leerOpcion(scanner);
 
+        if (gestorInfraestructura.buscarZona(idZona) == null) {
+            System.out.println("No se encontro el ID del Zona " + idZona);
+            return;
+        }
 
         String nombre;
         do {
@@ -188,12 +191,10 @@ public class MenuInfraestructura implements Ejecutable {
         double latitud = leerDouble(scanner);
 
         System.out.println("Ingrese nivel de longitud: ");
-        double longitud = scanner.nextDouble();
-        scanner.nextLine();
+        double longitud = leerDouble(scanner);
 
         System.out.println("Ingrese nivel de altitud: ");
-        double altitud = scanner.nextDouble();
-        scanner.nextLine();
+        double altitud = leerDouble(scanner);
 
         System.out.println("Ingrese el estado operativo estación: ");
         System.out.println("1 - Operativo  2 - En Mantenimiento" +
@@ -235,8 +236,7 @@ public class MenuInfraestructura implements Ejecutable {
         String modelo = scanner.nextLine();
 
         System.out.println("Ingrese la precision del sensor: ");
-        double precision = scanner.nextDouble();
-        scanner.nextLine();
+        double precision = leerDouble(scanner);
 
         System.out.println("Ingrese el estado operativo del sensor: ");
         System.out.println("1 - Operativo  2 - En Mantenimiento" +
@@ -267,14 +267,14 @@ public class MenuInfraestructura implements Ejecutable {
         }
 
         System.out.print("Ingrese el ID del Sensor a instalar: ");
-        int idSensor = scanner.nextInt();
+        int idSensor = leerOpcion(scanner);
 
         if (!mostrarEstacionesParaInstalar(gestorInfraestructura)) {
             return;
         }
 
         System.out.print("Ingrese el ID de la Estación de destino: ");
-        int idEstacion = scanner.nextInt();
+        int idEstacion = leerOpcion(scanner);
 
         boolean resultado = gestorInfraestructura.instalarSensor(idSensor, idEstacion);
         System.out.println(resultado ? "¡Instalación de sensor Exitoso!" :
@@ -294,8 +294,7 @@ public class MenuInfraestructura implements Ejecutable {
         }
 
         System.out.print("Ingrese el ID del sensor a retirar: ");
-        int idSensor = scanner.nextInt();
-        scanner.nextLine();
+        int idSensor = leerOpcion(scanner);
 
         boolean resultado = gestorInfraestructura.retirarSensor(idSensor);
         System.out.println(resultado
@@ -315,8 +314,7 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("1 - Estación Meteorológica");
         System.out.println("2 - Sensor");
         System.out.print("Seleccione qué desea modificar: ");
-        tipoElemento = scanner.nextInt();
-        scanner.nextLine();
+        tipoElemento = leerOpcion(scanner);
 
         switch (tipoElemento) {
             case 1:
@@ -346,8 +344,7 @@ public class MenuInfraestructura implements Ejecutable {
         }
 
         System.out.print("Ingrese el ID de la estación: ");
-        idEstacion = scanner.nextInt();
-        scanner.nextLine();
+        idEstacion = leerOpcion(scanner);
 
         EstacionMeteorologica estacion = gestorInfraestructura.buscarEstacion(idEstacion);
 
@@ -379,8 +376,7 @@ public class MenuInfraestructura implements Ejecutable {
         }
 
         System.out.print("Ingrese el ID del sensor: ");
-        idSensor = scanner.nextInt();
-        scanner.nextLine();
+        idSensor = leerOpcion(scanner);
 
         Sensor sensor = gestorInfraestructura.buscarSensor(idSensor);
 
@@ -423,8 +419,7 @@ public class MenuInfraestructura implements Ejecutable {
         UtilidadesMenu.listarZonas(gestorInfraestructura);
 
         System.out.print("Ingrese el ID de la zona geográfica: ");
-        idZona = scanner.nextInt();
-        scanner.nextLine();
+        idZona = leerOpcion(scanner);
 
         zona = gestorInfraestructura.buscarZona(idZona);
         if (zona == null) {
@@ -454,8 +449,7 @@ public class MenuInfraestructura implements Ejecutable {
 
         do {
             System.out.print("Ingrese el acumulado medio histórico (mm): ");
-            acumuladoMedio = scanner.nextDouble();
-            scanner.nextLine();
+            acumuladoMedio = leerDouble(scanner);
 
             if (acumuladoMedio < 0) {
                 System.out.println("El acumulado medio no puede ser negativo.");
