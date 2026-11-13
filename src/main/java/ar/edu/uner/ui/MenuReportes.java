@@ -48,7 +48,7 @@ public class MenuReportes implements Ejecutable {
                     break;
 
                 case 2:
-                    //menuInformeVol
+                    menuInformeVol.mostrar();
                     break;
 
                 case 3:
@@ -56,7 +56,7 @@ public class MenuReportes implements Ejecutable {
                     break;
 
                 case 4:
-                    //menuInformeFichaT
+                    menuInformeFichaT.mostrar();
                     break;
 
                 case 5:
