@@ -72,8 +72,7 @@ public class GestionHistorialAlertas {
         }
 
         System.out.print("Ingrese el ID de la zona: ");
-        int idZona = scanner.nextInt();
-        scanner.nextLine();
+        int idZona = leerOpcion(scanner);
 
         List<Alerta> alertas = historialAlertas.obtenerAlertasPorZona(idZona);
 
