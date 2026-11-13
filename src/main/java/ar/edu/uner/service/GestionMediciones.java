@@ -1,5 +1,5 @@
 /*
-* Sensor.java
+* GestionMediciones.java
 *
 * 2/11/2026
 *
