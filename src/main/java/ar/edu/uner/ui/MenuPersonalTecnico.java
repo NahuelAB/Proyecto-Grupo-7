@@ -29,7 +29,7 @@ import static ar.edu.uner.service.LectorFechas.leerFecha;
  *
  * @author Jmanuel (Grupo-7)
  */
-public class MenuPersonalTecnico {
+public class MenuPersonalTecnico implements Ejecutable {
     private GestionPersonal gestorPersonal;
     private Scanner scanner;
 
@@ -43,7 +43,7 @@ public class MenuPersonalTecnico {
         this.scanner = new Scanner(System.in);
     }
 
-    /*@Override
+    @Override
     public void ejecutar() {
         int opcion;
 
@@ -429,6 +429,6 @@ public class MenuPersonalTecnico {
         return equipo.getIdEquipo() + " | " + equipo.getNombreEquipo() + " | "
                 + (equipo.isDisponible() ? "Disponible" : "No disponible")
                 + " | Integrantes: " + equipo.getIntegrantes().size();
-    }*/
+    }
 
 }
