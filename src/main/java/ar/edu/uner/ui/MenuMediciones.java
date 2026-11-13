@@ -124,7 +124,6 @@ public class MenuMediciones implements Ejecutable {
         LocalDateTime fechaHora;
         if (respuesta.equalsIgnoreCase("n")) {
             fechaHora = LectorFechas.leerFechaHora(scanner);
-            scanner.nextLine();
         } else {
             fechaHora = LocalDateTime.now();
         }
