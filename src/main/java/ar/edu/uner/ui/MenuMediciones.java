@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+import ar.edu.uner.service.UtilidadesMenu;
 
 /**
  * Menú de mediciones: permite registrar lecturas de precipitación, ver las
@@ -66,13 +67,11 @@ public class MenuMediciones implements Ejecutable {
      * Lee un número entero ingresado por el usuario y limpia el buffer.
      *
      * @param mensaje texto que se muestra antes de leer
-     * @return el número ingresado
+     * @return el número ingresado, si lo ingresado no es un número lo vuelve a pedir
      */
     private int leerEntero(String mensaje) {
         System.out.print(mensaje);
-        int valor = scanner.nextInt();
-        scanner.nextLine();
-        return valor;
+        return UtilidadesMenu.leerOpcion(scanner) ;
     }
 
     /**
@@ -118,8 +117,7 @@ public class MenuMediciones implements Ejecutable {
         int idSensor = leerEntero("Id del sensor: ");
 
         System.out.print("Milímetros: ");
-        double mm = scanner.nextDouble();
-        scanner.nextLine();
+        double mm = UtilidadesMenu.leerDouble(scanner);
 
         System.out.print("¿Usar la fecha y hora actual? (s/n): ");
         String respuesta = scanner.nextLine();
