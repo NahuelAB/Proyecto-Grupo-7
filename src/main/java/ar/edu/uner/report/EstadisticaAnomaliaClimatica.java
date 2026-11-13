@@ -7,6 +7,7 @@ import ar.edu.uner.domain.model.ValorHistorico;
 import ar.edu.uner.domain.model.ZonaGeografica;
 
 public class EstadisticaAnomaliaClimatica {
+    public EstadisticaAnomaliaClimatica() {}
 
     public int cantidadMediciones(ZonaGeografica z, int anio, int mes) {
         int cantidad = 0;

@@ -230,4 +230,18 @@ private static int contadorAlerta = 1;
 
         return nivelComparacion;
     }
+
+    @Override
+    public String toString() {
+        String estadoEquipo;
+        if (equipo == null) {
+            estadoEquipo = "sin equipo";
+        } else {
+            estadoEquipo = "equipo " + equipo.getNombreEquipo();
+        }
+        return "Alerta " + idAlerta + " | " + nivel + " | " + evento
+                + " | Zona: " + zona.getNombre() + " | " + fechaHoraEmision
+                + " | " + descripcion + " | " + estadoEquipo
+                + " | Atendida: " + atendida;
+    }
 }

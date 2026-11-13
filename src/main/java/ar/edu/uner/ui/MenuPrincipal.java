@@ -50,7 +50,7 @@ public class MenuPrincipal implements Ejecutable {
                         GestionHistorialAlertas gestorInfHistAlerta,
                         GestionInformeFallasMantenimiento gestorInfFallasMant,
                         GestionInformeFichaTecnica gestorInfFichaTec,
-                        GestionInformeVolumetria gestorInfVol, Scanner sc) {
+                        GestionInformeVolumetria gestorInfVol, Scanner scanner) {
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorPersonal = gestorPersonal;
         this.gestorSistemaAlerta = gestorSistemaAlerta;
@@ -58,7 +58,7 @@ public class MenuPrincipal implements Ejecutable {
         this.gestorInfFallasMant = gestorInfFallasMant;
         this.gestorInfFichaTec = gestorInfFichaTec;
         this.gestorInfVol = gestorInfVol;
-        this.scanner = sc;
+        this.scanner = scanner;
     }
 
     /**
