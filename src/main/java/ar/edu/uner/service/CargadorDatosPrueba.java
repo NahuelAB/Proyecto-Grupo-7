@@ -43,6 +43,10 @@ public class CargadorDatosPrueba {
         gestorInfra.registrarZona(cuencaUruguay);
         gestorInfra.registrarZona(cuencaVillaguay);
 
+        // La cuenca del Uruguay tiene vulnerabilidad alta: se alerta antes.
+        // Villaguay conserva los umbrales por defecto (50 / 100 / 150 mm).
+        cuencaUruguay.configurarUmbrales(40, 80, 120);
+
         // ---------- Valores históricos mensuales (mm acumulados medios) ----------
         double[] historicoUruguay = {130, 120, 140, 110, 80, 60, 55, 60, 85, 120, 135, 125};
         double[] historicoVillaguay = {120, 110, 130, 100, 75, 55, 50, 55, 80, 110, 125, 115};

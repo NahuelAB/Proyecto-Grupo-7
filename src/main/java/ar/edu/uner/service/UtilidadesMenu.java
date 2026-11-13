@@ -349,7 +349,7 @@ public class UtilidadesMenu {
             if (historicos.isEmpty()) {
                 infoHistorico = "Sin valores cargados";
             } else {
-                ultimoHistorico = historicos.getLast();
+                ultimoHistorico = historicos.get(historicos.size() - 1);
                 infoHistorico = "Mes " + ultimoHistorico.getMes()
                         + " (" + ultimoHistorico.getAcumuladoMedio() + " mm)";
             }
@@ -357,6 +357,9 @@ public class UtilidadesMenu {
             System.out.println("ID: " + zona.getIdZona() + " | " + zona.getNombre()
                     + " | Vulnerabilidad: " + zona.getNivelVulnerabilidad()
                     + " | Alerta: " + zona.getNivelAlertaActual()
+                    + " | Umbrales (mm/24h): " + zona.getUmbralAmarilla()
+                    + " / " + zona.getUmbralNaranja()
+                    + " / " + zona.getUmbralRoja()
                     + " | Último valor cargado: " + infoHistorico);
         }
     }

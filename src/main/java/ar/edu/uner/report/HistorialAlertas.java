@@ -11,6 +11,7 @@
 
 package ar.edu.uner.report;
 
+import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.model.Alerta;
 import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.service.GestionInfraestructura;
@@ -115,5 +116,44 @@ public class HistorialAlertas {
             }
         }
         return filtradoFechas;
+    }
+
+    /**
+     * Filtra las alertas emitidas con un nivel de alerta determinado.
+     * El resultado queda ordenado por severidad y fecha.
+     *
+     * @param nivel Nivel de alerta buscado.
+     * @return Lista de alertas de ese nivel (vacía si no hay ninguna).
+     */
+    public List<Alerta> filtrarPorNivel(NivelAlerta nivel) {
+        List<Alerta> filtradoNivel = new ArrayList<>();
+        for (Alerta alerta : obtenerHistorialOrdenado()) {
+            if (alerta.getNivel() == nivel) {
+                filtradoNivel.add(alerta);
+            }
+        }
+        return filtradoNivel;
+    }
+
+    /**
+     * Filtra las alertas emitidas dentro de un rango de fechas.
+     * Ambos extremos están incluidos. El resultado queda ordenado por
+     * severidad y fecha.
+     *
+     * @param desde Fecha y hora de inicio del rango.
+     * @param hasta Fecha y hora de fin del rango.
+     * @return Lista de alertas emitidas entre desde y hasta (vacía si
+     *         no hay ninguna o si desde es posterior a hasta).
+     */
+    public List<Alerta> filtrarPorRango(LocalDateTime desde,
+                                        LocalDateTime hasta) {
+        List<Alerta> filtradoRango = new ArrayList<>();
+        for (Alerta alerta : obtenerHistorialOrdenado()) {
+            LocalDateTime fecha = alerta.getFechaHoraEmision();
+            if (!fecha.isBefore(desde) && !fecha.isAfter(hasta)) {
+                filtradoRango.add(alerta);
+            }
+        }
+        return filtradoRango;
     }
 }

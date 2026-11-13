@@ -270,6 +270,8 @@ public class EstacionMeteorologica {
      * Agrega nuevo sensor a la estacion.
      * 
      * @param s nuevo sensor agregado.
+     * @return {@code true} si se instaló, {@code false} si el sensor
+     *         era nulo o ya estaba instalado en la estación.
      */
     public boolean instalarSensor(Sensor s) {
         if (s != null && !this.sensores.contains(s)) {
@@ -282,6 +284,8 @@ public class EstacionMeteorologica {
      * Remueve sensor pasado por parametro.
      * 
      * @param s sensor a remover.
+     * @return {@code true} si se retiró, {@code false} si el sensor
+     *         era nulo o no estaba instalado en la estación.
      */
     public boolean retirarSensor(Sensor s) {
         if (s != null && this.sensores.contains(s)) {

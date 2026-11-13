@@ -1,11 +1,13 @@
 package ar.edu.uner.service.gestioninformes;
 
+import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.model.Alerta;
 import ar.edu.uner.report.HistorialAlertas;
 import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.LectorFechas;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +26,17 @@ public class GestionHistorialAlertas {
     private HistorialAlertas historialAlertas;
     private GestionInfraestructura infraestructura;
     private Scanner scanner;
+    private static final DateTimeFormatter FORMATO =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    /**
+     * Crea la gestión del informe de historial de alertas.
+     *
+     * @param infraestructura Gestión de infraestructura, usada para listar
+     *        las zonas.
+     * @param historialAlertas Reporte que filtra y ordena las alertas.
+     * @param scanner Scanner compartido para leer los datos del usuario.
+     */
     public GestionHistorialAlertas(GestionInfraestructura infraestructura,
                                    HistorialAlertas historialAlertas,
                                    Scanner scanner) {
@@ -33,6 +45,10 @@ public class GestionHistorialAlertas {
         this.scanner = scanner;
     }
 
+    /**
+     * Muestra el submenú del historial de alertas y ejecuta la opción
+     * elegida hasta que el usuario vuelve al menú de informes.
+     */
     public void mostrar() {
         int opcion;
         do {
@@ -41,6 +57,8 @@ public class GestionHistorialAlertas {
             System.out.println("1. Ver historial ordenado por severidad");
             System.out.println("2. Filtrar por zona");
             System.out.println("3. Filtrar desde una fecha");
+            System.out.println("4. Filtrar por nivel de alerta");
+            System.out.println("5. Filtrar por rango de fechas");
             System.out.println("0. Volver");
             System.out.print("Ingrese una opcion: ");
             opcion = leerOpcion(scanner);
@@ -49,6 +67,8 @@ public class GestionHistorialAlertas {
                 case 1: mostrarHistorialOrdenado(); break;
                 case 2: mostrarAlertasPorZona();    break;
                 case 3: mostrarAlertasDesdeFecha(); break;
+                case 4: mostrarAlertasPorNivel();   break;
+                case 5: mostrarAlertasPorRango();   break;
                 case 0: break;
                 default: System.out.println("Opcion invalida");
             }
@@ -93,7 +113,53 @@ public class GestionHistorialAlertas {
         LocalDateTime desde = LectorFechas.leerFechaHora(scanner);
 
         List<Alerta> alertas = historialAlertas.filtrarPorFecha(desde);
-        imprimirLista(alertas, "ALERTAS POSTERIORES A " + desde);
+        imprimirLista(alertas, "ALERTAS POSTERIORES A " + desde.format(FORMATO));
+    }
+
+    /**
+     * Pide un nivel de alerta al usuario e imprime las alertas de ese nivel.
+     */
+    public void mostrarAlertasPorNivel() {
+        NivelAlerta nivel = null;
+        int opcion;
+
+        do {
+            System.out.println("1 - Verde  2 - Amarilla  3 - Naranja  4 - Roja");
+            System.out.print("Seleccione el nivel: ");
+            opcion = leerOpcion(scanner);
+
+            switch (opcion) {
+                case 1: nivel = NivelAlerta.VERDE;    break;
+                case 2: nivel = NivelAlerta.AMARILLA; break;
+                case 3: nivel = NivelAlerta.NARANJA;  break;
+                case 4: nivel = NivelAlerta.ROJA;     break;
+                default: System.out.println("Opcion invalida");
+            }
+        } while (nivel == null);
+
+        List<Alerta> alertas = historialAlertas.filtrarPorNivel(nivel);
+        imprimirLista(alertas, "ALERTAS DE NIVEL " + nivel);
+    }
+
+    /**
+     * Pide una fecha de inicio y una de fin e imprime las alertas
+     * emitidas dentro de ese rango (ambas fechas incluidas).
+     */
+    public void mostrarAlertasPorRango() {
+        System.out.println("Ingrese la fecha y hora de INICIO del rango:");
+        LocalDateTime desde = LectorFechas.leerFechaHora(scanner);
+        System.out.println("Ingrese la fecha y hora de FIN del rango:");
+        LocalDateTime hasta = LectorFechas.leerFechaHora(scanner);
+
+        if (desde.isAfter(hasta)) {
+            System.out.println("La fecha de inicio no puede ser posterior "
+                    + "a la fecha de fin.");
+            return;
+        }
+
+        List<Alerta> alertas = historialAlertas.filtrarPorRango(desde, hasta);
+        imprimirLista(alertas, "ALERTAS ENTRE " + desde.format(FORMATO)
+                + " Y " + hasta.format(FORMATO));
     }
 
     // ------------------------------------------------------------------
@@ -111,7 +177,8 @@ public class GestionHistorialAlertas {
 
         for (Alerta alerta : alertas) {
             System.out.println("-----------------------------------------");
-            System.out.println("Fecha y hora: " + alerta.getFechaHoraEmision());
+            System.out.println("Fecha y hora: "
+                    + alerta.getFechaHoraEmision().format(FORMATO));
             System.out.println("Nivel:        " + alerta.getNivel());
             System.out.println("Tipo evento:  " + alerta.getTipo());
             System.out.println("Descripcion:  " + alerta.getDescripcion());

@@ -9,6 +9,7 @@
 package ar.edu.uner.domain.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import ar.edu.uner.domain.enums.NivelAlerta;
 import ar.edu.uner.domain.enums.TipoEventoClimatico;
@@ -240,7 +241,9 @@ private static int contadorAlerta = 1;
             estadoEquipo = "equipo " + equipo.getNombreEquipo();
         }
         return "Alerta " + idAlerta + " | " + nivel + " | " + evento
-                + " | Zona: " + zona.getNombre() + " | " + fechaHoraEmision
+                + " | Zona: " + zona.getNombre() + " | "
+                + fechaHoraEmision.format(
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 + " | " + descripcion + " | " + estadoEquipo
                 + " | Atendida: " + atendida;
     }

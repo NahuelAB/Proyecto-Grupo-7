@@ -96,6 +96,10 @@ public class MenuInfraestructura implements Ejecutable {
                     listarZonasEstacionesSensores();
                     break;
 
+                case 9:
+                    configurarUmbrales();
+                    break;
+
                 case 0:
                     System.out.println("Saliendo...");
                     break;
@@ -122,6 +126,7 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("6. Cambiar estado de estacion o sensor");
         System.out.println("7. Registrar valores histórico mensual");
         System.out.println("8. Listado de Zonas, Estaciones y Sensores");
+        System.out.println("9. Configurar umbrales de alerta de una zona");
         System.out.println("0. Salir");
     }
 
@@ -460,6 +465,59 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println(resultado
                 ? "¡Valor histórico mensual registrado exitosamente!"
                 : "No se pudo registrar el valor histórico.");
+    }
+
+    /**
+     * Solicita una zona y sus tres nuevos umbrales de lluvia acumulada
+     * en 24 horas (amarilla, naranja y roja) y los aplica a la zona.
+     * Los umbrales deben ser positivos y crecientes; si no lo son,
+     * la zona conserva los que tenía.
+     */
+    void configurarUmbrales() {
+        int idZona;
+        double amarilla;
+        double naranja;
+        double roja;
+        ZonaGeografica zona;
+        boolean resultado;
+
+        System.out.println();
+        System.out.println("===== CONFIGURAR UMBRALES DE ALERTA =====");
+
+        if (gestorInfraestructura.getZonas().isEmpty()) {
+            System.out.println("No hay zonas geográficas registradas. Registre una primero.");
+            return;
+        }
+
+        UtilidadesMenu.listarZonas(gestorInfraestructura);
+
+        System.out.print("Ingrese el ID de la zona geográfica: ");
+        idZona = leerOpcion(scanner);
+
+        zona = gestorInfraestructura.buscarZona(idZona);
+        if (zona == null) {
+            System.out.println("Error: No existe una zona geográfica con ese ID.");
+            return;
+        }
+
+        System.out.println("Umbrales actuales (mm en 24 h): Amarilla "
+                + zona.getUmbralAmarilla() + " | Naranja "
+                + zona.getUmbralNaranja() + " | Roja "
+                + zona.getUmbralRoja());
+
+        System.out.print("Nuevo umbral de alerta AMARILLA (mm): ");
+        amarilla = leerDouble(scanner);
+        System.out.print("Nuevo umbral de alerta NARANJA (mm): ");
+        naranja = leerDouble(scanner);
+        System.out.print("Nuevo umbral de alerta ROJA (mm): ");
+        roja = leerDouble(scanner);
+
+        resultado = zona.configurarUmbrales(amarilla, naranja, roja);
+
+        System.out.println(resultado
+                ? "¡Umbrales actualizados correctamente!"
+                : "Error: los umbrales deben ser positivos y crecientes "
+                  + "(amarilla < naranja < roja). No se modificaron.");
     }
 
     /**
