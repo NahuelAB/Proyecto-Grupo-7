@@ -51,6 +51,7 @@ public class Main {
         GestionInfraestructura gestorInfra = new GestionInfraestructura();
         GestionPersonal gestorPersonal = new GestionPersonal(gestorInfra);
         GestionSistemaAlerta gestorSistAlerta = new GestionSistemaAlerta(gestorInfra);
+        GestionMediciones gestorMediciones = new GestionMediciones(gestorInfra, gestorSistAlerta);
 
         //2. Informes
         EstadisticaAnomaliaClimatica estAnomClim = new EstadisticaAnomaliaClimatica();
@@ -72,7 +73,7 @@ public class Main {
         CargadorDatosPrueba.cargarDatosIniciales(gestorInfra, gestorPersonal);
 
         // 3. Crear e iniciar el menu principal
-        MenuPrincipal menu = new MenuPrincipal(gestorInfra, gestorPersonal, gestorSistAlerta, gestorInfEstAnomClim, 
+        MenuPrincipal menu = new MenuPrincipal(gestorInfra, gestorPersonal, gestorSistAlerta, gestorMediciones, gestorInfEstAnomClim, 
                                               gestorInfHistAlertas, gestorInfFallasMant, gestorInfFichaTec, gestorInfVol, gestorInfHistPrec, scanner);
         
         menu.ejecutar();

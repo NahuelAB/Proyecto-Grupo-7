@@ -28,6 +28,7 @@ public class MenuPrincipal implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionPersonal gestorPersonal;
     private GestionSistemaAlerta gestorSistemaAlerta;
+    private GestionMediciones gestorMediciones;
     private GestionEstadisticaAnomaliaClimatica gestorInfEstAnomClim;
     private GestionHistorialAlertas gestorInfHistAlerta;
     private GestionInformeFallasMantenimiento gestorInfFallasMant;
@@ -47,6 +48,7 @@ public class MenuPrincipal implements Ejecutable {
     public MenuPrincipal(GestionInfraestructura gestorInfraestructura,
                          GestionPersonal gestorPersonal,
                         GestionSistemaAlerta gestorSistemaAlerta,
+                        GestionMediciones gestorMediciones,
                         GestionEstadisticaAnomaliaClimatica gestorInfEstAnomClim,
                         GestionHistorialAlertas gestorInfHistAlerta,
                         GestionInformeFallasMantenimiento gestorInfFallasMant,
@@ -56,6 +58,7 @@ public class MenuPrincipal implements Ejecutable {
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorPersonal = gestorPersonal;
         this.gestorSistemaAlerta = gestorSistemaAlerta;
+        this.gestorMediciones = gestorMediciones;
         this.gestorInfEstAnomClim = gestorInfEstAnomClim;
         this.gestorInfHistAlerta = gestorInfHistAlerta;
         this.gestorInfFallasMant = gestorInfFallasMant;
@@ -104,7 +107,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuPersonal.ejecutar();
                     break;
                 case 3:
-                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura, gestorSistemaAlerta, scanner);
+                    MenuMediciones menuMediciones = new MenuMediciones(gestorMediciones, gestorInfraestructura, gestorSistemaAlerta, scanner);
                     menuMediciones.ejecutar();
                     break;
                 case 4:

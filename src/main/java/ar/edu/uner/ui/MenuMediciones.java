@@ -42,12 +42,12 @@ public class MenuMediciones implements Ejecutable {
      * @param gestorInfraestructura gestión de infraestructura del sistema
      * @param scanner scanner compartido para leer los datos del usuario
      */
-    public MenuMediciones(GestionInfraestructura gestorInfraestructura, 
+    public MenuMediciones(GestionMediciones gestorMediciones, GestionInfraestructura gestorInfraestructura,
                          GestionSistemaAlerta gestorAlerta, Scanner scanner) {
+        this.gestorMediciones = gestorMediciones;
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorAlertas = gestorAlerta;
         this.scanner = scanner;
-        this.gestorMediciones = new GestionMediciones(gestorInfraestructura, gestorAlerta);
         this.formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     }
 
