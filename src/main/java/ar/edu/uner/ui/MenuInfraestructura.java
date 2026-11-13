@@ -484,7 +484,6 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("3 - Sensores");
         System.out.print("Seleccione qué desea listar: ");
         opcion = leerOpcion(scanner);
-        scanner.nextLine();
 
         switch (opcion) {
             case 1:
