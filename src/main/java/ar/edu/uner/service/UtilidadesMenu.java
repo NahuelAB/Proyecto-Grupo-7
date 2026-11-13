@@ -16,6 +16,7 @@ import ar.edu.uner.domain.model.Sensor;
 import ar.edu.uner.domain.model.ValorHistorico;
 import ar.edu.uner.domain.model.ZonaGeografica;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,16 +35,43 @@ public class UtilidadesMenu {
     private UtilidadesMenu() {}
 
     /**
-     * Lee una opción numérica entera desde la entrada estándar y limpia el buffer.
+     * Lee un entero desde el scanner, reintentando hasta que el usuario
+     * ingrese un número válido. Limpia el buffer después de un error.
      *
-     * @param scanner lector de entrada estándar
-     * @return número de opción seleccionado por el usuario
+     * @param scanner el scanner de entrada
+     * @return el entero ingresado
      */
     public static int leerOpcion(Scanner scanner) {
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
+        while (true) {
+            try {
+                int valor = scanner.nextInt();
+                scanner.nextLine();
+                return valor;
+            } catch (InputMismatchException e) {
+                System.out.println("Ingrese un número válido.");
+                scanner.nextLine();
+            }
+        }
+    }
 
-        return opcion;
+    /**
+     * Lee un double desde el scanner, reintentando hasta que el usuario
+     * ingrese un número válido.
+     *
+     * @param scanner el scanner de entrada
+     * @return el double ingresado
+     */
+    public static double leerDouble(Scanner scanner) {
+        while (true) {
+            try {
+                double valor = scanner.nextDouble();
+                scanner.nextLine();
+                return valor;
+            } catch (InputMismatchException e) {
+                System.out.println("Ingrese un número válido.");
+                scanner.nextLine();
+            }
+        }
     }
 
     /**

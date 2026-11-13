@@ -1,10 +1,9 @@
-
 /*
  * Medicion.java
  *
- * Version 1.0
+ * Version 1.1
  *
- * 19/10/2026
+ * 13/11/2026
  *
  * Copyright (c) 2026 Grupo 7 - UNER
  */
@@ -106,5 +105,17 @@ public class Medicion {
      */
     public void setAnomala(boolean anomala) {
         this.anomala = anomala;
+    }
+
+    /**
+     * Devuelve una descripción de la medición con su identificador, fecha y
+     * hora, milímetros registrados y si fue marcada como anómala.
+     *
+     * @return texto con los datos de la medición
+     */
+    @Override
+    public String toString() {
+        return "Medicion: " + idMedicion + " | " + fechaHora + " | "
+                + milimetros + " mm" + (anomala ? " | ANOMALA" : "");
     }
 }
