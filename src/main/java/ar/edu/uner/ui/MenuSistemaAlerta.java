@@ -39,8 +39,7 @@ public class MenuSistemaAlerta implements Ejecutable{
     public void ejecutar() {
 
         do {
-            System.out.println("SISTEMA DE ALERTA TEMPRANA");
-            System.out.println("--------------------------");
+            System.out.println("==== ALERTAS ====");
             System.out.println("1. Evaluar riesgo de una zona");
             System.out.println("2. Registrar alerta de operador");
             System.out.println("3. Asignar equipo de respuesta a una alerta");
@@ -76,6 +75,8 @@ public class MenuSistemaAlerta implements Ejecutable{
 
     }
     private void evaluarZona() {
+        System.out.println();
+        System.out.println("==== EVALUAR ZONA ====");
         ZonaGeografica zona = elegirZona();
         if (zona == null) {
              return;
@@ -89,6 +90,8 @@ public class MenuSistemaAlerta implements Ejecutable{
     }
 
     private void registrarAlertaManual() {
+        System.out.println();
+        System.out.println("==== REGISTRAR ALERTA MANUAL ====");
         ZonaGeografica zona = elegirZona();
         if (zona == null) {
             return;
@@ -155,6 +158,8 @@ public class MenuSistemaAlerta implements Ejecutable{
     }
 
     private void asignarEquipo() {
+        System.out.println();
+        System.out.println("==== ASIGNAR EQUIPO A UNA ALERTA ====");
         Alerta alerta = elegirAlertaPendiente();
         if (alerta == null) {
             return;
@@ -171,6 +176,8 @@ public class MenuSistemaAlerta implements Ejecutable{
     }
 
     private void mostrarAlertas() {
+        System.out.println();
+        System.out.println("==== REGISTRO DE ALERTAS ====");
         System.out.println("Alertas registradas: ");
         List<Alerta> alertas = gestion.getAlertas();
         if (alertas.isEmpty()) {
@@ -234,6 +241,7 @@ public class MenuSistemaAlerta implements Ejecutable{
         }
         if (equiposDisp.isEmpty()) {
             System.out.println("No hay equipos de respuesta disponibles.");
+            return null;
         }
         for (int i = 0; i < equiposDisp.size(); i++) {
             System.out.println((i + 1) + ". " + equiposDisp.get(i));
