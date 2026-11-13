@@ -7,7 +7,7 @@ import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
 public class MenuReportes implements Ejecutable {
     private GestionEstadisticaAnomaliaClimatica menuEstAnomCli;
     private GestionHistorialAlertas menuHistorialAlertas;
-    private GestionInformeEstaciones menuInformesEstaciones;
+    private GestionInformeHistoricoPrecipitaciones menuInfHistPrec;
     private GestionInformeFallasMantenimiento menuInformeFallasMant;
     private GestionInformeFichaTecnica menuInformeFichaT;
     private GestionInformeVolumetria menuInformeVol;
@@ -19,14 +19,14 @@ public class MenuReportes implements Ejecutable {
                         GestionInformeFallasMantenimiento menuInformeFallasMant,
                         GestionInformeFichaTecnica menuInformeFichaT,
                         GestionInformeVolumetria menuInformeVol,
-                        GestionInformeEstaciones menuInformesEstaciones,
+                        GestionInformeHistoricoPrecipitaciones menuInfHistPrec,
                         Scanner sc) {
     this.menuEstAnomCli = menuEstAnomCli;
     this.menuHistorialAlertas = menuHistorialAlertas;
     this.menuInformeFallasMant = menuInformeFallasMant;
     this.menuInformeFichaT = menuInformeFichaT;
     this.menuInformeVol = menuInformeVol;
-    this.menuInformesEstaciones = menuInformesEstaciones;
+    this.menuInfHistPrec = menuInfHistPrec;
     this.sc = sc;
     }
 
@@ -47,7 +47,7 @@ public class MenuReportes implements Ejecutable {
 
             switch (opcion) {
                 case 1: 
-                    menuInformesEstaciones.mostrar();
+                    menuInfHistPrec.mostrar();
                     break;
 
                 case 2:

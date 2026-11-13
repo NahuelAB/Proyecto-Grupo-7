@@ -31,7 +31,7 @@ import static ar.edu.uner.service.UtilidadesMenu.listarZonas;
  *
  * @author Jmanuel (Grupo-7)
  */
-public class GestionInformeEstaciones {
+public class GestionInformeHistoricoPrecipitaciones {
 
     private Scanner sc;
     private GestionInfraestructura infraestructura;
@@ -45,7 +45,7 @@ public class GestionInformeEstaciones {
      *                        estaciones y zonas)
      * @param informe informe que calcula los acumulados
      */
-    public GestionInformeEstaciones(Scanner sc,
+    public GestionInformeHistoricoPrecipitaciones(Scanner sc,
                                     GestionInfraestructura infraestructura,
                                     InformeHistoricoPrecipitaciones informe) {
         this.sc = sc;

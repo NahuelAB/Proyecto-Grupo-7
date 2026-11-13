@@ -23,7 +23,7 @@ import ar.edu.uner.service.gestioninformes.GestionHistorialAlertas;
 import ar.edu.uner.service.gestioninformes.GestionInformeFallasMantenimiento;
 import ar.edu.uner.service.gestioninformes.GestionInformeFichaTecnica;
 import ar.edu.uner.service.gestioninformes.GestionInformeVolumetria;
-import ar.edu.uner.service.gestioninformes.GestionInformeEstaciones;
+import ar.edu.uner.service.gestioninformes.GestionInformeHistoricoPrecipitaciones;
 import ar.edu.uner.ui.MenuPrincipal;
 
 /**
@@ -66,7 +66,7 @@ public class Main {
         GestionInformeFichaTecnica gestorInfFichaTec = new GestionInformeFichaTecnica(gestorInfra, fichaTec, scanner);
         GestionHistorialAlertas gestorInfHistAlertas = new GestionHistorialAlertas(gestorInfra, histAlertas, scanner);
         GestionInformeFallasMantenimiento gestorInfFallasMant = new GestionInformeFallasMantenimiento(gestorInfra, infFallasMant);
-        GestionInformeEstaciones gestorInfHistPrec = new GestionInformeEstaciones(scanner, gestorInfra, infHistPrec);
+        GestionInformeHistoricoPrecipitaciones gestorInfHistPrec = new GestionInformeHistoricoPrecipitaciones(scanner, gestorInfra, infHistPrec);
         GestionInformeVolumetria gestorInfVol = new GestionInformeVolumetria(rankingVol, scanner);
 
         // 4. Cargar datos iniciales
