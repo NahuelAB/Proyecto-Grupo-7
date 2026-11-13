@@ -23,6 +23,7 @@ import ar.edu.uner.service.gestioninformes.GestionHistorialAlertas;
 import ar.edu.uner.service.gestioninformes.GestionInformeFallasMantenimiento;
 import ar.edu.uner.service.gestioninformes.GestionInformeFichaTecnica;
 import ar.edu.uner.service.gestioninformes.GestionInformeVolumetria;
+import ar.edu.uner.service.gestioninformes.GestionInformeEstaciones;
 import ar.edu.uner.ui.MenuPrincipal;
 
 /**
@@ -64,7 +65,7 @@ public class Main {
         GestionInformeFichaTecnica gestorInfFichaTec = new GestionInformeFichaTecnica(gestorInfra, fichaTec, scanner);
         GestionHistorialAlertas gestorInfHistAlertas = new GestionHistorialAlertas(gestorInfra, histAlertas, scanner);
         GestionInformeFallasMantenimiento gestorInfFallasMant = new GestionInformeFallasMantenimiento(gestorInfra, infFallasMant);
-        //GESTION DE HISTORICO PRECIPITACIONES
+        GestionInformeEstaciones gestorInfHistPrec = new GestionInformeEstaciones(scanner, gestorInfra, infHistPrec);
         GestionInformeVolumetria gestorInfVol = new GestionInformeVolumetria(rankingVol, scanner);
 
         // 4. Cargar datos iniciales
@@ -72,7 +73,7 @@ public class Main {
 
         // 3. Crear e iniciar el menu principal
         MenuPrincipal menu = new MenuPrincipal(gestorInfra, gestorPersonal, gestorSistAlerta, gestorInfEstAnomClim, 
-                                              gestorInfHistAlertas, gestorInfFallasMant, gestorInfFichaTec, gestorInfVol, scanner);
+                                              gestorInfHistAlertas, gestorInfFallasMant, gestorInfFichaTec, gestorInfVol, gestorInfHistPrec, scanner);
         
         menu.ejecutar();
     }

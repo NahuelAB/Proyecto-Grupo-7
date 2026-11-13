@@ -33,6 +33,7 @@ public class MenuPrincipal implements Ejecutable {
     private GestionInformeFallasMantenimiento gestorInfFallasMant;
     private GestionInformeFichaTecnica gestorInfFichaTec;
     private GestionInformeVolumetria gestorInfVol;
+    private GestionInformeEstaciones gestorInfHistPrec;
     private Scanner scanner;
 
     /**
@@ -50,7 +51,8 @@ public class MenuPrincipal implements Ejecutable {
                         GestionHistorialAlertas gestorInfHistAlerta,
                         GestionInformeFallasMantenimiento gestorInfFallasMant,
                         GestionInformeFichaTecnica gestorInfFichaTec,
-                        GestionInformeVolumetria gestorInfVol, Scanner scanner) {
+                        GestionInformeVolumetria gestorInfVol,
+                        GestionInformeEstaciones gestorInfHistPrec, Scanner scanner) {
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorPersonal = gestorPersonal;
         this.gestorSistemaAlerta = gestorSistemaAlerta;
@@ -59,6 +61,7 @@ public class MenuPrincipal implements Ejecutable {
         this.gestorInfFallasMant = gestorInfFallasMant;
         this.gestorInfFichaTec = gestorInfFichaTec;
         this.gestorInfVol = gestorInfVol;
+        this.gestorInfHistPrec = gestorInfHistPrec;
         this.scanner = scanner;
     }
 
@@ -97,7 +100,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuInfra.ejecutar();
                     break;
                 case 2:
-                    MenuPersonalTecnico menuPersonal = new MenuPersonalTecnico(gestorPersonal);
+                    MenuPersonalTecnico menuPersonal = new MenuPersonalTecnico(gestorPersonal, scanner);
                     menuPersonal.ejecutar();
                     break;
                 case 3:
@@ -110,7 +113,7 @@ public class MenuPrincipal implements Ejecutable {
                     break;
                 case 5:
                     MenuReportes menuReportes = new MenuReportes(gestorInfEstAnomClim, gestorInfHistAlerta, gestorInfFallasMant,
-                                                                gestorInfFichaTec, gestorInfVol, scanner);
+                                                                gestorInfFichaTec, gestorInfVol, gestorInfHistPrec, scanner);
                     menuReportes.ejecutar();
                     break;
                 case 0:
