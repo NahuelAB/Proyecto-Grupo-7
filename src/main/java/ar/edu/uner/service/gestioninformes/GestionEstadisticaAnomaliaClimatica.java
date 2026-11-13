@@ -15,6 +15,7 @@ import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.domain.model.ValorHistorico;
 import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.report.EstadisticaAnomaliaClimatica;
+import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
 
 
 /**
@@ -53,11 +54,11 @@ public class GestionEstadisticaAnomaliaClimatica {
      */
     public void mostrar() {
         System.out.print("ID de la zona: ");
-        int idZona = sc.nextInt();
+        int idZona = leerOpcion(sc);
         System.out.print("Año: ");
-        int anio = sc.nextInt();
+        int anio = leerOpcion(sc);
         System.out.print("Mes (1-12): ");
-        int mes = sc.nextInt();
+        int mes = leerOpcion(sc);
 
         ZonaGeografica zona = infraestructura.buscarZona(idZona);
         if (zona == null) {
