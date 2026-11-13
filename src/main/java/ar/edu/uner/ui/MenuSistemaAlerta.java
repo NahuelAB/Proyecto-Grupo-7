@@ -38,7 +38,6 @@ public class MenuSistemaAlerta implements Ejecutable{
     private GestionSistemaAlerta gestion;
     private GestionPersonal personal;
     private GestionInfraestructura gestionInfra;
-    private int opcion;
 
      /**
      * Crea el menú con las gestiones que necesita.
@@ -65,6 +64,7 @@ public class MenuSistemaAlerta implements Ejecutable{
      */
     @Override
     public void ejecutar() {
+        int opcion;
 
         do {
             System.out.println("==== ALERTAS ====");
@@ -141,11 +141,11 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("1. Crecida de rio");
         System.out.println("2. Tormenta severa");
         System.out.print("Ingrese el tipo de evento: ");
-        opcion = leerOpcion(sc);
+        int opcionTipo = leerOpcion(sc);
         TipoEventoClimatico tipo;
-        if (opcion == 1) {
+        if (opcionTipo == 1) {
             tipo = TipoEventoClimatico.CRECIDA_RIO;
-        } else if (opcion == 2) {
+        } else if (opcionTipo == 2) {
             tipo = TipoEventoClimatico.TORMENTA_SEVERA;
         } else {
             System.out.println("Tipo invalido.");
@@ -158,10 +158,10 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("3. Naranja");
         System.out.println("4. Roja");
         System.out.print("Ingrese el nivel de alerta: ");
-        opcion = leerOpcion(sc);
+        int opcionNivel = leerOpcion(sc);
         NivelAlerta nivel;
 
-        switch (opcion) {
+        switch (opcionNivel) {
             case 1:
                 nivel = NivelAlerta.VERDE;
                 break;
@@ -252,13 +252,13 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println((i + 1) + ". " + zonas.get(i));
         }
         System.out.print("Elegir zona: ");
-        opcion = leerOpcion(sc);
-        if (opcion < 1 || opcion > zonas.size()) {
+        int eleccion = leerOpcion(sc);
+        if (eleccion < 1 || eleccion > zonas.size()) {
             System.out.println("Zona invalida.");
             return null;
         }
 
-        return zonas.get(opcion - 1);
+        return zonas.get(eleccion - 1);
     }
 
     /**
@@ -282,13 +282,13 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println((i + 1) + ". " + pendientes.get(i));
         }
         System.out.print("Elegir alerta: ");
-        opcion = leerOpcion(sc);
-        if (opcion < 1 || opcion > pendientes.size()) {
+        int eleccion = leerOpcion(sc);
+        if (eleccion < 1 || eleccion > pendientes.size()) {
             System.out.println("Alerta invalida.");
             return null;
         }
 
-        return pendientes.get(opcion - 1);
+        return pendientes.get(eleccion - 1);
     }
 
     /**
@@ -312,12 +312,12 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println((i + 1) + ". " + equiposDisp.get(i));
         }
         System.out.print("Elegir equipo: ");
-        opcion = leerOpcion(sc);
-        if (opcion < 1 || opcion > equiposDisp.size()) {
+        int eleccion = leerOpcion(sc);
+        if (eleccion < 1 || eleccion > equiposDisp.size()) {
             System.out.println("Equipo invalido.");
             return null;
         }
 
-        return equiposDisp.get(opcion - 1);
+        return equiposDisp.get(eleccion - 1);
     }
 }
