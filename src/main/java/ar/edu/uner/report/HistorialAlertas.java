@@ -74,17 +74,9 @@ public class HistorialAlertas {
      * @return Lista de alertas ordenada por severidad y fecha de emisión.
      */
     public List<Alerta> obtenerHistorialOrdenado() {
-        List<Alerta> historialFiltrado = new ArrayList<>();
-
-        for (Alerta alerta : alertas) {
-
-            if (!historialFiltrado.contains(alerta)) {
-                historialFiltrado.add(alerta);
-            }
-        }
-
+        obtenerAlertas();
+        List<Alerta> historialFiltrado = new ArrayList<>(alertas);
         Collections.sort(historialFiltrado);
-
         return historialFiltrado;
     }
 
@@ -114,15 +106,12 @@ public class HistorialAlertas {
      * @return Lista de alertas emitidas posteriormente a fechaInicio.
      */
     public List<Alerta> filtrarPorFecha(LocalDateTime fechaInicio) {
+        obtenerAlertas();
         List<Alerta> filtradoFechas = new ArrayList<>();
 
         for (Alerta alerta : alertas) {
-
             if (alerta.getFechaHoraEmision().isAfter(fechaInicio)) {
-
-                if (!filtradoFechas.contains(alerta)) {
-                    filtradoFechas.add(alerta);
-                }
+                filtradoFechas.add(alerta);
             }
         }
         return filtradoFechas;
