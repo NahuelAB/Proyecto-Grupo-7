@@ -82,22 +82,17 @@ public class UtilidadesMenu {
      * @return constante de {@link NivelVulnerabilidad} correspondiente
      */
     public static NivelVulnerabilidad nivelVulni(Scanner scanner) {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
-
-        NivelVulnerabilidad nivel;
-
-        switch(opt) {
-            case 1: nivel = NivelVulnerabilidad.BAJO;break;
-            case 2: nivel = NivelVulnerabilidad.MEDIO;break;
-            case 3: nivel = NivelVulnerabilidad.ALTO;break;
-            case 4: nivel = NivelVulnerabilidad.MUY_ALTO;break;
-            default:
-                System.out.println("Opción no válida. Se asignó BAJO por defecto.");
-                nivel = NivelVulnerabilidad.BAJO;
+        while (true) {
+            int opt = leerOpcion(scanner);
+            switch(opt) {
+                case 1: return NivelVulnerabilidad.BAJO;
+                case 2: return NivelVulnerabilidad.MEDIO;
+                case 3: return NivelVulnerabilidad.ALTO;
+                case 4: return NivelVulnerabilidad.MUY_ALTO;
+                default: System.out.println("Opción no válida. " +
+                        "Ingrese un número del 1 al 4: ");
+            }
         }
-
-        return nivel;
     }
 
     /**
@@ -108,23 +103,19 @@ public class UtilidadesMenu {
      * @return constante de {@link NivelAlerta} correspondiente
      */
     public static NivelAlerta nivelAlerta(Scanner scanner) {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
+        while (true) {
+            int opt = leerOpcion(scanner);
 
-        NivelAlerta nivelA;
-
-        switch(opt) {
-            case 1: nivelA = NivelAlerta.VERDE;break;
-            case 2: nivelA = NivelAlerta.AMARILLA;break;
-            case 3: nivelA = NivelAlerta.NARANJA;break;
-            case 4: nivelA = NivelAlerta.ROJA;break;
-            default:
-                System.out.println("Opción no válida. " +
-                        "Se asignó VERDE por defecto.");
-                nivelA = NivelAlerta.VERDE;
+            switch(opt) {
+                case 1: return NivelAlerta.VERDE;
+                case 2: return NivelAlerta.AMARILLA;
+                case 3: return NivelAlerta.NARANJA;
+                case 4: return NivelAlerta.ROJA;
+                default: System.out.println("Opción no válida." +
+                        " Ingrese un número del 1 al 4: ");
+            }
         }
 
-        return nivelA;
     }
 
     /**
@@ -135,22 +126,16 @@ public class UtilidadesMenu {
      * @return constante de {@link EstadoOperativo} correspondiente
      */
     public static EstadoOperativo estadoOp(Scanner scanner) {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
-
-        EstadoOperativo estadoOp;
-
-        switch(opt) {
-            case 1: estadoOp = EstadoOperativo.OPERATIVO;break;
-            case 2: estadoOp = EstadoOperativo.EN_MANTENIMIENTO;break;
-            case 3: estadoOp = EstadoOperativo.FUERA_DE_SERVICIO;break;
-            default:
-                System.out.println("Opción no válida. " +
-                        "Se asignó Fuera de servicio por defecto.");
-                estadoOp = EstadoOperativo.FUERA_DE_SERVICIO;
+        while (true) {
+            int opt = leerOpcion(scanner);
+            switch(opt) {
+                case 1 : return EstadoOperativo.OPERATIVO;
+                case 2 : return EstadoOperativo.EN_MANTENIMIENTO;
+                case 3 : return EstadoOperativo.FUERA_DE_SERVICIO;
+                default : System.out.println("Opción no válida." +
+                        " Ingrese un número del 1 al 3: ");
+            }
         }
-
-        return estadoOp;
     }
 
     /**
@@ -161,21 +146,15 @@ public class UtilidadesMenu {
      * @return constante de {@link TipoEstacion} correspondiente
      */
     public static TipoEstacion tipoEstacion(Scanner scanner) {
-        int opt = scanner.nextInt();
-        scanner.nextLine();
-
-        TipoEstacion tipoEstacion;
-
-        switch(opt) {
-            case 1: tipoEstacion = TipoEstacion.AUTOMATICA;break;
-            case 2: tipoEstacion = TipoEstacion.CONVENCIONAL;break;
-            default:
-                System.out.println("Opción no válida. " +
-                        "Se asignó CONVECIONAL por defecto.");
-                tipoEstacion = TipoEstacion.CONVENCIONAL;
+        while (true) {
+            int opt = leerOpcion(scanner);
+            switch(opt) {
+                case 1 : return TipoEstacion.AUTOMATICA;
+                case 2 : return TipoEstacion.CONVENCIONAL;
+                default : System.out.println("Opción no válida." +
+                        " Ingrese un número del 1 al 2: ");
+            }
         }
-
-        return tipoEstacion;
     }
 
     /**
