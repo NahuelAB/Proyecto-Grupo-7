@@ -15,7 +15,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
+import java.lang.Math;
+
+
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
  * una estación meteorológica y registra lecturas que se usan para calcular
@@ -52,9 +54,7 @@ public class Sensor {
      * @param modelo modelo del sensor.
      * @param precision precision del sensor (mm).
      * @param estado estado operativo inicial.
-     * @param anio año de la ultima calibracion.
-     * @param mes mes de la ultima calibracion.
-     * @param dia dia de la ultima calibracion.
+     * @param ultimaCalibracion ultima calibracion.
      */
     public Sensor(String marca, String modelo,
                   double precision, EstadoOperativo estado, 
@@ -198,14 +198,11 @@ public class Sensor {
      * @return la medicion creada.
      */
     public Medicion registrar(double mm, LocalDateTime fH) {
-        int difAnomala = 100;
         boolean anomala = false;
 
-        ListIterator<Medicion> listIt = mediciones.listIterator();
-
-        if (listIt.hasPrevious() && 
-            (mm - listIt.previous().getMilimetros()) > difAnomala) {
-                anomala = true;
+        if(!mediciones.isEmpty()) {
+            double anterior = mediciones.get(mediciones.size() - 1).getMilimetros();
+            anomala = Math.abs(mm - anterior) > 100;
         }
         
         Medicion m = new Medicion(fH, mm, anomala);
@@ -221,7 +218,7 @@ public class Sensor {
      */
     public void validar(double mm) throws LecturaInvalidaException{
         if (mm < 0 || mm > 500) {
-            throw new LecturaInvalidaException("Lectura fuera de rango (0-500");
+            throw new LecturaInvalidaException("Lectura fuera de rango (0-500)");
         }
     }
 
@@ -233,8 +230,8 @@ public class Sensor {
      *         la fecha de la ultima calibracion,
      *         false en caso contrario.
      */
-    public boolean requiereCalibracion(LocalDate fechaActual) {
-        return ultimaCalibracion.plusMonths(12).isBefore(fechaActual);
+    public boolean requiereCalibracion() {
+        return ultimaCalibracion.plusMonths(12).isBefore(LocalDate.now());
     }
 
     @Override 

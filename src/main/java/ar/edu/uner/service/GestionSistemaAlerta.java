@@ -153,4 +153,17 @@ public class GestionSistemaAlerta {
         zona.agregarAlerta(alerta);
         return alerta;
     }
+
+    public boolean marcarAtendida(Alerta alerta) {
+        if (alerta == null || alerta.getAtendida()) {
+            return false;
+        }
+
+        if (alerta.requiereEquipo() && alerta.getEquipo() == null) {
+            return false; 
+        }
+
+        alerta.setAtendida(true);
+        return true;
+    }
 }

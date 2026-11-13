@@ -11,34 +11,50 @@ package ar.edu.uner.service.gestioninformes;
 
 import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.report.RankingVolumetria;
-import ar.edu.uner.service.GestionInfraestructura;
+import ar.edu.uner.service.LectorFechas;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Scanner;
 
 /**
- * Muestra por pantalla el ranking de estaciones meteorológicas por
- * volumetría, a partir de los datos que calcula {@link RankingVolumetria}.
+ * Muestra por pantalla el ranking de estaciones meteorológicas por volumetría,
+ * a partir de los datos que calcula {@link RankingVolumetria}.
  *
  * @author Maricela
  */
 public class GestionInformeVolumetria {
+
     private RankingVolumetria ranking;
+    private Scanner scanner;
 
     /**
-     * Crea la gestión del informe a partir de la gestión de infraestructura
-     * del sistema.
+     * Crea la gestión del informe de ranking por volumetría.
      *
-     * @param infraestructura gestión de infraestructura del sistema
+     * @param ranking informe que calcula el ranking de estaciones
+     * @param scanner scanner compartido para leer los datos del usuario
      */
-    public GestionInformeVolumetria(GestionInfraestructura infraestructura) {
-        this.ranking = new RankingVolumetria(infraestructura);
+    public GestionInformeVolumetria(RankingVolumetria ranking, Scanner scanner) {
+        this.ranking = ranking;
+        this.scanner = scanner;
+    }
+
+    /**
+     * Pide al usuario el rango de fechas y muestra el ranking de estaciones
+     * ordenado de mayor a menor según la precipitación acumulada en ese rango.
+     */
+    public void mostrar() {
+        System.out.println("Fecha de inicio:");
+        LocalDate desde = LectorFechas.leerFecha(scanner);
+        System.out.println("Fecha de fin:");
+        LocalDate hasta = LectorFechas.leerFecha(scanner);
+        mostrarRanking(desde, hasta);
     }
 
     /**
      * Muestra el ranking de estaciones ordenado de mayor a menor según la
-     * precipitación acumulada en un rango de fechas. Las fechas de inicio
-     * y fin se incluyen en el rango.
+     * precipitación acumulada en un rango de fechas. Las fechas de inicio y fin
+     * se incluyen en el rango.
      *
      * @param desde fecha de inicio del rango
      * @param hasta fecha de fin del rango

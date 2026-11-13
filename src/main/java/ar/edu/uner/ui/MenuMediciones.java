@@ -15,11 +15,13 @@ import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.exception.LecturaInvalidaException;
 import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.GestionMediciones;
+import ar.edu.uner.service.GestionSistemaAlerta;
 import ar.edu.uner.service.LectorFechas;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+import ar.edu.uner.service.UtilidadesMenu;
 
 /**
  * Menú de mediciones: permite registrar lecturas de precipitación, ver las
@@ -30,6 +32,7 @@ import java.util.Scanner;
 public class MenuMediciones implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionMediciones gestorMediciones;
+    private GestionSistemaAlerta gestorAlertas;
     private Scanner scanner;
     private DateTimeFormatter formato;
 
@@ -39,10 +42,12 @@ public class MenuMediciones implements Ejecutable {
      * @param gestorInfraestructura gestión de infraestructura del sistema
      * @param scanner scanner compartido para leer los datos del usuario
      */
-    public MenuMediciones(GestionInfraestructura gestorInfraestructura, Scanner scanner) {
+    public MenuMediciones(GestionInfraestructura gestorInfraestructura, 
+                         GestionSistemaAlerta gestorAlerta, Scanner scanner) {
         this.gestorInfraestructura = gestorInfraestructura;
+        this.gestorAlertas = gestorAlerta;
         this.scanner = scanner;
-        this.gestorMediciones = new GestionMediciones(gestorInfraestructura);
+        this.gestorMediciones = new GestionMediciones(gestorInfraestructura, gestorAlerta);
         this.formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     }
 
@@ -62,13 +67,11 @@ public class MenuMediciones implements Ejecutable {
      * Lee un número entero ingresado por el usuario y limpia el buffer.
      *
      * @param mensaje texto que se muestra antes de leer
-     * @return el número ingresado
+     * @return el número ingresado, si lo ingresado no es un número lo vuelve a pedir
      */
     private int leerEntero(String mensaje) {
         System.out.print(mensaje);
-        int valor = scanner.nextInt();
-        scanner.nextLine();
-        return valor;
+        return UtilidadesMenu.leerOpcion(scanner) ;
     }
 
     /**
@@ -114,8 +117,7 @@ public class MenuMediciones implements Ejecutable {
         int idSensor = leerEntero("Id del sensor: ");
 
         System.out.print("Milímetros: ");
-        double mm = scanner.nextDouble();
-        scanner.nextLine();
+        double mm = UtilidadesMenu.leerDouble(scanner);
 
         System.out.print("¿Usar la fecha y hora actual? (s/n): ");
         String respuesta = scanner.nextLine();

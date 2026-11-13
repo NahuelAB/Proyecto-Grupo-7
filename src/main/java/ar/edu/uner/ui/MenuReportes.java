@@ -39,6 +39,7 @@ public class MenuReportes implements Ejecutable {
             System.out.println("5. Fallas y mantenimiento");
             System.out.println("6. Estadisticas de anomalia climatica");
             System.out.println("0. Volver");
+            System.out.print("Ingrese una opcion: ");
             opcion = leerOpcion(sc);
 
             switch (opcion) {
@@ -67,6 +68,7 @@ public class MenuReportes implements Ejecutable {
                     break;
 
                 case 0:
+                    System.out.println("Volviendo al menu principal...");
                     break;
 
                 default:

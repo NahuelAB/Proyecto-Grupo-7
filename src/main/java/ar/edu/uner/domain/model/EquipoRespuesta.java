@@ -140,7 +140,16 @@ public class EquipoRespuesta {
         return false;//no se pudo agregar
     }
   
-    
-    
+    @Override
+    public String toString() {
+        String estado;
+        if (disponible) {
+            estado = "Disponible";
+        } else {
+            estado = "No disponible";
+        }
+        return idEquipo + " | " + nombreEquipo + " | " + estado
+                + " | Integrantes: " + integrantes.size();
+    }
     
 }

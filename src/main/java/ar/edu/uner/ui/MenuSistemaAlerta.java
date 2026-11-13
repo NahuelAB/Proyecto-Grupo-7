@@ -1,5 +1,13 @@
+/*
+ * MenuSistemaAlerta.java
+ *
+ * Version 1.0
+ *
+ * 11/11/2026
+ *
+ * Copyright (c) 2026 Grupo 7 - UNER
+ */
 package ar.edu.uner.ui;
-
 
 import java.util.Scanner;
 import java.util.List;
@@ -17,13 +25,28 @@ import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.LectorFechas;
 import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
 
+
+/**
+ * Menú del módulo de sistema de alerta temprana. Permite evaluar el riesgo de
+ * una zona, registrar alertas de operador, asignar equipos de respuesta a las
+ * alertas que lo requieren y consultar las alertas registradas.
+ *
+ * @author Guillermina
+ */
 public class MenuSistemaAlerta implements Ejecutable{
     private Scanner sc;
     private GestionSistemaAlerta gestion;
     private GestionPersonal personal;
     private GestionInfraestructura gestionInfra;
-    private int opcion;
 
+     /**
+     * Crea el menú con las gestiones que necesita.
+     *
+     * @param gestion Gestión del sistema de alerta temprana.
+     * @param personal Gestión de personal técnico y equipos de respuesta.
+     * @param gestionInfra Gestión de infraestructura (zonas geográficas).
+     * @param sc Scanner con el que se leen los datos del usuario.
+     */
     public MenuSistemaAlerta(GestionSistemaAlerta gestion,
                             GestionPersonal personal, 
                             GestionInfraestructura gestionInfra,
@@ -35,8 +58,13 @@ public class MenuSistemaAlerta implements Ejecutable{
 
     }
 
+     /**
+     * Muestra el menú del sistema de alerta temprana y ejecuta la opción
+     * elegida hasta que el usuario elige volver.
+     */
     @Override
     public void ejecutar() {
+        int opcion;
 
         do {
             System.out.println("==== ALERTAS ====");
@@ -44,6 +72,7 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println("2. Registrar alerta de operador");
             System.out.println("3. Asignar equipo de respuesta a una alerta");
             System.out.println("4. Ver alertas");
+            System.out.println("5. Marcar alerta como atendida");
             System.out.println("0. Volver");
             System.out.print("Ingrese una opcion: ");
             opcion = leerOpcion(sc);
@@ -64,8 +93,13 @@ public class MenuSistemaAlerta implements Ejecutable{
                 case 4:
                     mostrarAlertas();
                     break;
+
+                case 5:
+                    marcarAtendida();
+                    break;
                 
                 case 0:
+                    System.out.println("Volviendo al menu principal...");
                     break;
 
                 default:
@@ -74,6 +108,12 @@ public class MenuSistemaAlerta implements Ejecutable{
         } while (opcion != 0);
 
     }
+
+    /**
+     * Evalúa el riesgo de una zona elegida por el usuario. Informa si se
+     * emitió una alerta o si el nivel no cambió o la zona está en VERDE.
+     */
+
     private void evaluarZona() {
         System.out.println();
         System.out.println("==== EVALUAR ZONA ====");
@@ -89,6 +129,11 @@ public class MenuSistemaAlerta implements Ejecutable{
         }
     }
 
+    /**
+     * Registra una alerta de operador. Solicita la zona, el tipo de evento
+     * (crecida de río o tormenta severa), el nivel, la descripción y la fecha
+     * y hora de la alerta.
+     */
     private void registrarAlertaManual() {
         System.out.println();
         System.out.println("==== REGISTRAR ALERTA MANUAL ====");
@@ -101,11 +146,11 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("1. Crecida de rio");
         System.out.println("2. Tormenta severa");
         System.out.print("Ingrese el tipo de evento: ");
-        opcion = leerOpcion(sc);
+        int opcionTipo = leerOpcion(sc);
         TipoEventoClimatico tipo;
-        if (opcion == 1) {
+        if (opcionTipo == 1) {
             tipo = TipoEventoClimatico.CRECIDA_RIO;
-        } else if (opcion == 2) {
+        } else if (opcionTipo == 2) {
             tipo = TipoEventoClimatico.TORMENTA_SEVERA;
         } else {
             System.out.println("Tipo invalido.");
@@ -118,10 +163,10 @@ public class MenuSistemaAlerta implements Ejecutable{
         System.out.println("3. Naranja");
         System.out.println("4. Roja");
         System.out.print("Ingrese el nivel de alerta: ");
-        opcion = leerOpcion(sc);
+        int opcionNivel = leerOpcion(sc);
         NivelAlerta nivel;
 
-        switch (opcion) {
+        switch (opcionNivel) {
             case 1:
                 nivel = NivelAlerta.VERDE;
                 break;
@@ -157,6 +202,11 @@ public class MenuSistemaAlerta implements Ejecutable{
         }
     }
 
+    /**
+     * Asigna un equipo de respuesta a una alerta pendiente. El usuario elige
+     * primero la alerta (NARANJA o ROJA sin equipo) y luego un equipo
+     * disponible.
+     */
     private void asignarEquipo() {
         System.out.println();
         System.out.println("==== ASIGNAR EQUIPO A UNA ALERTA ====");
@@ -175,6 +225,9 @@ public class MenuSistemaAlerta implements Ejecutable{
         }
     }
 
+    /**
+     * Muestra todas las alertas registradas en el sistema.
+     */
     private void mostrarAlertas() {
         System.out.println();
         System.out.println("==== REGISTRO DE ALERTAS ====");
@@ -189,6 +242,45 @@ public class MenuSistemaAlerta implements Ejecutable{
         }
     }
 
+    private void marcarAtendida() {
+        System.out.println();
+        System.out.println("==== MARCAR ALERTA COMO ATENDIDA ====");
+        List<Alerta> abiertas = new ArrayList<Alerta>();
+        for (Alerta a : gestion.getAlertas()) {
+            if (!a.getAtendida()) {
+                abiertas.add(a);
+            }
+        }
+
+        if (abiertas.isEmpty()) {
+            System.out.println("No hay alertas sin atender.");
+            return;
+        }
+
+        for (int i = 0; i < abiertas.size(); i++) {
+            System.out.println((i + 1) + ". " + abiertas.get(i));
+        }
+
+        System.out.print("Elegir alerta: ");
+        int eleccion = leerOpcion(sc);
+
+        if (eleccion < 1 || eleccion > abiertas.size()) {
+            System.out.println("Alerta invalida.");
+            return;
+        }
+
+        if (gestion.marcarAtendida((abiertas.get(eleccion - 1)))) {
+            System.out.println("Alerta marcada como atendida");
+        } else {
+            System.out.println("No se pudo.");
+        }
+    }
+    
+    /**
+     * Lista las zonas geográficas y permite elegir una por su número.
+     *
+     * @return La zona elegida; null si no hay zonas cargadas o la opción es inválida.
+     */
     private ZonaGeografica elegirZona() {
         List<ZonaGeografica> zonas = gestionInfra.getZonas();
         if (zonas.isEmpty()) {
@@ -199,15 +291,21 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println((i + 1) + ". " + zonas.get(i));
         }
         System.out.print("Elegir zona: ");
-        opcion = leerOpcion(sc);
-        if (opcion < 1 || opcion > zonas.size()) {
+        int eleccion = leerOpcion(sc);
+        if (eleccion < 1 || eleccion > zonas.size()) {
             System.out.println("Zona invalida.");
             return null;
         }
 
-        return zonas.get(opcion - 1);
+        return zonas.get(eleccion - 1);
     }
 
+    /**
+     * Lista las alertas que requieren equipo de respuesta y todavía no tienen
+     * uno asignado, y permite elegir una por su número.
+     *
+     * @return La alerta elegida; null si no hay alertas pendientes o la opción es inválida.
+     */
     private Alerta elegirAlertaPendiente() {
         List<Alerta> pendientes = new ArrayList<Alerta>();
         for (Alerta a : gestion.getAlertas()) {
@@ -223,17 +321,23 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println((i + 1) + ". " + pendientes.get(i));
         }
         System.out.print("Elegir alerta: ");
-        opcion = leerOpcion(sc);
-        if (opcion < 1 || opcion > pendientes.size()) {
+        int eleccion = leerOpcion(sc);
+        if (eleccion < 1 || eleccion > pendientes.size()) {
             System.out.println("Alerta invalida.");
             return null;
         }
 
-        return pendientes.get(opcion - 1);
+        return pendientes.get(eleccion - 1);
     }
 
+    /**
+     * Lista los equipos de respuesta disponibles y permite elegir uno por su
+     * número.
+     *
+     * @return El equipo elegido; null si no hay equipos disponibles o la opción es inválida.
+     */
     private EquipoRespuesta elegirEquipo() {
-        List<EquipoRespuesta> equiposDisp = personal.getEquipos();
+        List<EquipoRespuesta> equiposDisp = new ArrayList<EquipoRespuesta>();
         for (EquipoRespuesta e : personal.getEquipos()) {
             if (e.isDisponible()) {
                 equiposDisp.add(e);
@@ -247,12 +351,12 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println((i + 1) + ". " + equiposDisp.get(i));
         }
         System.out.print("Elegir equipo: ");
-        opcion = leerOpcion(sc);
-        if (opcion < 1 || opcion > equiposDisp.size()) {
+        int eleccion = leerOpcion(sc);
+        if (eleccion < 1 || eleccion > equiposDisp.size()) {
             System.out.println("Equipo invalido.");
             return null;
         }
 
-        return equiposDisp.get(opcion - 1);
+        return equiposDisp.get(eleccion - 1);
     }
 }

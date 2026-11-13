@@ -240,7 +240,6 @@ public class EstacionMeteorologica {
 
     /**
      * Agrega un nuevo mantenimiento.
-     * @param idMantenimiento identificador del mantenimiento
      * @param fecha fecha en que se realizo el mantenimiento 
      * @param tipo tipo de mantenimiento realizado
      * @param descripcion descripción del mantenimiento

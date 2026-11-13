@@ -1,5 +1,5 @@
 /*
-* Sensor.java
+* GestionMediciones.java
 *
 * 2/11/2026
 *
@@ -14,6 +14,7 @@ import ar.edu.uner.domain.enums.EstadoOperativo;
 import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.Medicion;
 import ar.edu.uner.domain.model.Sensor;
+import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.exception.LecturaInvalidaException;
 
 /**
@@ -25,13 +26,16 @@ import ar.edu.uner.exception.LecturaInvalidaException;
  */
 public class GestionMediciones {
     private GestionInfraestructura infraestructura;
+    private GestionSistemaAlerta gestionAlerta;
 
     /**
      * Crea la gestion de mediciones.
      * @param infraestructura 
      */
-    public GestionMediciones(GestionInfraestructura infraestructura) {
+    public GestionMediciones(GestionInfraestructura infraestructura,
+                             GestionSistemaAlerta gestionAlerta) {
         this.infraestructura = infraestructura;
+        this.gestionAlerta = gestionAlerta;
     }
     
     /**
@@ -53,6 +57,9 @@ public class GestionMediciones {
                 && (s.getEstado() == EstadoOperativo.OPERATIVO)) {
             s.validar(mm);
             m = s.registrar(mm, fh);
+
+            ZonaGeografica zona = infraestructura.buscarZonaDeEstacion(e);
+            gestionAlerta.evaluarZona(zona);
         }
         
         return m;

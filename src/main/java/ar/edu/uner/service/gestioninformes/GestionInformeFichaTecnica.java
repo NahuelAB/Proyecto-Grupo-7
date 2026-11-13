@@ -14,8 +14,10 @@ import ar.edu.uner.domain.model.Medicion;
 import ar.edu.uner.domain.model.Sensor;
 import ar.edu.uner.report.FichaTecnica;
 import ar.edu.uner.service.GestionInfraestructura;
+import ar.edu.uner.service.UtilidadesMenu;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Muestra por pantalla la ficha técnica operativa de una estación
@@ -24,22 +26,41 @@ import java.util.List;
  * @author Maricela
  */
 public class GestionInformeFichaTecnica {
+
+    private GestionInfraestructura infraestructura;
     private FichaTecnica ficha;
+    private Scanner scanner;
 
     /**
-     * Crea la gestión del informe a partir de la gestión de infraestructura
-     * del sistema.
+     * Crea la gestión del informe de ficha técnica operativa.
      *
-     * @param infraestructura gestión de infraestructura del sistema
+     * @param infraestructura gestión de infraestructura del sistema, usada para
+     * listar las estaciones disponibles
+     * @param ficha informe que obtiene los datos de la ficha técnica
+     * @param scanner scanner compartido para leer los datos del usuario
      */
-    public GestionInformeFichaTecnica(GestionInfraestructura infraestructura) {
-        this.ficha = new FichaTecnica(infraestructura);
+    public GestionInformeFichaTecnica(GestionInfraestructura infraestructura,
+            FichaTecnica ficha, Scanner scanner) {
+        this.infraestructura = infraestructura;
+        this.ficha = ficha;
+        this.scanner = scanner;
+    }
+
+    /**
+     * Muestra las estaciones registradas, pide al usuario el identificador de
+     * una de ellas y muestra su ficha técnica operativa.
+     */
+    public void mostrar() {
+        UtilidadesMenu.mostrarTodasLasEstaciones(infraestructura);
+        System.out.print("Id de la estación: ");
+        int idEstacion = UtilidadesMenu.leerOpcion(scanner);
+        mostrarFicha(idEstacion);
     }
 
     /**
      * Muestra la ficha técnica operativa de una estación: sus datos, el
-     * responsable técnico a cargo, y el estado y las últimas lecturas de
-     * cada uno de sus sensores.
+     * responsable técnico a cargo, y el estado y las últimas lecturas de cada
+     * uno de sus sensores.
      *
      * @param idEstacion identificador de la estación
      */

@@ -375,12 +375,10 @@ public class UtilidadesMenu {
                         + " (" + ultimoHistorico.getAcumuladoMedio() + " mm)";
             }
 
-            System.out.println("ID: " + zona.getIdZona()
-                    + " Nombre: " + zona.getNombre()
-                    + " Vulnerabilidad: " + zona.getNivelVulnerabilidad()
-                    + " Alerta actual: " + zona.getNivelAlertaActual()
-                    + " Último valor histórico: " + infoHistorico);
-
+            System.out.println("ID: " + zona.getIdZona() + " | " + zona.getNombre()
+                    + " | Vulnerabilidad: " + zona.getNivelVulnerabilidad()
+                    + " | Alerta: " + zona.getNivelAlertaActual()
+                    + " | Último valor cargado: " + infoHistorico);
         }
     }
 
