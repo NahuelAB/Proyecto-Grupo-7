@@ -233,8 +233,8 @@ public class Sensor {
      *         la fecha de la ultima calibracion,
      *         false en caso contrario.
      */
-    public boolean requiereCalibracion(LocalDate fechaActual) {
-        return ultimaCalibracion.plusMonths(12).isBefore(fechaActual);
+    public boolean requiereCalibracion() {
+        return ultimaCalibracion.plusMonths(12).isBefore(LocalDate.now());
     }
 
     @Override 

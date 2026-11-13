@@ -84,7 +84,7 @@ public class InformeFallasMantenimiento {
     public List<Sensor> sensoresParaCalibrar() {
         List<Sensor> resultado = new ArrayList<Sensor>();
         for (Sensor s : infraestructura.getSensores()) {
-            if (s.requiereCalibracion(null)) {
+            if (s.requiereCalibracion()) {
                 resultado.add(s);
             }
         }
