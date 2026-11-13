@@ -188,7 +188,7 @@ private static int contadorAlerta = 1;
      * 
      * @param equipo nuevo equipo de respuesta.
      */
-    public void agregarEquipo(EquipoRespuesta equipo) {
+    public void asignarEquipo(EquipoRespuesta equipo) {
         this.equipo = equipo;
         equipo.setDisponible(false); //EQUIPO PASA A NO ESTAR DISPO
     }

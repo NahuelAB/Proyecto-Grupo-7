@@ -126,7 +126,7 @@ public class GestionSistemaAlerta {
         if (!alerta.requiereEquipo() || !equipo.isDisponible()) {
             return false;
         }
-        alerta.agregarEquipo(equipo);
+        alerta.asignarEquipo(equipo);
         equipo.agregarAlerta(alerta);
         return true;
     }
