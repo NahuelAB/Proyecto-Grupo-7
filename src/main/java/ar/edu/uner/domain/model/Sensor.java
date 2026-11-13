@@ -54,9 +54,7 @@ public class Sensor {
      * @param modelo modelo del sensor.
      * @param precision precision del sensor (mm).
      * @param estado estado operativo inicial.
-     * @param anio año de la ultima calibracion.
-     * @param mes mes de la ultima calibracion.
-     * @param dia dia de la ultima calibracion.
+     * @param ultimaCalibracion ultima calibracion.
      */
     public Sensor(String marca, String modelo,
                   double precision, EstadoOperativo estado, 
