@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
+ 
 
 public class LectorFechas {
 
@@ -12,12 +14,11 @@ public class LectorFechas {
 
         while (fecha == null) {
             System.out.print("Año: ");
-            int anio = sc.nextInt();
+            int anio = leerOpcion(sc);
             System.out.print("Mes: ");
-            int mes = sc.nextInt();
+            int mes = leerOpcion(sc);
             System.out.print("Día: ");
-            int dia = sc.nextInt();
-            sc.nextLine(); // Limpia el buffer
+            int dia = leerOpcion(sc);
 
             try {
                 fecha = LocalDate.of(anio, mes, dia);
@@ -34,9 +35,9 @@ public class LectorFechas {
         while (fechaHora == null) {
             LocalDate fecha = leerFecha(sc);
             System.out.print("Hora: ");
-            int hora = sc.nextInt();
+            int hora = leerOpcion(sc);
             System.out.print("Minuto: ");
-            int minuto = sc.nextInt();
+            int minuto = leerOpcion(sc);
             try {
                 fechaHora = fecha.atTime(hora, minuto);
             } catch (DateTimeException ex) {
