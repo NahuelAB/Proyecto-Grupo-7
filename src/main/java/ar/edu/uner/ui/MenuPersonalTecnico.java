@@ -16,6 +16,7 @@ import ar.edu.uner.domain.model.EstacionMeteorologica;
 import ar.edu.uner.domain.model.ResponsableTecnico;
 import ar.edu.uner.domain.model.Sensor;
 import ar.edu.uner.service.GestionPersonal;
+import ar.edu.uner.service.UtilidadesMenu;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,7 +30,7 @@ import static ar.edu.uner.service.LectorFechas.leerFecha;
  *
  * @author Jmanuel (Grupo-7)
  */
-public class MenuPersonalTecnico {
+public class MenuPersonalTecnico implements Ejecutable {
     private GestionPersonal gestorPersonal;
     private Scanner scanner;
 
@@ -43,7 +44,7 @@ public class MenuPersonalTecnico {
         this.scanner = new Scanner(System.in);
     }
 
-    /*@Override
+    @Override
     public void ejecutar() {
         int opcion;
 
@@ -101,10 +102,7 @@ public class MenuPersonalTecnico {
     private int leerOpcion() {
         System.out.print("Elija una opción: ");
 
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
-
-        return opcion;
+        return UtilidadesMenu.leerOpcion(scanner);
     }
 
     private String leerTexto(String mensaje) {
@@ -126,7 +124,8 @@ public class MenuPersonalTecnico {
         System.out.println();
         System.out.println("===== REGISTRO DE RESPONSABLE TECNICO =====");
 
-        String dni = leerTexto("Ingrese el DNI: ");
+        System.out.println("Ingrese el DNI: ");
+        String dni = String.valueOf(UtilidadesMenu.leerOpcion(scanner));
         if (gestorPersonal.buscarResponsable(dni) != null) {
             System.out.println("Ya existe un responsable con ese DNI.");
             return;
@@ -429,6 +428,6 @@ public class MenuPersonalTecnico {
         return equipo.getIdEquipo() + " | " + equipo.getNombreEquipo() + " | "
                 + (equipo.isDisponible() ? "Disponible" : "No disponible")
                 + " | Integrantes: " + equipo.getIntegrantes().size();
-    }*/
+    }
 
 }
