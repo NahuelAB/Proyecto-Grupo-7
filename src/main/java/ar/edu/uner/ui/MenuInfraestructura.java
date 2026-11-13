@@ -206,9 +206,7 @@ public class MenuInfraestructura implements Ejecutable {
         TipoEstacion tipoEstacion = tipoEstacion(scanner);
 
         EstacionMeteorologica estacion = new EstacionMeteorologica(nombre, latitud,
-                longitud, altitud);
-        estacion.setEstadoOp(estado);
-        estacion.setTipoEst(tipoEstacion);
+                longitud, altitud, estado, tipoEstacion);
 
         boolean resultado = gestorInfraestructura.registrarEstacion(estacion, idZona);
         System.out.println(resultado ? "¡Registro de estacion meteorologica Exitosa!"

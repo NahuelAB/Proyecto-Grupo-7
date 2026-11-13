@@ -42,7 +42,9 @@ public class EstacionMeteorologica {
         this("NOMBRE PENDIENTE",
             0,
             0,
-            0);
+            0,
+            null,
+            null);
     }
 
     /**
@@ -55,12 +57,15 @@ public class EstacionMeteorologica {
      */
     public EstacionMeteorologica(String nombre,
                                 double latitud, double longitud,
-                                double altitud) {
+                                double altitud, EstadoOperativo estadoOp,
+                                TipoEstacion tipoEst) {
         idEstacion = contadorEstacion;
         this.nombre = nombre;
         this.latitud = latitud;
         this.longitud = longitud;
         this.altitud = altitud;
+        this.estadoOp = estadoOp;
+        this.tipoEst = tipoEst;
         sensores = new ArrayList<Sensor>();
         mantenimientos = new ArrayList<Mantenimiento>();
 
