@@ -107,9 +107,9 @@ private static int contadorAlerta = 1;
      */
     public void setAtendida(boolean atendida) {
         this.atendida = atendida;
-        /*if (equipo != null) {
-        *    equipo.setDisponible(true);
-        }*/
+        if (atendida && equipo != null) {
+            equipo.setDisponible(true);
+        }
     }
 
     /**

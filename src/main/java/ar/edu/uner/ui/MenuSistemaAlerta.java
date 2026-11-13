@@ -72,6 +72,7 @@ public class MenuSistemaAlerta implements Ejecutable{
             System.out.println("2. Registrar alerta de operador");
             System.out.println("3. Asignar equipo de respuesta a una alerta");
             System.out.println("4. Ver alertas");
+            System.out.println("5. Marcar alerta como atendida");
             System.out.println("0. Volver");
             System.out.print("Ingrese una opcion: ");
             opcion = leerOpcion(sc);
@@ -91,6 +92,10 @@ public class MenuSistemaAlerta implements Ejecutable{
                 
                 case 4:
                     mostrarAlertas();
+                    break;
+
+                case 5:
+                    marcarAtendida();
                     break;
                 
                 case 0:
@@ -236,6 +241,41 @@ public class MenuSistemaAlerta implements Ejecutable{
             }
         }
     }
+
+    private void marcarAtendida() {
+        System.out.println();
+        System.out.println("==== MARCAR ALERTA COMO ATENDIDA ====");
+        List<Alerta> abiertas = new ArrayList<Alerta>();
+        for (Alerta a : gestion.getAlertas()) {
+            if (!a.getAtendida()) {
+                abiertas.add(a);
+            }
+        }
+
+        if (abiertas.isEmpty()) {
+            System.out.println("No hay alertas sin atender.");
+            return;
+        }
+
+        for (int i = 0; i < abiertas.size(); i++) {
+            System.out.println((i + 1) + ". " + abiertas.get(i));
+        }
+
+        System.out.print("Elegir alerta: ");
+        int eleccion = leerOpcion(sc);
+
+        if (eleccion < 1 || eleccion > abiertas.size()) {
+            System.out.println("Alerta invalida.");
+            return;
+        }
+
+        if (gestion.marcarAtendida((abiertas.get(eleccion - 1)))) {
+            System.out.println("Alerta marcada como atendida");
+        } else {
+            System.out.println("No se pudo.");
+        }
+    }
+    
 
     /**
      * Lista las zonas geográficas y permite elegir una por su número.
