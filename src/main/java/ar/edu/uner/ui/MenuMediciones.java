@@ -15,6 +15,7 @@ import ar.edu.uner.domain.model.ZonaGeografica;
 import ar.edu.uner.exception.LecturaInvalidaException;
 import ar.edu.uner.service.GestionInfraestructura;
 import ar.edu.uner.service.GestionMediciones;
+import ar.edu.uner.service.GestionSistemaAlerta;
 import ar.edu.uner.service.LectorFechas;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +31,7 @@ import java.util.Scanner;
 public class MenuMediciones implements Ejecutable {
     private GestionInfraestructura gestorInfraestructura;
     private GestionMediciones gestorMediciones;
+    private GestionSistemaAlerta gestorAlertas;
     private Scanner scanner;
     private DateTimeFormatter formato;
 
@@ -39,10 +41,12 @@ public class MenuMediciones implements Ejecutable {
      * @param gestorInfraestructura gestión de infraestructura del sistema
      * @param scanner scanner compartido para leer los datos del usuario
      */
-    public MenuMediciones(GestionInfraestructura gestorInfraestructura, Scanner scanner) {
+    public MenuMediciones(GestionInfraestructura gestorInfraestructura, 
+                         GestionSistemaAlerta gestorAlerta, Scanner scanner) {
         this.gestorInfraestructura = gestorInfraestructura;
+        this.gestorAlertas = gestorAlerta;
         this.scanner = scanner;
-        this.gestorMediciones = new GestionMediciones(gestorInfraestructura);
+        this.gestorMediciones = new GestionMediciones(gestorInfraestructura, gestorAlerta);
         this.formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     }
 
