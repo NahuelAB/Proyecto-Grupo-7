@@ -220,7 +220,7 @@ public class Sensor {
      */
     public void validar(double mm) throws LecturaInvalidaException{
         if (mm < 0 || mm > 500) {
-            throw new LecturaInvalidaException("Lectura fuera de rango (0-500");
+            throw new LecturaInvalidaException("Lectura fuera de rango (0-500)");
         }
     }
 
