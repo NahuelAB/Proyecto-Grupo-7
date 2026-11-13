@@ -1,12 +1,10 @@
 package ar.edu.uner.service;
 
-import ar.edu.uner.domain.enums.EstadoOperativo;
-import ar.edu.uner.domain.enums.NivelAlerta;
-import ar.edu.uner.domain.enums.NivelVulnerabilidad;
-import ar.edu.uner.domain.enums.TipoEstacion;
+import ar.edu.uner.domain.enums.*;
 import ar.edu.uner.domain.model.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CargadorDatosPrueba {
 
@@ -65,6 +63,7 @@ public class CargadorDatosPrueba {
         ResponsableTecnico tecnicoMantenimiento = new ResponsableTecnico(
                 "38444555", "Carlos", "López", "carlos.lopez@uner.edu.ar",
                 "343555666", "Instrumentación y Calibración", "LIC-003" );
+
     }
 }
 
