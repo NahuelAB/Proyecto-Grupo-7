@@ -185,8 +185,7 @@ public class MenuInfraestructura implements Ejecutable {
         } while (nombre.isEmpty());
 
         System.out.println("Ingrese nivel de latitud: ");
-        double latitud = scanner.nextDouble();
-        scanner.nextLine();
+        double latitud = leerDouble(scanner);
 
         System.out.println("Ingrese nivel de longitud: ");
         double longitud = scanner.nextDouble();
@@ -484,7 +483,7 @@ public class MenuInfraestructura implements Ejecutable {
         System.out.println("2 - Estaciones Meteorológicas");
         System.out.println("3 - Sensores");
         System.out.print("Seleccione qué desea listar: ");
-        opcion = scanner.nextInt();
+        opcion = leerOpcion(scanner);
         scanner.nextLine();
 
         switch (opcion) {
