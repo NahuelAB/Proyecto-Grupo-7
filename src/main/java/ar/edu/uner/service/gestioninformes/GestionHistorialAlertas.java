@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
+import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
+
 /**
  * Se encarga de imprimir por consola los informes generados por
  * {@link HistorialAlertas}. La lógica de filtrado y ordenamiento
@@ -29,6 +31,28 @@ public class GestionHistorialAlertas {
         this.infraestructura = infraestructura;
         this.historialAlertas = historialAlertas;
         this.scanner = scanner;
+    }
+
+    public void mostrar() {
+        int opcion;
+        do {
+            System.out.println();
+            System.out.println("=== HISTORIAL DE ALERTAS ===");
+            System.out.println("1. Ver historial ordenado por severidad");
+            System.out.println("2. Filtrar por zona");
+            System.out.println("3. Filtrar desde una fecha");
+            System.out.println("0. Volver");
+            System.out.print("Ingrese una opcion: ");
+            opcion = leerOpcion(scanner);
+
+            switch (opcion) {
+                case 1: mostrarHistorialOrdenado(); break;
+                case 2: mostrarAlertasPorZona();    break;
+                case 3: mostrarAlertasDesdeFecha(); break;
+                case 0: break;
+                default: System.out.println("Opcion invalida");
+            }
+        } while (opcion != 0);
     }
 
     /**

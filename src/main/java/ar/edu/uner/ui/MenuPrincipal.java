@@ -55,6 +55,7 @@ public class MenuPrincipal implements Ejecutable {
         this.gestorPersonal = gestorPersonal;
         this.gestorSistemaAlerta = gestorSistemaAlerta;
         this.gestorInfEstAnomClim = gestorInfEstAnomClim;
+        this.gestorInfHistAlerta = gestorInfHistAlerta;
         this.gestorInfFallasMant = gestorInfFallasMant;
         this.gestorInfFichaTec = gestorInfFichaTec;
         this.gestorInfVol = gestorInfVol;

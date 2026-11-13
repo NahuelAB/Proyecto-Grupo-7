@@ -52,7 +52,7 @@ public class MenuReportes implements Ejecutable {
                     break;
 
                 case 3:
-                    //menuHistorialAlertas
+                    menuHistorialAlertas.mostrar();
                     break;
 
                 case 4:
