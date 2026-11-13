@@ -15,7 +15,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
+import java.lang.Math;
+
+
 /**
  * Sensor pluviómetro que mide la precipitación en milímetros. Se instala en
  * una estación meteorológica y registra lecturas que se usan para calcular
@@ -198,14 +200,11 @@ public class Sensor {
      * @return la medicion creada.
      */
     public Medicion registrar(double mm, LocalDateTime fH) {
-        int difAnomala = 100;
         boolean anomala = false;
 
-        ListIterator<Medicion> listIt = mediciones.listIterator();
-
-        if (listIt.hasPrevious() && 
-            (mm - listIt.previous().getMilimetros()) > difAnomala) {
-                anomala = true;
+        if(!mediciones.isEmpty()) {
+            double anterior = mediciones.get(mediciones.size() - 1).getMilimetros();
+            anomala = Math.abs(mm - anterior) > 100;
         }
         
         Medicion m = new Medicion(fH, mm, anomala);
