@@ -1,9 +1,22 @@
+/*
+ * MenuReportes.java
+ * Version 1.0
+ * 10/11/2026
+ * Copyright (c) 2026 Grupo 7 - UNER
+ */
+
 package ar.edu.uner.ui;
 
 import java.util.Scanner;
 import ar.edu.uner.service.gestioninformes.*;
 import static ar.edu.uner.service.UtilidadesMenu.leerOpcion;
 
+/**
+ * Menú de consola encargado de gestionar el acceso a los distintos
+ * informes y reportes estadísticos del sistema meteorológico.
+ *
+ * @author Guillermina
+ */
 public class MenuReportes implements Ejecutable {
     private GestionEstadisticaAnomaliaClimatica menuEstAnomCli;
     private GestionHistorialAlertas menuHistorialAlertas;
@@ -14,6 +27,18 @@ public class MenuReportes implements Ejecutable {
     
     private Scanner sc;
 
+    /**
+     * Construye el menú de reportes inicializando los gestores de cada
+     * informe disponible y el lector de entrada estándar.
+     *
+     * @param menuEstAnomCli        gestor del informe de estadísticas de anomalía climática
+     * @param menuHistorialAlertas  gestor del informe de historial de alertas emitidas
+     * @param menuInformeFallasMant gestor del informe de fallas y mantenimiento
+     * @param menuInformeFichaT     gestor del informe de ficha técnica operativa de estación
+     * @param menuInformeVol        gestor del ranking de estaciones por volumetría
+     * @param menuInfHistPrec       gestor del informe histórico de precipitaciones
+     * @param sc                    lector de entrada por consola
+     */
     public MenuReportes(GestionEstadisticaAnomaliaClimatica menuEstAnomCli,
                         GestionHistorialAlertas menuHistorialAlertas,
                         GestionInformeFallasMantenimiento menuInformeFallasMant,
@@ -30,6 +55,10 @@ public class MenuReportes implements Ejecutable {
     this.sc = sc;
     }
 
+    /**
+     * Despliega el menú de informes por consola y delega la ejecución al
+     * gestor de reporte seleccionado hasta que el usuario elige volver.
+     */
     @Override
     public void ejecutar() {
         int opcion;

@@ -152,20 +152,18 @@ public class Sensor {
     }
 
     /**
-     * Devuelve la fecha de la ultima calibracion.
+     * Devuelve la fecha de la última calibracion.
      * 
-     * @return fecha de la ultima calibracion.
+     * @return fecha de la última calibracion.
      */
     public LocalDate getUltimaCalibracion() {
         return ultimaCalibracion;
     }
 
     /**
-     * Establece la fecha de la ultima calibracion.
-     * 
-     * @param anio año de la ultima calibracion.
-     * @param mes mes de la ultima calibracion.
-     * @param dia dia de la ultima calibracion.
+     * Establece la fecha de la última calibración realizada al sensor.
+     *
+     * @param ultimaCalibracion nueva fecha de última calibración
      */
     public void setUltimaCalibracion(LocalDate ultimaCalibracion) {
         this.ultimaCalibracion = ultimaCalibracion;
@@ -224,16 +222,20 @@ public class Sensor {
 
     /**
      * Verifica si el sensor requiere calibracion.
-     * 
-     * @param fechaActual fecha actual de la consulta.
-     * @return true si la fecha actual es posterior por 12 meses a 
-     *         la fecha de la ultima calibracion,
-     *         false en caso contrario.
+     *
+     * @return {@code true} si la fecha actual es posterior por 12 meses a
+     *         la fecha de la ultima calibracion, {@code false} en caso contrario
      */
     public boolean requiereCalibracion() {
         return ultimaCalibracion.plusMonths(12).isBefore(LocalDate.now());
     }
 
+    /**
+     * Devuelve una representación en cadena de texto con los datos principales
+     * del sensor, su estado operativo y la fecha de su última calibración.
+     *
+     * @return cadena de texto descriptiva del sensor
+     */
     @Override 
     public String toString() {
         return "Sensor: " + idSensor + " (" + marca + ", " + modelo 
