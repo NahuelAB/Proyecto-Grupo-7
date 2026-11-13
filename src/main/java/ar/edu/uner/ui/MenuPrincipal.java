@@ -50,7 +50,7 @@ public class MenuPrincipal implements Ejecutable {
                         GestionHistorialAlertas gestorInfHistAlerta,
                         GestionInformeFallasMantenimiento gestorInfFallasMant,
                         GestionInformeFichaTecnica gestorInfFichaTec,
-                        GestionInformeVolumetria gestorInfVol) {
+                        GestionInformeVolumetria gestorInfVol, Scanner sc) {
         this.gestorInfraestructura = gestorInfraestructura;
         this.gestorPersonal = gestorPersonal;
         this.gestorSistemaAlerta = gestorSistemaAlerta;
@@ -58,7 +58,7 @@ public class MenuPrincipal implements Ejecutable {
         this.gestorInfFallasMant = gestorInfFallasMant;
         this.gestorInfFichaTec = gestorInfFichaTec;
         this.gestorInfVol = gestorInfVol;
-        scanner = new Scanner(System.in);
+        this.sc = sc;
     }
 
     /**
@@ -100,7 +100,7 @@ public class MenuPrincipal implements Ejecutable {
                     menuPersonal.ejecutar();
                     break;
                 case 3:
-                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura);
+                    MenuMediciones menuMediciones = new MenuMediciones(gestorInfraestructura, scanner);
                     menuMediciones.ejecutar();
                     break;
                 case 4:
