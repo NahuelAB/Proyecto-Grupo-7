@@ -35,7 +35,7 @@ public class Main {
         //3. Gestiones de informes
         GestionEstadisticaAnomaliaClimatica gestorInfEstAnomClim = new GestionEstadisticaAnomaliaClimatica(scanner, gestorInfra, estAnomClim);
         GestionInformeFichaTecnica gestorInfFichaTec = new GestionInformeFichaTecnica(gestorInfra);
-        GestionHistorialAlertas gestorInfHistAlertas = new GestionHistorialAlertas();
+        GestionHistorialAlertas gestorInfHistAlertas = new GestionHistorialAlertas(gestorInfra, histAlertas, scanner);
         GestionInformeFallasMantenimiento gestorInfFallasMant = new GestionInformeFallasMantenimiento(gestorInfra, infFallasMant);
         //GESTION DE HISTORICO PRECIPITACIONES
         GestionInformeVolumetria gestorInfVol = new GestionInformeVolumetria(gestorInfra);

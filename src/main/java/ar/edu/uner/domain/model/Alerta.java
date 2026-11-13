@@ -207,6 +207,10 @@ private static int contadorAlerta = 1;
         return false;
     }
 
+    public TipoEventoClimatico getTipo() {
+        return this.evento;
+    }
+
     /**
      * Compara dos alertas por severidad, de mayor a menor (ROJA primero).
      * Si tienen el mismo nivel, la más reciente va primero.
