@@ -94,6 +94,7 @@ public class MenuSistemaAlerta implements Ejecutable{
                     break;
                 
                 case 0:
+                    System.out.println("Volviendo al menu principal...");
                     break;
 
                 default:
