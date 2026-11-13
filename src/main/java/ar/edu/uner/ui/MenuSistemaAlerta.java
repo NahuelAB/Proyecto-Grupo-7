@@ -276,7 +276,6 @@ public class MenuSistemaAlerta implements Ejecutable{
         }
     }
     
-
     /**
      * Lista las zonas geográficas y permite elegir una por su número.
      *
