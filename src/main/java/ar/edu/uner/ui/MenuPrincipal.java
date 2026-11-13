@@ -58,7 +58,7 @@ public class MenuPrincipal implements Ejecutable {
         this.gestorInfFallasMant = gestorInfFallasMant;
         this.gestorInfFichaTec = gestorInfFichaTec;
         this.gestorInfVol = gestorInfVol;
-        this.sc = sc;
+        this.scanner = sc;
     }
 
     /**
